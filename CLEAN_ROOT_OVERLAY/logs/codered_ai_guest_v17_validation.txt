@@ -1,0 +1,11 @@
+CodeRED AI Guest v17 validation
+
+Passed:
+- Python syntax check passed with Python 3.13 using -S for controller and bridge.
+- Controller local fallback init/status/spawn/command path writes state/action-plan JSON.
+- Bridge HTTP health endpoint responded on localhost test port.
+- Bridge accepted a POST /codered/ai_guest spawn payload and returned an action plan.
+- ZIP integrity test passed.
+
+Known limitation:
+- This pass creates the live AI command bridge and action-plan contract. It does not yet guarantee a visible RDR actor in-world until the next game/bootstrap bridge consumes the action plan.

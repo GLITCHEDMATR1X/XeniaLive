@@ -1,0 +1,167 @@
+﻿CodeRED Pass K / v13 validation
+time=2026-05-01 02:57:40
+
+Command: py -3 -m py_compile tools\codered_rdr_bootstrap_host_v9.py tools\codered_rdr_bootstrap_guard_v9.py tools\codered_xenia_netplay_smoke.py tools\codered_collect_v12.py
+Result: passed earlier in this run
+
+Command: py -3 tools\codered_xenia_netplay_smoke.py
+Result: passed earlier in this run
+
+Command: cmd /c CodeRED_Build_Xenia_Release_v3.bat
+Result: passed; build\bin\Windows\Release\xenia_canary.exe rebuilt
+
+Active mode:
+time=2026-05-01 02:52:19
+mode=lan
+network_mode=1
+disc=disc1
+target=D:\Games\Red Dead Redemption\xenia-canary-6de80df\rdr 1\Red Dead Redemption - Game of the Year Edition (USA, Europe) (En,Fr,De,Es,It) (Disc 1) (Red Dead Redemption Single Player).iso
+interface=192.168.1.7
+xhttp=False
+netplay_udp_bootstrap_interval=240
+
+Release exe:
+FullName      : D:\Games\Red Dead Redemption\xenia-canary-6de80df\build\bin\Windows\Release\xenia_canary.exe
+Length        : 15596032
+LastWriteTime : 5/1/2026 2:52:09 AM
+--- py_compile rerun ---
+py_compile exit=0
+--- source smoke rerun ---
+{
+  "passed": true,
+  "results": [
+    {
+      "file": "src/xenia/kernel/XLiveAPI.h",
+      "exists": true,
+      "missing": [],
+      "passed": true
+    },
+    {
+      "file": "src/xenia/kernel/XLiveAPI.cc",
+      "exists": true,
+      "missing": [],
+      "passed": true
+    },
+    {
+      "file": "src/xenia/kernel/xsession.h",
+      "exists": true,
+      "missing": [],
+      "passed": true
+    },
+    {
+      "file": "src/xenia/kernel/xsession.cc",
+      "exists": true,
+      "missing": [],
+      "passed": true
+    },
+    {
+      "file": "src/xenia/kernel/util/net_utils.h",
+      "exists": true,
+      "missing": [],
+      "passed": true
+    },
+    {
+      "file": "src/xenia/kernel/util/http_client.h",
+      "exists": true,
+      "missing": [],
+      "passed": true
+    },
+    {
+      "file": "src/xenia/kernel/util/http_client.cc",
+      "exists": true,
+      "missing": [],
+      "passed": true
+    },
+    {
+      "file": "src/xenia/kernel/util/network_adapter_manager.h",
+      "exists": true,
+      "missing": [],
+      "passed": true
+    },
+    {
+      "file": "src/xenia/kernel/xam/xam_net.cc",
+      "exists": true,
+      "missing": [],
+      "passed": true
+    },
+    {
+      "file": "src/xenia/kernel/xam/xam_user.cc",
+      "exists": true,
+      "missing": [],
+      "passed": true
+    },
+    {
+      "file": "src/xenia/kernel/xam/apps/xgi_app.cc",
+      "exists": true,
+      "missing": [],
+      "passed": true
+    },
+    {
+      "file": "docs/codered/rdr_netplay_profile.json",
+      "exists": true,
+      "missing": [],
+      "passed": true
+    },
+    {
+      "file": "docs/codered/rdr_private_host_contract.json",
+      "exists": true,
+      "missing": [],
+      "passed": true
+    },
+    {
+      "file": "docs/codered/rdr_netplay_pass_d_private_host_bridge.md",
+      "exists": true,
+      "missing": [],
+      "passed": true
+    },
+    {
+      "file": "docs/codered/rdr_netplay_pass_e_session_results.md",
+      "exists": true,
+      "missing": [],
+      "passed": true
+    },
+    {
+      "file": "docs/codered/rdr_netplay_pass_f_session_layout.md",
+      "exists": true,
+      "missing": [],
+      "passed": true
+    },
+    {
+      "file": "docs/codered/rdr_netplay_pass_g_xnet_key_bridge.md",
+      "exists": true,
+      "missing": [],
+      "passed": true
+    },
+    {
+      "file": "tools/codered_rdr_private_host.py",
+      "exists": true,
+      "missing": [],
+      "passed": true
+    },
+    {
+      "file": "tools/codered_xenia_session_layout_probe.py",
+      "exists": true,
+      "missing": [],
+      "passed": true
+    },
+    {
+      "file": "tools/codered_collect_v12.py",
+      "exists": true,
+      "missing": [],
+      "passed": true
+    },
+    {
+      "file": "docs/codered/rdr_netplay_pass_j_v12_udp_session_bootstrap.md",
+      "exists": true,
+      "missing": [],
+      "passed": true
+    },
+    {
+      "file": "tools/codered_start_rdr_private_host.bat",
+      "exists": true,
+      "missing": [],
+      "passed": true
+    }
+  ]
+}
+source_smoke exit=0

@@ -1,0 +1,32 @@
+{
+  "schema": "codered.ai_guest.profile.v17",
+  "name": "CodeRED_AI_01",
+  "display_name": "CodeRED AI Guest",
+  "guest_type": "script_controlled_ai",
+  "mode": "sp-host",
+  "target": "local_player",
+  "preferred_spawn_style": "bodyguard_companion",
+  "follow": {
+    "follow_distance_m": 8.0,
+    "regroup_distance_m": 45.0,
+    "warp_distance_m": 80.0,
+    "respawn_delay_sec": 10
+  },
+  "combat": {
+    "defend_player": true,
+    "attack_hostiles": true,
+    "avoid_friendly_fire": true,
+    "hold_fire_when_idle": true
+  },
+  "session": {
+    "fake_xuid": "0xC0DE000000000101",
+    "fake_machine_id": "0xC0DEF00D00000101",
+    "session_role": "ai_guest"
+  },
+  "bridge": {
+    "host": "127.0.0.1",
+    "port": 36017,
+    "bootstrap_host": "http://127.0.0.1:36000",
+    "safe_local_only": true
+  }
+}

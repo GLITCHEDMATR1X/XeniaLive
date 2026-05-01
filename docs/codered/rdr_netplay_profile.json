@@ -1,0 +1,26 @@
+{
+  "title": "Red Dead Redemption",
+  "target": "System Link Free Roam",
+  "initial_players": 2,
+  "requires_qos": true,
+  "network_mode": 1,
+  "strict_match": [
+    "title_id",
+    "media_id",
+    "title_update",
+    "dlc_state",
+    "region"
+  ],
+  "test_route": [
+    "Single Player",
+    "Pause",
+    "Multiplayer",
+    "System Link",
+    "Free Roam"
+  ],
+  "notes": [
+    "Both players should use the same game version, title update, DLC state, media ID, and region.",
+    "For VPN/LAN testing, set selected_network_interface to the adapter IPv4 address visible to the other player.",
+    "This profile is documentation for the first Code RED pass; it is not yet consumed by runtime code."
+  ]
+}

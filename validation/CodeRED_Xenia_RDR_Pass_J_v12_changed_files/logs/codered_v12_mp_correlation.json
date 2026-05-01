@@ -1,0 +1,88 @@
+{
+  "time": "2026-05-01 02:28:55",
+  "mp_markers": {
+    "freemode": {
+      "observed": false,
+      "matched": []
+    },
+    "mp_idle": {
+      "observed": false,
+      "matched": []
+    },
+    "multiplayer_system_thread": {
+      "observed": false,
+      "matched": []
+    },
+    "multiplayer_update_thread": {
+      "observed": false,
+      "matched": []
+    },
+    "deathmatch": {
+      "observed": false,
+      "matched": []
+    },
+    "ctf": {
+      "observed": false,
+      "matched": []
+    }
+  },
+  "net_markers": {
+    "XNetGetTitleXnAddr": 9926,
+    "UDP bootstrap injected": 0,
+    "sendto": 0,
+    "recvfrom": 1981,
+    "WSARecvFrom": 0,
+    "XSessionCreate": 0,
+    "XSessionSearch": 0,
+    "XNetRegisterKey": 0,
+    "UDP inbound #": 0,
+    "WSAGetLastError: 10035": 1982
+  },
+  "content_index_reference": {
+    "entry_count": 1725,
+    "total_uncompressed_or_file_bytes": 35343548,
+    "ext_counts": {
+      ".csc": 609,
+      "<none>": 532,
+      ".cst": 460,
+      ".xml": 80,
+      ".tr": 23,
+      ".sco": 8,
+      ".clist": 5,
+      ".xlist": 5,
+      ".csv": 1,
+      ".sd2": 1,
+      ".strtbl": 1
+    },
+    "category_counts": {
+      "gringo": 271,
+      "ambient": 124,
+      "release_multiplayer": 100,
+      "debug": 73,
+      "vehicle_or_mount_related": 59,
+      "population": 47,
+      "mp_region": 40,
+      "mode_ctf": 31,
+      "mp_action_area": 22,
+      "mp_playground": 9,
+      "mode_deathmatch": 8,
+      "mp_core": 7,
+      "update_thread": 6,
+      "mp_support": 6,
+      "mode_coop": 3,
+      "mp_spectator": 3,
+      "mp_freemode": 2,
+      "mp_rotation": 2,
+      "mp_tutorial": 2
+    },
+    "mp_core_count": 7,
+    "mp_action_area_count": 12,
+    "mp_region_count": 23,
+    "vehicle_or_mount_related_count": 51,
+    "gringo_count": 258
+  },
+  "logs_used": [
+    "D:\\Games\\Red Dead Redemption\\xenia-canary-6de80df\\logs\\codered_rdr_bootstrap_guard_v9.log",
+    "D:\\Games\\Red Dead Redemption\\xenia-canary-6de80df\\build\\bin\\Windows\\Release\\xenia.log"
+  ]
+}

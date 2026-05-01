@@ -1,0 +1,33 @@
+﻿CodeRED v14 validation
+time=2026-05-01 03:35:45
+exe=D:\Games\Red Dead Redemption\xenia-canary-6de80df\build\bin\Windows\Release\xenia_canary.exe
+exe_size=15604736
+exe_last_write=05/01/2026 03:29:40
+
+py_compile=PASS
+smoke=PASS
+
+active_mode:
+time=2026-05-01 03:30:06
+mode=sp-host
+network_mode=3
+disc=disc1
+target=D:\Games\Red Dead Redemption\xenia-canary-6de80df\rdr 1\Red Dead Redemption - Game of the Year Edition (USA, Europe) (En,Fr,De,Es,It) (Disc 1) (Red Dead Redemption Single Player).iso
+interface=192.168.1.7
+xhttp=True
+net_logging=False
+netplay_singleplayer_host=True
+netplay_disable_saves=True
+netplay_udp_bootstrap=False
+netplay_udp_bootstrap_interval=240
+vsync=true
+gpu=vulkan
+
+build_log:
+[Fri 05/01/2026  3:29:41.08] Build finished 
+
+disc_targets:
+[2026-05-01 03:29:59] Configured mode=sp-host disc=disc2 target=D:\Games\Red Dead Redemption\xenia-canary-6de80df\rdr 2\Red Dead Redemption - Game of the Year Edition (USA, Europe) (En,Fr,De,Es,It) (Disc 2) (Undead Nightmare and Multiplayer).iso without launching. Log file: D:\Games\Red Dead Redemption\xenia-canary-6de80df\logs\xenia_codered_v14_sp-host_disc2_safe.log
+[2026-05-01 03:30:08] Configured mode=sp-host disc=disc1 target=D:\Games\Red Dead Redemption\xenia-canary-6de80df\rdr 1\Red Dead Redemption - Game of the Year Edition (USA, Europe) (En,Fr,De,Es,It) (Disc 1) (Red Dead Redemption Single Player).iso without launching. Log file: D:\Games\Red Dead Redemption\xenia-canary-6de80df\logs\xenia_codered_v14_sp-host_disc1_safe.log
+
+runtime_note=v14 was built and configured but not launched in this automated pass; current correlation still reflects the latest pre-v14 RDR runtime log until you run a v14 SP Host option.

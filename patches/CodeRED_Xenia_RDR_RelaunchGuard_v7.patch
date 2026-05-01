@@ -1,0 +1,33 @@
+--- /mnt/data/xenia_src_small/xenia-canary-6de80df/src/xenia/kernel/xam/xam_info.cc	2026-04-29 18:20:08.000000000 +0000
++++ /mnt/data/test_v7_src/src/xenia/kernel/xam/xam_info.cc	2026-05-01 06:07:43.422417370 +0000
+@@ -52,6 +52,11 @@
+             "Enables preview mode in dashboards to render debug information.",
+             "Kernel");
+ 
++DEFINE_bool(codered_clean_title_relaunch, true,
++            "CodeRED/RDR: exit cleanly after XamLoaderLaunchTitle saves launch_data.bin. "
++            "This avoids a JIT-thread crash during Red Dead Redemption multiplayer title relaunch tests.",
++            "Netplay");
++
+ namespace xe {
+ namespace kernel {
+ namespace xam {
+@@ -391,6 +396,18 @@
+     loader_data.launch_path = xe::path_to_utf8(raw_name_ptr.value());
+     loader_data.launch_data_present = true;
+     xam->SaveLoaderData();
++    XELOGI("CodeRED RelaunchGuard v7: saved launch data path='{}' flags={:08X} bytes={}",
++           loader_data.launch_path, flags.value(), loader_data.launch_data.size());
++
++    if (cvars::codered_clean_title_relaunch) {
++      // Red Dead Redemption can request a title restart when entering multiplayer.
++      // The stock path calls TerminateTitle after showing a dialog; in our tests
++      // that leaves JIT/game threads unwinding and produces an access violation.
++      // launch_data.bin has already been saved, so exit cleanly and let the v7
++      // launcher restart Xenia, where LoadLoaderData will consume it.
++      std::quick_exit(0);
++    }
++
+     title = "Title was restarted";
+     message =
+         "Title closed with new launch data. \nPlease restart Xenia. "

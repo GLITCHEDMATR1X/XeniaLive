@@ -1,0 +1,374 @@
+{
+  "tool": "codered_xex_viewer_v10",
+  "input": "/mnt/data/rdr 1.zip",
+  "timestamp": "2026-05-01 08:24:50",
+  "summary": {
+    "counts_by_kind": {
+      "XMNP_manifest": 1,
+      "XEX2": 1,
+      "PIRS": 1
+    },
+    "default_xex_count": 1,
+    "high_warning_count": 3,
+    "high_warnings": [
+      {
+        "path": "system.manifest",
+        "message": "System update / dashboard support content detected. Keep as reference only; avoid extraction into active launch folders."
+      },
+      {
+        "path": "system.manifest",
+        "message": "Dashboard/avatar/guide module names detected. This is reference material, not the RDR multiplayer world."
+      },
+      {
+        "path": "su20076000_00000000",
+        "message": "System update / dashboard support content detected. Keep as reference only; avoid extraction into active launch folders."
+      }
+    ],
+    "likely_system_update_or_dashboard_paths": [
+      "system.manifest",
+      "su20076000_00000000"
+    ],
+    "launcher_guard_advice": [
+      "Prefer ISO/XEX paths explicitly selected by launcher options, not blind default.xex discovery.",
+      "Ignore folders containing system.manifest, su20076000_00000000, or FFFE07DF during RDR launch-target search.",
+      "Disc 1 should be default for RDR GOTY tests; Disc 2 remains available for Undead Nightmare/multiplayer fallback."
+    ]
+  },
+  "reports": [
+    {
+      "path": "system.manifest",
+      "container": "/mnt/data/rdr 1.zip",
+      "size": 6276,
+      "sha1": "e3dffa5aebe31ccf5174cd8c646568b5d53aa33d",
+      "magic_hex": "58 4D 4E 50 CA 09 D1 D3 4F 17 C8 1E 1B B0 92 73",
+      "kind": "XMNP_manifest",
+      "warnings": [
+        {
+          "severity": "high",
+          "message": "System update / dashboard support content detected. Keep as reference only; avoid extraction into active launch folders."
+        },
+        {
+          "severity": "high",
+          "message": "Dashboard/avatar/guide module names detected. This is reference material, not the RDR multiplayer world."
+        }
+      ],
+      "xex": null,
+      "package": null,
+      "manifest": {
+        "magic": "XMNP",
+        "interesting_strings": [
+          "FFFE07DF00000002.cab",
+          "AvatarAssetPack.toc",
+          "FFFE07DF00000006.cab",
+          "Nielsen.xma",
+          "FFFE07DF00000008.cab",
+          "FFFE07DF00000001.cab",
+          "AvatarEditor.xex",
+          "BiometricSetup.xex",
+          "Dash.AttractionScreen.xex",
+          "dash.ExtraAVCodecs.xex",
+          "Dash.FieldCalibration.lex",
+          "dash.firstuse.xex",
+          "Dash.Kiosk.lex",
+          "Dash.MP.Offline.lex",
+          "dash.natalpregame.xex",
+          "dash.NuiFirstUse.xex",
+          "dash.nuihub.xex",
+          "Dash.NuiTroubleshooter.lex",
+          "dashnui.xex",
+          "Guide.AvatarMiniCreator.xex",
+          "Guide.NuiTroubleshooter.xex",
+          "livepack.xex",
+          "mediasite.xzp",
+          "natalsu.xex",
+          "nuihud.xex",
+          "Xam.Community.xex",
+          "Xam.LiveMessenger.xex",
+          "Xam.WordRegister.xex",
+          "XimeDic.xex",
+          "XimeDicCh.xex",
+          "ximedicex.xex",
+          "Xna_TitleLauncher.xex"
+        ],
+        "dashboard_module_matches": [
+          "AvatarEditor.xex",
+          "dash.firstuse.xex",
+          "dashnui.xex",
+          "Guide.AvatarMiniCreator.xex",
+          "livepack.xex",
+          "natalsu.xex",
+          "nuihud.xex",
+          "Xam.Community.xex",
+          "Xam.LiveMessenger.xex",
+          "Xna_TitleLauncher.xex"
+        ],
+        "dashboard_module_count": 10
+      },
+      "strings": [
+        "FFFE07DF00000002.cab",
+        "AvatarAssetPack.toc",
+        "FFFE07DF00000006.cab",
+        "Nielsen.xma",
+        "FFFE07DF00000008.cab",
+        "FFFE07DF00000001.cab",
+        "AvatarEditor.xex",
+        "BiometricSetup.xex",
+        "Dash.AttractionScreen.xex",
+        "dash.ExtraAVCodecs.xex",
+        "Dash.FieldCalibration.lex",
+        "dash.firstuse.xex",
+        "Dash.Kiosk.lex",
+        "Dash.MP.Offline.lex",
+        "dash.natalpregame.xex",
+        "dash.NuiFirstUse.xex",
+        "dash.nuihub.xex",
+        "Dash.NuiTroubleshooter.lex",
+        "dashnui.xex",
+        "Guide.AvatarMiniCreator.xex",
+        "Guide.NuiTroubleshooter.xex",
+        "livepack.xex",
+        "mediasite.xzp",
+        "natalsu.xex",
+        "nuihud.xex",
+        "Xam.Community.xex",
+        "Xam.LiveMessenger.xex",
+        "Xam.WordRegister.xex",
+        "XimeDic.xex",
+        "XimeDicCh.xex",
+        "ximedicex.xex",
+        "Xna_TitleLauncher.xex"
+      ]
+    },
+    {
+      "path": "default.xex",
+      "container": "/mnt/data/rdr 1.zip",
+      "size": 18595840,
+      "sha1": "107c91e9360271adcd5ccaa670912afceac4939f",
+      "magic_hex": "58 45 58 32 00 00 00 01 00 00 40 00 00 00 00 00",
+      "kind": "XEX2",
+      "warnings": [
+        {
+          "severity": "medium",
+          "message": "default.xex found. Verify it is the intended game executable, not a nearby system update executable."
+        }
+      ],
+      "xex": {
+        "module_flags_hex": "0x00000001",
+        "pe_data_offset_hex": "0x00004000",
+        "reserved_hex": "0x00000000",
+        "security_info_offset_hex": "0x00000098",
+        "optional_header_count": 16,
+        "entry_point_hex": "0x823DA7C0",
+        "image_base_hex": "0x82000000",
+        "optional_headers": [
+          {
+            "index": 0,
+            "id_hex": "0x000002FF",
+            "name": "resource_info",
+            "value_hex": "0x00001F44",
+            "value": 8004
+          },
+          {
+            "index": 1,
+            "id_hex": "0x000003FF",
+            "name": "base_file_format",
+            "value_hex": "0x00001F58",
+            "value": 8024
+          },
+          {
+            "index": 2,
+            "id_hex": "0x00010100",
+            "name": "entry_point",
+            "value_hex": "0x823DA7C0",
+            "value": 2185078720
+          },
+          {
+            "index": 3,
+            "id_hex": "0x00010201",
+            "name": "image_base_address",
+            "value_hex": "0x82000000",
+            "value": 2181038080
+          },
+          {
+            "index": 4,
+            "id_hex": "0x000103FF",
+            "name": "import_libraries",
+            "value_hex": "0x00003780",
+            "value": 14208
+          },
+          {
+            "index": 5,
+            "id_hex": "0x00018002",
+            "name": "checksum_timestamp",
+            "value_hex": "0x00001F80",
+            "value": 8064
+          },
+          {
+            "index": 6,
+            "id_hex": "0x000183FF",
+            "name": "original_pe_name",
+            "value_hex": "0x00001F88",
+            "value": 8072
+          },
+          {
+            "index": 7,
+            "id_hex": "0x000200FF",
+            "name": "static_libraries",
+            "value_hex": "0x00001FA4",
+            "value": 8100
+          },
+          {
+            "index": 8,
+            "id_hex": "0x00020104",
+            "name": "tls_info",
+            "value_hex": "0x00002078",
+            "value": 8312
+          },
+          {
+            "index": 9,
+            "id_hex": "0x00020200",
+            "name": "default_stack_size",
+            "value_hex": "0x00040000",
+            "value": 262144
+          },
+          {
+            "index": 10,
+            "id_hex": "0x00030000",
+            "name": "page_descriptor_table",
+            "value_hex": "0x00018600",
+            "value": 99840
+          },
+          {
+            "index": 11,
+            "id_hex": "0x00040006",
+            "name": "system_flags",
+            "value_hex": "0x00002088",
+            "value": 8328
+          },
+          {
+            "index": 12,
+            "id_hex": "0x00040310",
+            "name": "execution_info",
+            "value_hex": "0x000020A0",
+            "value": 8352
+          },
+          {
+            "index": 13,
+            "id_hex": "0x00040404",
+            "name": "service_id_list",
+            "value_hex": "0x000020E0",
+            "value": 8416
+          },
+          {
+            "index": 14,
+            "id_hex": "0x000405FF",
+            "name": "title_workspace_size",
+            "value_hex": "0x000020F0",
+            "value": 8432
+          },
+          {
+            "index": 15,
+            "id_hex": "0x000406FF",
+            "name": "game_ratings",
+            "value_hex": "0x000027B8",
+            "value": 10168
+          }
+        ]
+      },
+      "package": null,
+      "manifest": null,
+      "strings": [
+        "rdr2_xenon_final.exe",
+        "xam.xex"
+      ]
+    },
+    {
+      "path": "su20076000_00000000",
+      "container": "/mnt/data/rdr 1.zip",
+      "size": 11649024,
+      "sha1": "e0cd72cdd65b0829cc3c0b8e81fad1f06665fb9c",
+      "magic_hex": "50 49 52 53 67 0E 63 5A 0C FD 79 48 C9 3E AF 6F",
+      "kind": "PIRS",
+      "warnings": [
+        {
+          "severity": "high",
+          "message": "System update / dashboard support content detected. Keep as reference only; avoid extraction into active launch folders."
+        }
+      ],
+      "xex": null,
+      "package": {
+        "magic": "PIRS",
+        "likely_package_family": "Xbox 360 STFS/PIRS/LIVE/CON package",
+        "interesting_strings": [
+          "$flash_bootanim.xex",
+          "$flash_createprofile.xex",
+          "$flash_dash.xex",
+          "$flash_deviceselector.xex",
+          "$flash_gamerprofile.xex",
+          "$flash_hud.xex",
+          "$flash_huduiskin.xex",
+          "$flash_mfgbootlauncher.xex",
+          "$flash_minimediaplayer.xex",
+          "$flash_oddupd1.xex",
+          "$flash_oddupd2.xex",
+          "$flash_oddupd3.xex",
+          "$flash_signin.xex",
+          "$flash_systemupdate.xex",
+          "$flash_systemupdate2pre.xex",
+          "$flash_updater.xex",
+          "$flash_vk.xex",
+          "$flash_xam.xex",
+          "$flash_ximecore.xex",
+          "$install_extender.xex",
+          "\\Device\\Flash\\bootanim.xex",
+          "$\\Device\\Flash\\createprofile.xex",
+          "XNETY",
+          "xam.xex",
+          "*}dashuisk",
+          "Wanetwork",
+          "dashcomm",
+          "dashmain",
+          "\\Device\\Flash\\dash.xex",
+          "dash.exe",
+          "XNET",
+          "XAVATAR"
+        ]
+      },
+      "manifest": null,
+      "strings": [
+        "$flash_bootanim.xex",
+        "$flash_createprofile.xex",
+        "$flash_dash.xex",
+        "$flash_deviceselector.xex",
+        "$flash_gamerprofile.xex",
+        "$flash_hud.xex",
+        "$flash_huduiskin.xex",
+        "$flash_mfgbootlauncher.xex",
+        "$flash_minimediaplayer.xex",
+        "$flash_oddupd1.xex",
+        "$flash_oddupd2.xex",
+        "$flash_oddupd3.xex",
+        "$flash_signin.xex",
+        "$flash_systemupdate.xex",
+        "$flash_systemupdate2pre.xex",
+        "$flash_updater.xex",
+        "$flash_vk.xex",
+        "$flash_xam.xex",
+        "$flash_ximecore.xex",
+        "$install_extender.xex",
+        "\\Device\\Flash\\bootanim.xex",
+        "$\\Device\\Flash\\createprofile.xex",
+        "XNETY",
+        "xam.xex",
+        "*}dashuisk",
+        "Wanetwork",
+        "dashcomm",
+        "dashmain",
+        "\\Device\\Flash\\dash.xex",
+        "dash.exe",
+        "XNET",
+        "XAVATAR"
+      ]
+    }
+  ]
+}

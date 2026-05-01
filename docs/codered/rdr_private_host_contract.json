@@ -1,0 +1,38 @@
+{
+  "name": "CodeRED RDR Xenia Private Host Contract",
+  "title_id": "5454082B",
+  "api_base_default": "http://127.0.0.1:36000/",
+  "routes": {
+    "create_player": "POST /players",
+    "create_session": "POST /title/{titleId}/sessions",
+    "search_sessions": "POST /title/{titleId}/sessions/search",
+    "session_details": "GET /title/{titleId}/sessions/{sessionId}/details",
+    "join_session": "POST /title/{titleId}/sessions/{sessionId}/join",
+    "leave_session": "POST /title/{titleId}/sessions/{sessionId}/leave",
+    "qos_upload": "POST /title/{titleId}/sessions/{sessionId}/qos",
+    "qos_download": "GET /title/{titleId}/sessions/{sessionId}/qos",
+    "delete_session": "DELETE /title/{titleId}/sessions/{sessionId}",
+    "health": "GET /health"
+  },
+  "strict_match_for_rdr": [
+    "title_id",
+    "media_id",
+    "title_update",
+    "dlc_state",
+    "region"
+  ],
+  "notes": [
+    "Pass D adds the minimal emulator-side HTTP client and a dependency-free Python private host.",
+    "The host route shape stays compatible with the uploaded Xenia WebServices extension where practical.",
+    "Pass G preserves keyExchangeKey and stabilizes XNetRegisterKey/XNetInAddr translation for join attempts."
+  ],
+  "config": {
+    "network_mode": 2,
+    "netplay_api_address": "http://127.0.0.1:36000/",
+    "xhttp": true,
+    "netplay_http_timeout_ms": 1500
+  },
+  "session_fields": {
+    "keyExchangeKey": "32-character hex XNKEY bridge value preserved by Pass G"
+  }
+}

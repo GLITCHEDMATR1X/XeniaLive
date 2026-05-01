@@ -1,0 +1,31 @@
+Removed from clean overlay by category:
+
+1. Config backups
+   - xenia.config.toml.codered_*_bak_*
+   - xenia-canary.config.toml.codered_*_bak_*
+   - xenia-canary-config.toml.codered_*_bak_*
+
+2. Obsolete helper versions
+   - v6 crash/private-host wrappers
+   - v7 relaunch guard wrappers
+   - v8 RDRMP world salvage wrappers
+   - old easy netplay v2/v3 wrappers
+   - old small-log collectors v6/v9/v12
+
+3. Old READMEs for removed helper versions
+   - crash guard v5/v6
+   - easy RDR test v2/v3
+   - relaunch guard v7
+   - RDRMP world salvage v8
+
+4. Loose test object
+   - zng_test.obj
+
+Preserved current functionality:
+   - v14 singleplayer-host launchers
+   - v9 bootstrap/private/LAN/offline fallbacks still used by the current menu
+   - v10 XEX viewer helpers
+   - v11 content MP indexer helpers
+   - v14 small-log collector
+   - current config trio
+   - source/build root files

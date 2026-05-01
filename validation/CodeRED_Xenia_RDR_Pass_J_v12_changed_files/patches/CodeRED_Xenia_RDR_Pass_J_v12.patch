@@ -1,0 +1,97 @@
+CodeRED Xenia RDR Pass J / v12 patch summary
+=============================================
+
+This patch is intentionally scoped to emulator-side and tooling-side changes.
+It does not modify dashboard/system-update XEX or PIRS files.
+
+Changed source
+--------------
+
+src/xenia/kernel/XLiveAPI.cc
+- Added Netplay cvar:
+  DEFINE_bool(netplay_udp_bootstrap, true, ...)
+
+src/xenia/kernel/xam/xam_net.cc
+- Declares netplay_udp_bootstrap.
+- Adds controlled UDP bootstrap helpers:
+  - ShouldInjectUdpBootstrap
+  - BuildUdpBootstrapPacket
+  - FillUdpBootstrapFrom
+  - StoreUdpBootstrapFrom
+  - InjectUdpBootstrapPacket
+  - InjectUdpBootstrapPacketWSA
+- recvfrom / WSARecvFrom behavior:
+  - If network mode is LAN/private and the receive would otherwise return
+    WSAEWOULDBLOCK / 10035, injects a small local discovery packet on the first
+    poll and then at a controlled interval.
+  - Logs:
+    CodeRED Netplay: UDP bootstrap injected ...
+    CodeRED MP correlation: bootstrap packet advertises candidates=...
+
+Changed tools and launchers
+---------------------------
+
+tools/codered_rdr_bootstrap_guard_v9.py
+- Default RDR search root stays at the current Xenia source tree.
+- Adds strict unsafe launch-token filtering:
+  system.manifest, su20076000_00000000, FFFE07DF, system/update/dashboard
+  default.xex targets.
+- Writes netplay_udp_bootstrap = true under [Netplay].
+
+tools/codered_rdr_bootstrap_host_v9.py
+- Upgrades runtime behavior to v12 while preserving the existing v9 filename
+  and launch menu compatibility.
+- Logs to logs/codered_udp_bootstrap_v12.log.
+- Replies directly to observed UDP peers and advertises MP script candidates.
+
+tools/codered_collect_v12.py
+- New small-log collector and MP/network correlation reporter.
+- Produces logs/codered_v12_mp_correlation.txt/json.
+- Excludes .dmp files and large logs from the send bundle.
+
+tools/codered_xenia_netplay_smoke.py
+- Adds v12 marker checks for netplay_udp_bootstrap, UDP bootstrap injection,
+  the v12 collector, and the Pass J doc.
+
+Batch wrappers
+--------------
+
+CodeRED_Build_Xenia_Release_v3.bat
+- New Release build wrapper.
+- Resolves Visual Studio bundled CMake when cmake.exe is not on PATH.
+
+CodeRED_Start_RDR_BootstrapHost_v9.bat
+- Starts the upgraded v12 UDP/bootstrap behavior and writes the v12 UDP log.
+
+CodeRED_RDR_Bootstrap_Menu_v9.bat
+- Option 8 now collects v12 small logs and MP correlation.
+
+CodeRED_Collect_Small_Logs_v9.bat
+- Also runs the v12 collector for compatibility.
+
+CodeRED_Collect_Small_Logs_v12.bat
+- New direct v12 collector wrapper.
+
+Docs/log index
+--------------
+
+docs/codered/rdr_netplay_pass_j_v12_udp_session_bootstrap.md
+- New pass note with goals, expected proof lines, and safety rules.
+
+logs/INDEX_CODERED.md
+- Indexes v12 UDP/correlation outputs.
+
+Validation performed
+--------------------
+
+- Release build completed:
+  build/bin/Windows/Release/xenia_canary.exe
+- Source-level smoke passed:
+  py -3 tools/codered_xenia_netplay_smoke.py
+- Launch guard passed:
+  logs/codered_launch_target_guard_v12.txt
+  Scanned files: 44
+  High warnings: 0
+- v12 collector ran:
+  logs/codered_v12_mp_correlation.txt
+  logs/codered_v12_small_logs_20260501_022901.zip

@@ -1,0 +1,685 @@
+CodeRED RDR Content Multiplayer Index v11
+Time: 2026-05-01 02:06:21
+Input: D:\Games\Red Dead Redemption\xenia-canary-6de80df\content.zip
+Input kind: zip
+
+Summary:
+  entries/files: 1725
+  total bytes: 35343548
+  categories:
+    gringo: 271
+    ambient: 124
+    release_multiplayer: 100
+    debug: 73
+    vehicle_or_mount_related: 59
+    population: 47
+    mp_region: 40
+    mode_ctf: 31
+    mp_action_area: 22
+    mp_playground: 9
+    mode_deathmatch: 8
+    mp_core: 7
+    update_thread: 6
+    mp_support: 6
+    mode_coop: 3
+    mp_spectator: 3
+    mp_freemode: 2
+    mp_rotation: 2
+    mp_tutorial: 2
+
+Interpretation:
+  - Use Disc 1 as default GOTY/RDR base launch target, with Disc 2 as Undead/MP fallback.
+  - Do not assume content/world files are missing; multiplayer scripts are present locally.
+  - Keep Xenia focus on UDP/System Link/session bootstrap until XSessionCreate/Search/RegisterKey logs appear.
+  - Use this index to correlate loading-screen stalls with multiplayer_system_thread, multiplayer_update_thread, mp_idle, freemode, and pr_multiplayer.
+  - Do not bulk patch .csc/.sco content. Use copied archives and one controlled experiment at a time.
+
+========================================================================
+mp_core
+- content/release/multiplayer/ctf/ctf_base_game.csc (46295 bytes) [mode_ctf, mp_core, release_multiplayer]
+    hits: multiplayer:1, ctf:2, player:1
+    strings: @zbpS; ksyc; Y7ls$_; \mP6b; iButo; WLVj; ESC@; FVUp
+- content/release/multiplayer/deathmatch/deathmatch.csc (34802 bytes) [mode_deathmatch, mp_core, release_multiplayer]
+    hits: multiplayer:1, deathmatch:2, player:1
+    strings: 9-UY; mjsdy; m5gKE; xXQ+g; 7ekyR; FldO; NsDx; K 3kY
+- content/release/multiplayer/freemode/freemode.csc (29341 bytes) [mp_core, mp_freemode, release_multiplayer]
+    hits: multiplayer:1, freemode:2, player:1
+    strings: CQ7o; O\c_W; qhmy; FUHD; 2f/c; nHg3; vZ8H; 2D\L
+- content/release/multiplayer/mp_idle.csc (43299 bytes) [mp_core, release_multiplayer]
+    hits: multiplayer:1, mp_idle:1, player:1
+    strings: q5WE; :s@G; OAfY; kF7F; bK7q; _286f; UF0q; z-ypA
+- content/release/multiplayer/multiplayer_system_thread.csc (27952 bytes) [mp_core, release_multiplayer]
+    hits: multiplayer:2, system_thread:1, player:2
+    strings: _MAyG; DZPS; bXvE; erjX4g; 3TXGp; VviI; lBfd; gqhU
+- content/release/multiplayer/multiplayer_update_thread.csc (17531 bytes) [mp_core, release_multiplayer]
+    hits: multiplayer:2, update_thread:1, player:2
+    strings: 7ZHD; HjV-; rl4.; 947Y; 6ovicIr; s68bb; 3Kaq; m.ps
+- content/release/multiplayer/pr_multiplayer.csc (11619 bytes) [mp_core, release_multiplayer]
+    hits: multiplayer:2, pr_multiplayer:1, player:2
+    strings: ZStg; Op8_; EOb96; udhLK; .K@Je; XCLTV; y@-J; 5.-Gvg
+
+========================================================================
+mp_action_areas
+- content/release/multiplayer/action_areas/fort_mercer/fortmercermp.csc (29007 bytes) [mp_action_area, release_multiplayer]
+    hits: multiplayer:1, action_area:1, player:1
+    strings: 3zKH; JP\4; 2-7l; fQHY3; Yg2cr3P; hbHp; T46g:; +XeF
+- content/release/multiplayer/action_areas/gaptooth_breach/gaptoothbreachmp.csc (31124 bytes) [mp_action_area, release_multiplayer]
+    hits: multiplayer:1, action_area:1, player:1
+    strings: rIY@R; eI8Ip; 1zyL; 8V.n; g-Uzig; FVPz; UN:@k; Ku8B
+- content/release/multiplayer/action_areas/nosalida/nosalidamp.csc (27618 bytes) [mp_action_area, release_multiplayer]
+    hits: multiplayer:1, action_area:1, player:1
+    strings: rQ_9; 0lJV; d0g@; _ x_GA; sNPH; cch3; F+na; uo\J-
+- content/release/multiplayer/action_areas/pikes_basin/pikesbasinmp.csc (28756 bytes) [mp_action_area, release_multiplayer]
+    hits: multiplayer:1, action_area:1, player:1
+    strings: tP6f; 9DK_; V0Cay; zUAq; 4xPMj; CmAau; 5RFXH; JlK$
+- content/release/multiplayer/action_areas/solomons_folly/solomonsfollymp.csc (26199 bytes) [mp_action_area, release_multiplayer]
+    hits: multiplayer:1, action_area:1, player:1
+    strings: .Wi5; S5gO7P; AOzEm; JdRR; e4X3; -/E2N; D\q6g; jnun
+- content/release/multiplayer/action_areas/tesoro_azul/tesoroazulmp.csc (28257 bytes) [mp_action_area, release_multiplayer]
+    hits: multiplayer:1, action_area:1, player:1
+    strings: v6iH8d; c6@#X; y0YM; QVb8; mILq; osfj; hCKn; _wpH
+- content/release/multiplayer/action_areas/tumbleweed/tumbleweedmp.csc (28786 bytes) [mp_action_area, release_multiplayer]
+    hits: multiplayer:1, action_area:1, player:1
+    strings: mI.U; 3_4S; xvVAU; 4iLi; +Ihv; ihbH; Rd u; 41qU3
+- content/release/multiplayer/action_areas/twin_rocks/twinrocksmp.csc (27484 bytes) [mp_action_area, release_multiplayer]
+    hits: multiplayer:1, action_area:1, player:1
+    strings: 3.nM; I$/X; AYXT; 4PPV; f+Kwo; #nTl.; XpBB; Hswd9
+- content/release/multiplayer/action_areas/wilderness/bearwildernessaa.csc (12472 bytes) [mp_action_area, release_multiplayer]
+    hits: multiplayer:1, action_area:1, player:1
+    strings: nVTf; GXY:; 1Qrz9; UYbx; QgV2Q; Sq++$; 19.M; R10CH
+- content/release/multiplayer/action_areas/wilderness/boarwildernessaa.csc (12384 bytes) [mp_action_area, release_multiplayer]
+    hits: multiplayer:1, action_area:1, player:1
+    strings: tXkZ; XBeaKg3; \LAk_; 5/IJ; R76q; h .T; k_PK; aLl#
+- content/release/multiplayer/action_areas/wilderness/cougarwildernessaa.csc (12397 bytes) [mp_action_area, release_multiplayer]
+    hits: multiplayer:1, action_area:1, player:1
+    strings: c6:V; q+HuFE; Kfhg; s5W3; oGR@V; 7qmX; uR15; $CPX
+- content/release/multiplayer/action_areas/wilderness/wolfwildernessaa.csc (12391 bytes) [mp_action_area, release_multiplayer]
+    hits: multiplayer:1, action_area:1, player:1
+    strings: oMJe; DX._; 5Sco; .#ZH; bRFI; WuUHz\; MR:@\p; MJhi
+
+========================================================================
+mp_regions
+- content/release/multiplayer/regions/coop/coopbasic.csc (8685 bytes) [mode_coop, mp_region, release_multiplayer]
+    hits: multiplayer:1, coop:2, player:1, region:1
+    strings: W:Co; aDQE; $i$Y9; :qASf; e$W+; 6MQQT_; xNkN; uk@9I
+- content/release/multiplayer/regions/ctf_arm/ctf_arm.csc (13141 bytes) [mode_ctf, mp_region, release_multiplayer]
+    hits: multiplayer:1, ctf:2, player:1, region:1
+    strings: /x@P; ZZyRh; pqAH; 6_i59; wDe+; -Xl1M1; T44A; QMCK
+- content/release/multiplayer/regions/ctf_arm/ctf_arm_single.csc (12845 bytes) [mode_ctf, mp_region, release_multiplayer]
+    hits: multiplayer:1, ctf:2, player:1, region:1
+    strings: :iBqbP; U5sAux; 2_I:; Oer@; cdOy; uFkC9; hlT2; teqB
+- content/release/multiplayer/regions/ctf_arm/ctf_arm_sym.csc (12776 bytes) [mode_ctf, mp_region, release_multiplayer]
+    hits: multiplayer:1, ctf:2, player:1, region:1
+    strings: ZH\ur; T50F:; J+HI; 7#uy/; BBWd; dtze; f9IN; VYIE
+- content/release/multiplayer/regions/ctf_chu/ctf_chu.csc (11792 bytes) [mode_ctf, mp_region, release_multiplayer]
+    hits: multiplayer:1, ctf:2, player:1, region:1
+    strings: Rs41W; LiuD; yiX_; 38DTQ; B3vg-; Et_u; pTVK; sElcGm
+- content/release/multiplayer/regions/ctf_chu/ctf_chu_single.csc (11823 bytes) [mode_ctf, mp_region, release_multiplayer]
+    hits: multiplayer:1, ctf:2, player:1, region:1
+    strings: +$vOfH\; GdUx; C/q@; NeLQ2; ZXkh; .rhin7; FB2Ow; fYe1
+- content/release/multiplayer/regions/ctf_chu/ctf_chu_sym.csc (11767 bytes) [mode_ctf, mp_region, release_multiplayer]
+    hits: multiplayer:1, ctf:2, player:1, region:1
+    strings: V\D#3; tlu@; 9G5x; :T1RP; -e-tH; lvJ$; 42 uU/; UaFX
+- content/release/multiplayer/regions/ctf_dzc/ctf_dzc_sym.csc (12107 bytes) [mode_ctf, mp_region, release_multiplayer]
+    hits: multiplayer:1, ctf:2, player:1, region:1
+    strings: TCOqL; OZD V; mUAS; aNir; Dhc@; px4VU; ag0X; Bg6G
+- content/release/multiplayer/regions/ctf_hen/ctf_hen.csc (12841 bytes) [mode_ctf, mp_region, release_multiplayer]
+    hits: multiplayer:1, ctf:2, player:1, region:1
+    strings: U_Ste#O:h; z.-p; 2PYg; x:Wg; #uhM; 45K@; sC0a; jdv-:
+- content/release/multiplayer/regions/ctf_lsh/ctf_lsh.csc (13886 bytes) [mode_ctf, mp_region, release_multiplayer]
+    hits: multiplayer:1, ctf:2, player:1, region:1
+    strings: AyTqT; d$go; 1$u.; 4Jv8; NZ@AA; NrPm; 4:_9; 8Rx6
+- content/release/multiplayer/regions/ctf_lsh/ctf_lsh_sym.csc (11732 bytes) [mode_ctf, mp_region, release_multiplayer]
+    hits: multiplayer:1, ctf:2, player:1, region:1
+    strings: Yz$t; qR1L; m@W1; YQ9l; 7QNx; /$t/Z; $S_V; qeBI
+- content/release/multiplayer/regions/ctf_tes/ctf_tes_single.csc (11073 bytes) [mode_ctf, mp_region, release_multiplayer]
+    hits: multiplayer:1, ctf:2, player:1, region:1
+    strings: NKWlE; MC+Y; Ex/U; Q.h2; Ayfn9w; FcuGuM; @0qu; :7I4
+- content/release/multiplayer/regions/ctf_tes/ctf_tes_sym.csc (11016 bytes) [mode_ctf, mp_region, release_multiplayer]
+    hits: multiplayer:1, ctf:2, player:1, region:1
+    strings: yfeLB; uVipr; RWdm; umnL; lMIq; Vn@o; gB1R; y2.L
+- content/release/multiplayer/regions/ctf_tum/ctf_tum_single.csc (12595 bytes) [mode_ctf, mp_region, release_multiplayer]
+    hits: multiplayer:1, ctf:2, player:1, region:1
+    strings: +TGa; Mc0:; :6nO; 3l jZ; Y/T_; OERV; .EHu; Rgb7
+- content/release/multiplayer/regions/ctf_upr/ctf_upr.csc (11960 bytes) [mode_ctf, mp_region, release_multiplayer]
+    hits: multiplayer:1, ctf:2, player:1, region:1
+    strings: +A_H; JPQ-; 7A.N; #dc_; TnyXo; Vkol; kreK; FtHRw
+- content/release/multiplayer/regions/ctf_w2/ctf_w2_single.csc (9406 bytes) [mode_ctf, mp_region, release_multiplayer]
+    hits: multiplayer:1, ctf:2, player:1, region:1
+    strings: mcCW; /Mk9h; OtaA; \C2H; gVr9; XeXu; IvAe; AuDZ
+- content/release/multiplayer/regions/dm_arm/deathmatch_arm.csc (13224 bytes) [mode_deathmatch, mp_region, release_multiplayer]
+    hits: multiplayer:1, deathmatch:1, player:1, region:1
+    strings: XPn7; tztP; jkgd; ._$s; ByXF@; \TbO; usnN; jyF5
+- content/release/multiplayer/regions/dm_chu/deathmatch_chu.csc (12253 bytes) [mode_deathmatch, mp_region, release_multiplayer]
+    hits: multiplayer:1, deathmatch:1, player:1, region:1
+    strings: hrUY; _.2t; +65F; /_vE; Vrcpx r; AiW1; ok1F; 0d$B-
+- content/release/multiplayer/regions/dm_hen/deathmatch_hen.csc (13511 bytes) [mode_deathmatch, mp_region, release_multiplayer]
+    hits: multiplayer:1, deathmatch:1, player:1, region:1
+    strings: S3SS; 08qR; $@a8; kkRE; Zsu31; 0d#4; 24Dj; uvJL
+- content/release/multiplayer/regions/dm_lsh/deathmatch_lsh.csc (13634 bytes) [mode_deathmatch, mp_region, release_multiplayer]
+    hits: multiplayer:1, deathmatch:1, player:1, region:1
+    strings: 8p_6; 2Gt7; OlU5; qmU1d-; bxUp; V$e2; vV21; EJnVe
+- content/release/multiplayer/regions/dm_tum/deathmatch_tum.csc (13090 bytes) [mode_deathmatch, mp_region, release_multiplayer]
+    hits: multiplayer:1, deathmatch:1, player:1, region:1
+    strings: FM\O4; GLZL; UTK8J; VeMD; C1I5.; iX1on; q6pi; bnOrW
+- content/release/multiplayer/regions/minigames/liarsdice_sb.csc (2078 bytes) [mp_region, release_multiplayer]
+    hits: multiplayer:1, player:1, region:1
+    strings: 6w8+; sRE4; 9S-N; XLmO; tueMR; uM6Te2; QWDx; \oqX
+- content/release/multiplayer/regions/minigames/poker_sb.csc (2287 bytes) [mp_region, release_multiplayer]
+    hits: multiplayer:1, player:1, region:1
+    strings: g7VTL; k3fOM; _.go; w@8A; _QAH; d\W8; v/A6; xP\Xk
+
+========================================================================
+vehicle_or_mount_related
+- content/debug/scripting/gringo/commonscripts/traincar_gringo.csc (5580 bytes) [debug, gringo, vehicle_or_mount_related]
+    hits: gringo:2, car:1, train:1
+    strings: U5z$; GzDv; Nk2j; W2$a; LtNi; vFYM; OuRF; xz:i$
+- content/debug/scripting/gringo/commonscripts/traincarbaggage_gringo.csc (5301 bytes) [debug, gringo, vehicle_or_mount_related]
+    hits: gringo:2, car:1, train:1
+    strings: .wtd1; nk8K; _jS@; -ZKBY; B8BX; ERkI; $8/6; xE1+2
+- content/debug/scripting/gringo/commonscripts/traincarbox01_gringo.csc (4754 bytes) [debug, gringo, vehicle_or_mount_related]
+    hits: gringo:2, car:1, train:1
+    strings: Vp@6; a zq; H7Cu; pnK99; _-4-; AXys; 5wQL; yDiF
+- content/debug/scripting/gringo/commonscripts/traincarbox02_gringo.csc (4620 bytes) [debug, gringo, vehicle_or_mount_related]
+    hits: gringo:2, car:1, train:1
+    strings: k#V9; EKr8lh; gol@m; fTKD; 2c@ko; osHy; L\ZQR; Kim+qC-z
+- content/debug/scripting/gringo/commonscripts/traincarcaboose_gringo.csc (4618 bytes) [debug, gringo, vehicle_or_mount_related]
+    hits: gringo:2, car:1, train:1
+    strings: # _v; +7v#9; pkBD; mASH; Gn0v; ejL.; GzPi; ye9L
+- content/debug/scripting/gringo/commonscripts/traincarsteamer_gringo.csc (5991 bytes) [debug, gringo, vehicle_or_mount_related]
+    hits: gringo:2, car:1, train:1
+    strings: GFDjCz; f7K3; 5HiIM; eYf7; 1KIN; Tm4C_; 1taS; #Fb@
+- content/debug/scripting/gringo/commonscripts/traincarwood_gringo.csc (2707 bytes) [debug, gringo, vehicle_or_mount_related]
+    hits: gringo:2, car:1, train:1
+    strings: F6Pm; DOC4; pkwe; 4QS\8; 5OF\; HNXH9; YZKc; 5cOaI#m
+- content/release/ambient/jobsystem/job_horsebreaking.csc (23165 bytes) [ambient, vehicle_or_mount_related]
+    hits: ambient:1, horse:1
+    strings: #bAUo; f1zj; lGNG; @U3-1q; .p-9; U4.BW; Oyah; HC7q
+- content/release/ambient/jobsystem/mission_test_horsebreak_chu.csc (176 bytes) [ambient, vehicle_or_mount_related]
+    hits: ambient:1, horse:1
+- content/release/ambient/jobsystem/mission_test_horsebreak_rwf.csc (6776 bytes) [ambient, vehicle_or_mount_related]
+    hits: ambient:1, horse:1
+    strings: ki.z; g/xX; yRu.G; 7CFgW; s-5.; d-o/; /v C; mz39
+- content/release/ambient/passenger/passenger_coach.csc (15380 bytes) [ambient, vehicle_or_mount_related]
+    hits: ambient:1, coach:1
+    strings: puuUa; M@Nu; edUfHi; TxK+; cgHt; kR2.; BtHD; k+\p
+- content/release/ambient/town/beat_crime_horsethief.csc (21417 bytes) [ambient, vehicle_or_mount_related]
+    hits: ambient:1, horse:1
+    strings: qtQa1; rs-poh; hvC+N; erq9; VL34; 90EXc; @RM1Mh; @uLCDki
+- content/release/ambient/town/beat_crime_wagonthief.csc (24604 bytes) [ambient, vehicle_or_mount_related]
+    hits: ambient:1, wagon:1
+    strings: 4oTk\; _2CxP6t; M+Bt; n2xK; u.z5; h\P5; BcQt; oQYJ\K
+- content/release/frontier/mini_games/horseshoes_hen/horseshoes_hen.csc (2453 bytes) [vehicle_or_mount_related]
+    hits: horse:2
+    strings: jlAj; v03Kk; V8S5; OQ0w; rYV3l; WvjUoFku
+- content/release/frontier/mini_games/horseshoes_hen/horseshoes_hen_teleport.csc (1262 bytes) [vehicle_or_mount_related]
+    hits: horse:2
+    strings: oqq2; Aa@c; 8$5N; /$.E; mNA9; KMKj; 6hGQ
+- content/release/frontier/mini_games/horseshoes_rat/horseshoes_rat.csc (2456 bytes) [vehicle_or_mount_related]
+    hits: horse:2
+    strings: J3DM; 7vfl; DkS@; bImFA-; 1F_4o; i9D1; QYqN; Me29
+- content/release/frontier/mini_games/horseshoes_rat/horseshoes_rat_teleport.csc (1262 bytes) [vehicle_or_mount_related]
+    hits: horse:2
+    strings: wjiBH; ja/e; ZnKaT; uWXZ; dUD+pI; R7IHX
+- content/release/mexico/mini_games/horseshoes_lsh/horseshoes_lsh.csc (2455 bytes) [vehicle_or_mount_related]
+    hits: horse:2
+    strings: gLci; $C.Z; Id-5H; 2t.O; 2.aH; IBap\; GdeD18; 98myT
+- content/release/mexico/mini_games/horseshoes_lsh/horseshoes_lsh_teleport.csc (1261 bytes) [vehicle_or_mount_related]
+    hits: horse:2
+    strings: aKRB; b\aR; adi2; LLgF; gZqn; x\$Nd
+- content/release/mini_games/horsebreaking/0x0826FEA4 (3045 bytes) [vehicle_or_mount_related]
+    hits: horse:1
+    strings: e0jx; WJyZ; Sr@/; IItf; DJ\Jg; Fr41; B5aT9; Z92M
+- content/release/mini_games/horseshoes/horseshoes.csc (33475 bytes) [vehicle_or_mount_related]
+    hits: horse:2
+    strings: BnFJ9l; :B.RyG; mA_Z; _GVQ; 7B5I; eeOw; @MgX; 89gR
+- content/release/north/mini_games/horseshoes_beh/horseshoes_beh.csc (2474 bytes) [vehicle_or_mount_related]
+    hits: horse:2
+    strings: X9H-; WWXv; fA34Z; CXSM; _NBb; udt7T0x.; F@Gl; JnVn
+- content/release/north/mini_games/horseshoes_beh/horseshoes_beh_teleport.csc (1262 bytes) [vehicle_or_mount_related]
+    hits: horse:2
+    strings: 0vWj; wyZ5; 8LtB; O\tG; wRCG
+- content/release/rcm/icarus/rcm_icarus1.csc (17002 bytes) [vehicle_or_mount_related]
+    hits: car:2
+    strings: d_jW; qq:\; D1-f; tD7c; vRBk; KArgWJ; gl5i; OsAo
+- content/release/rcm/icarus/rcm_icarus2.csc (18021 bytes) [vehicle_or_mount_related]
+    hits: car:2
+    strings: dJvrn; :-7t; I3E5@0; enHP; 5@U#; fmtV; spyk; NrTo
+- content/release/rcm/icarus/rcm_icarus3.csc (18825 bytes) [vehicle_or_mount_related]
+    hits: car:2
+    strings: ZDULu; sgrS5h; \xM0; GnHc; Tkd4; TM@5; pF-Bn; 0mdQ
+- content/release/rcm/lovesahorse/rcm_lovesahorse1.csc (16770 bytes) [vehicle_or_mount_related]
+    hits: horse:2
+    strings: hxYpf; h_-7; QxLe; kNpG; MUpH; x45K; -0GDb; D$p.
+- content/release/rcm/lovesahorse/rcm_lovesahorse2.csc (21275 bytes) [vehicle_or_mount_related]
+    hits: horse:2
+    strings: #_Q:; cMKn; egD3; PKBy; fD:0; BYE$; gKd:; @V01D
+- content/release/rcm/lovesahorse/rcm_lovesahorse3.csc (21127 bytes) [vehicle_or_mount_related]
+    hits: horse:2
+    strings: YK6X; 1hs_q; kV73; ct:F; Hp5x; p.3G; 1M+8; aC5/
+- content/release/scripting/gringo/commonscripts/carcrank_gringo.csc (9851 bytes) [gringo, vehicle_or_mount_related]
+    hits: gringo:2, car:1
+    strings: S.XID#2; 5lfR1+; x0ii; n#G/; VMh0; 930t; L9#K; 0a6j
+- content/release/scripting/gringo/commonscripts/climbontowagon.csc (8776 bytes) [gringo, vehicle_or_mount_related]
+    hits: gringo:1, wagon:1
+    strings: 7k:W; nB8Y; rcNA; 0IM1B; D2MlpU; 1r.+; zEg:; hBJ4
+- content/release/scripting/gringo/commonscripts/train_conductor.csc (8822 bytes) [gringo, vehicle_or_mount_related]
+    hits: gringo:1, train:1
+    strings: bD @; @ULrf; RB.luH; Es2_; MX8tE; x+XK; OlB.eV; 5dm_-q
+- content/release/scripting/gringo/commonscripts/traincar_gringo.csc (3117 bytes) [gringo, vehicle_or_mount_related]
+    hits: gringo:2, car:1, train:1
+    strings: T7xj; IFb1E; 61U2m; l+XL_e; ms$P; RyKm; CLL/; uG_y
+- content/release/scripting/gringo/commonscripts/traincararmored_gringo.csc (2294 bytes) [gringo, vehicle_or_mount_related]
+    hits: gringo:2, car:1, train:1
+    strings: +_4MZI; koOD; $p.f#; M iN; .F.G; U0cY; _@fm; zxBf
+- content/release/scripting/gringo/commonscripts/traincarbaggage_gringo.csc (2850 bytes) [gringo, vehicle_or_mount_related]
+    hits: gringo:2, car:1, train:1
+    strings: mY02; PBK.; :H#w; rKb.$; E 1OG; w6jhLs; #GDd5N; uCAA
+- content/release/scripting/gringo/commonscripts/traincarbox01_gringo.csc (2414 bytes) [gringo, vehicle_or_mount_related]
+    hits: gringo:2, car:1, train:1
+    strings: VCeY; Mg0Pg; WZbO; G2B1; :kT0; \LGA; K7rLr; QUHC
+- content/release/scripting/gringo/commonscripts/traincarbox02_gringo.csc (2258 bytes) [gringo, vehicle_or_mount_related]
+    hits: gringo:2, car:1, train:1
+    strings: xIqk1O; RuH@6; iU9dt$o; 6F2o; +.Xb; #_6L; w8l/; /6j8
+- content/release/scripting/gringo/commonscripts/traincarbox03_gringo.csc (2552 bytes) [gringo, vehicle_or_mount_related]
+    hits: gringo:2, car:1, train:1
+    strings: DzX S; u\eu; 4@eU; E10N; :9nV; e9GT; 4y6\
+- content/release/scripting/gringo/commonscripts/traincarbox04_gringo.csc (2315 bytes) [gringo, vehicle_or_mount_related]
+    hits: gringo:2, car:1, train:1
+    strings: fzMG; bl.7; Y11U; iUS0; yziD; SEC9; -$Cpi3P; Xn m
+- content/release/scripting/gringo/commonscripts/traincarbox05_gringo.csc (1133 bytes) [gringo, vehicle_or_mount_related]
+    hits: gringo:2, car:1, train:1
+    strings: @kv1; JGGk; q/:y; d6e+; 0@s-c8
+- content/release/scripting/gringo/commonscripts/traincarcaboose_gringo.csc (2236 bytes) [gringo, vehicle_or_mount_related]
+    hits: gringo:2, car:1, train:1
+    strings: dhVcKf; e_j:; 3z3oI; hR$X; GeilB_; cDRp; iuvF; HU:6
+- content/release/scripting/gringo/commonscripts/traincarflat_gringo.csc (1109 bytes) [gringo, vehicle_or_mount_related]
+    hits: gringo:2, car:1, train:1
+    strings: EZx2; $7o2m-; WETG
+- content/release/scripting/gringo/commonscripts/traincarsteamer_gringo.csc (3332 bytes) [gringo, vehicle_or_mount_related]
+    hits: gringo:2, car:1, train:1
+    strings: o1G-x; _3nZ; aWCL; @_@e; KVhK1; 4X9Bh; twS$; x/ 8
+- content/release/scripting/gringo/commonscripts/traincarwood_gringo.csc (1115 bytes) [gringo, vehicle_or_mount_related]
+    hits: gringo:2, car:1, train:1
+    strings: Fox$; X\ k; L+VQ; zrxf; CiL0; F3n@
+- content/release/scripting/gringo/commonscripts/trainfootlocker.csc (15679 bytes) [gringo, vehicle_or_mount_related]
+    hits: gringo:1, train:1
+    strings: mX U; Y814; $+Ye; kM27; EXP/; 1ijfg; rK@6; fkJs
+- content/release/scripting/gringo/commonscripts/traingringo.csc (8367 bytes) [gringo, vehicle_or_mount_related]
+    hits: gringo:2, train:1
+    strings: 21rB; yanO; Xmdz; 2Ti:; j@wP; qy_W; Q 1I7x; l9/i
+- content/release/scripting/gringo/commonscripts/trainsitgringo.csc (8963 bytes) [gringo, vehicle_or_mount_related]
+    hits: gringo:2, train:1
+    strings: C/v_:; qH5\; sYyDT0; 2MoP; E8$AZ#; X#mR; LVx:CP; hAHw
+- content/release/scripting/gringo/commonscripts/vehicle_generator.csc (2369 bytes) [gringo, vehicle_or_mount_related]
+    hits: gringo:1, vehicle:1
+    strings: f. #; 7HfD; h@8C; .8@N.; XypP6r; vN7J; \: 0; Z+c:j
+- content/release/scripting/gringo/gringobrains/gringobrainscripts/gen_vehicle_brain.csc (148 bytes) [gringo, vehicle_or_mount_related]
+    hits: gringo:3, vehicle:1
+- content/release/scripting/gringo/gringobrains/gringobrainscripts/train_brain.csc (7937 bytes) [gringo, vehicle_or_mount_related]
+    hits: gringo:3, train:1
+    strings: m5kOT; _eCH; m:60; P1c3; /T.Qa; i/rA; iyTv; Z3I8
+- content/release/scripting/gringo/itemscripts/horse_deed.csc (5845 bytes) [gringo, vehicle_or_mount_related]
+    hits: gringo:1, horse:1
+    strings: 1@y@; YIuH; @-TF8; 0q@eD; apaZr; V3Tym0k; qt\r.; F3$q
+
+========================================================================
+gringo
+- content/debug/scripting/gringo/commonscripts/0x145E0F34 (11451 bytes) [debug, gringo]
+    hits: gringo:1
+    strings: S42Y\; Zl:7l; \A2SR; 81GYzPP; Zv#B; 2:Di; DyziRAM; Y2Nwr
+- content/debug/scripting/gringo/commonscripts/campfire02_gringo.csc (16373 bytes) [debug, gringo]
+    hits: gringo:2
+    strings: GUTV9; cNbP; .lGj; SJ$M; _FNA; lTGh; 0tfd; Uhq/nX1
+- content/debug/scripting/gringo/commonscripts/campfire03_gringo.csc (16290 bytes) [debug, gringo]
+    hits: gringo:2
+    strings: eame; ubdb; O/ y; sXvT; 7@PC; 8jx#; Yymyi; w0 b
+- content/debug/scripting/gringo/commonscripts/campfire04_gringo.csc (16247 bytes) [debug, gringo]
+    hits: gringo:2
+    strings: WvgV; Fj:j; arqx; K@UfB; hrbp; B Siz 7; if.C; TkSs
+- content/debug/scripting/gringo/commonscripts/campfire05_gringo.csc (16234 bytes) [debug, gringo]
+    hits: gringo:2
+    strings: +o-P; @i2$; fJuA; lSnRJ; RXUR; KRVq; xIWUJ; Yi8b
+- content/debug/scripting/gringo/commonscripts/chair_weaponkill.csc (11143 bytes) [debug, gringo]
+    hits: gringo:1
+    strings: 7T$2; xALK; P/DpsY; @+pL; 06J#; MaPC; :CcnE; p#KeNs4
+- content/debug/scripting/gringo/commonscripts/clockgringo.csc (637 bytes) [debug, gringo]
+    hits: gringo:2
+    strings: 3:1X; 4iay; 2vmT; Dg8X2; YfYG; +rrOA
+- content/debug/scripting/gringo/commonscripts/genericgringo.csc (11500 bytes) [debug, gringo]
+    hits: gringo:2
+    strings: 4Kfa1; HhW@; 411\; CnCx0; PZ-n; lKyI; t un; b32-
+- content/debug/scripting/gringo/commonscripts/lean_rail.csc (11098 bytes) [debug, gringo]
+    hits: gringo:1
+    strings: XNox; qMqT; FcyYp; +wWgm; w6JcY; M_#M; _$fy; OOqh
+- content/debug/scripting/gringo/commonscripts/locatorattachengineer.csc (11187 bytes) [debug, gringo]
+    hits: gringo:1
+    strings: 3Vz8:; dvRf; V5lU; \+8y; wiTL; YgpT; 8eQ9; fgE:
+- content/debug/scripting/gringo/commonscripts/musicgringo.csc (11233 bytes) [debug, gringo]
+    hits: gringo:2
+    strings: nnbi; 9Vdwa; kBqk; V_jc; +6B#; s-Lf; plSu@; 8MFN
+- content/debug/scripting/gringo/commonscripts/pitch_hay.csc (11140 bytes) [debug, gringo]
+    hits: gringo:1
+    strings: R_q_; $Dbg; 4:DkWY; O+ee; u#yu3; QPl\; XsV/w; YR-p
+- content/debug/scripting/gringo/commonscripts/player_chairlook.csc (11123 bytes) [debug, gringo]
+    hits: player:1, gringo:1
+    strings: Lf-5l; rPs/; \BQK; he@y; +S.BU; 7\tR; D _lM; jaLW
+- content/debug/scripting/gringo/commonscripts/player_herb.csc (15705 bytes) [debug, gringo]
+    hits: player:1, gringo:1
+    strings: vPros; x5Ky; i6WF; ZRA#; Q/t#; g1N0q; a57v3J8; HmXc
+- content/debug/scripting/gringo/commonscripts/stand_sellpaper.csc (16647 bytes) [debug, gringo]
+    hits: gringo:1
+    strings: u-Ux; qhOMZ; VQmD; 1eUE; vx#/; TBJi; 3Oz X; 5J5V
+- content/debug/scripting/gringo/commonscripts/traincar_gringo.csc (5580 bytes) [debug, gringo, vehicle_or_mount_related]
+    hits: gringo:2, car:1, train:1
+    strings: U5z$; GzDv; Nk2j; W2$a; LtNi; vFYM; OuRF; xz:i$
+- content/debug/scripting/gringo/commonscripts/traincarbaggage_gringo.csc (5301 bytes) [debug, gringo, vehicle_or_mount_related]
+    hits: gringo:2, car:1, train:1
+    strings: .wtd1; nk8K; _jS@; -ZKBY; B8BX; ERkI; $8/6; xE1+2
+- content/debug/scripting/gringo/commonscripts/traincarbox01_gringo.csc (4754 bytes) [debug, gringo, vehicle_or_mount_related]
+    hits: gringo:2, car:1, train:1
+    strings: Vp@6; a zq; H7Cu; pnK99; _-4-; AXys; 5wQL; yDiF
+- content/debug/scripting/gringo/commonscripts/traincarbox02_gringo.csc (4620 bytes) [debug, gringo, vehicle_or_mount_related]
+    hits: gringo:2, car:1, train:1
+    strings: k#V9; EKr8lh; gol@m; fTKD; 2c@ko; osHy; L\ZQR; Kim+qC-z
+- content/debug/scripting/gringo/commonscripts/traincarcaboose_gringo.csc (4618 bytes) [debug, gringo, vehicle_or_mount_related]
+    hits: gringo:2, car:1, train:1
+    strings: # _v; +7v#9; pkBD; mASH; Gn0v; ejL.; GzPi; ye9L
+- content/debug/scripting/gringo/commonscripts/traincarsteamer_gringo.csc (5991 bytes) [debug, gringo, vehicle_or_mount_related]
+    hits: gringo:2, car:1, train:1
+    strings: GFDjCz; f7K3; 5HiIM; eYf7; 1KIN; Tm4C_; 1taS; #Fb@
+- content/debug/scripting/gringo/commonscripts/traincarwood_gringo.csc (2707 bytes) [debug, gringo, vehicle_or_mount_related]
+    hits: gringo:2, car:1, train:1
+    strings: F6Pm; DOC4; pkwe; 4QS\8; 5OF\; HNXH9; YZKc; 5cOaI#m
+- content/debug/scripting/gringo/commonscripts/wall_phone.csc (11322 bytes) [debug, gringo]
+    hits: gringo:1
+    strings: ZeCKLX+; $nrJ; 5JGe; 2cxW; bb\r; 8cQX; Bi2h; N7Ug
+- content/debug/scripting/gringo/gringobrains/gringobrainscripts/0x822921F1 (24120 bytes) [debug, gringo]
+    hits: gringo:3
+    strings: 2/76N; nC56; UE+E; qguv; Q7in; $@kJ; QMQ1; U#@Y
+- content/debug/scripting/gringo/gringobrains/gringobrainscripts/0x98B7F641 (6476 bytes) [debug, gringo]
+    hits: gringo:3
+    strings: WSqU; HV940j; U:gA; MvyZ; _n/f; uKVJS; oz8D; _wXN
+- content/debug/scripting/gringo/gringobrains/gringobrainscripts/0xAB5B538B (6109 bytes) [debug, gringo]
+    hits: gringo:3
+    strings: 40 p; AS#c; JMHK; tmnR; Rr U; +Pue; UQre; vl:k
+- content/debug/scripting/gringo/gringobrains/gringobrainscripts/gen_brain.csc (6331 bytes) [debug, gringo]
+    hits: gringo:3
+    strings: \:Qp; O7JY; Tb7V; lMn5X; kv eIP\; dyQ3; -#Nf; mI6c
+- content/debug/scripting/gringo/multistagegringo/multistage_movecorn.csc (13514 bytes) [debug, gringo]
+    hits: gringo:2
+    strings: 5qV5; ye5Z; qy:\; #XQb; -7pPD; no T; nlP.; 3\$c
+- content/release/scripting/gringo/0x0FBC2F77/0x78F303BC (9489 bytes) [gringo]
+    hits: gringo:1
+    strings: jbaX; N_:e; xHC@gp; T:PcG; Q-Uu; B6o4; sF\Vs; LuwI
+- content/release/scripting/gringo/commonscripts/0x0A102115 (8758 bytes) [gringo]
+    hits: gringo:1
+    strings: uVJg; #p$3; CvnS; KVY@f; J/x1#_; @ ipWow; mQk$; hfUh
+- content/release/scripting/gringo/commonscripts/0x0BFAD5E4 (8766 bytes) [gringo]
+    hits: gringo:1
+    strings: PLf+_; SBXXe; XpZ.; ByudT; t$0_C; BSnp; #nIz; sO8t
+- content/release/scripting/gringo/commonscripts/0x121D4938 (139 bytes) [gringo]
+    hits: gringo:1
+- content/release/scripting/gringo/commonscripts/0x14112326 (9005 bytes) [gringo]
+    hits: gringo:1
+    strings: /f.7; \N@d4o; siG$; @rMd; -Vh2; AyJI; Efy1; JYpx
+- content/release/scripting/gringo/commonscripts/0x145E0F34 (8994 bytes) [gringo]
+    hits: gringo:1
+    strings: 0umC; DWU#; rYwG; ut5b; LfFzF; q.GYq; I0lr; O+nO98
+- content/release/scripting/gringo/commonscripts/0x1AC5CC1C (8901 bytes) [gringo]
+    hits: gringo:1
+    strings: yXpl; 96Gx; vcd8; I0eC; gUbY+; @d4N; A7E.; :p9I28
+- content/release/scripting/gringo/commonscripts/0x1C51A320 (14451 bytes) [gringo]
+    hits: gringo:1
+    strings: edQ.; GUWg; ddza; gWS Y; .Z0G; \zkMLV; 4:.z; ewLW
+- content/release/scripting/gringo/commonscripts/0x245A8FB1 (9013 bytes) [gringo]
+    hits: gringo:1
+    strings: C4pj; :jHUa; 4:Es; 8V6i; 8U9F; RAOC; BDSS; 5_Q4
+- content/release/scripting/gringo/commonscripts/0x28CEF3C0 (8258 bytes) [gringo]
+    hits: gringo:1
+    strings: #UrYG; WlgM; Y#0e; 1eF$; FDv-; 8XHC; --KV2; u9Ox
+- content/release/scripting/gringo/commonscripts/0x37DBC0FB (96 bytes) [gringo]
+    hits: gringo:1
+- content/release/scripting/gringo/commonscripts/0x37ECB7B5 (8913 bytes) [gringo]
+    hits: gringo:1
+    strings: iqlt; zcrV; wq:hr; \ialh; Zrk5; jk_p; _p4O; DbLx
+- content/release/scripting/gringo/commonscripts/0x395D9079 (2826 bytes) [gringo]
+    hits: gringo:1
+    strings: Oec7; RClh; sAp#Y; vqI.; ymE.; X#B@mW; 2sYR; T:Ug
+- content/release/scripting/gringo/commonscripts/0x43947889 (8799 bytes) [gringo]
+    hits: gringo:1
+    strings: LEvD; #e_/; TCp6; Iv/R; +@ce; X4T9; E.5J; n.QG
+- content/release/scripting/gringo/commonscripts/0x6A109429 (8806 bytes) [gringo]
+    hits: gringo:1
+    strings: w:YcS; $dtv; c8+w9; rbhb; Gvg.; syow; su+ g; fwh_
+- content/release/scripting/gringo/commonscripts/0x6AE95B10 (8236 bytes) [gringo]
+    hits: gringo:1
+    strings: hiKf; SQbX; xYl:V; rQrd; _\ajj; sxt:e; VNmM; Al/w
+- content/release/scripting/gringo/commonscripts/0x74DA0BB8 (14624 bytes) [gringo]
+    hits: gringo:1
+    strings: +w58; 4upv; JMs5; C/1Nb; 6oILt; f$#z; +t2/3; x#y4
+- content/release/scripting/gringo/commonscripts/0x75AD9D3C (8795 bytes) [gringo]
+    hits: gringo:1
+    strings: EdoM; BZKJj; /CWYQ; xR8S; seXvP; f-i0; OEOQQ; UYJ4
+- content/release/scripting/gringo/commonscripts/0x76049978 (9099 bytes) [gringo]
+    hits: gringo:1
+    strings: jUB+; kLgR; nXHPJA; 8L62; LrLB; A@Ef; y@mQ; Z1FLd
+- content/release/scripting/gringo/commonscripts/0x7852F787 (8867 bytes) [gringo]
+    hits: gringo:1
+    strings: 7v B; xSGttjY; SXGd; Ggrk; Tw.2RM; NI@4H; r4v2; 8n#l
+- content/release/scripting/gringo/commonscripts/0x78AF7762 (8906 bytes) [gringo]
+    hits: gringo:1
+    strings: UO/G; kKU+ q; uZLM; 5iM h; 8O/gW; Psp-; HUpC8; #2Ij
+- content/release/scripting/gringo/commonscripts/0x794E949B (8856 bytes) [gringo]
+    hits: gringo:1
+    strings: $wn+; XwbM; PmmD; 1YWRh; y/7x; ITwy; ipzQ; /KX y
+- content/release/scripting/gringo/commonscripts/0x7FD2CF88 (9013 bytes) [gringo]
+    hits: gringo:1
+    strings: osPi; Ziom; yCu@; cXAv; 3 mOT; 2jA2; SIew; iL9d
+- content/release/scripting/gringo/commonscripts/0x81F18F31 (10008 bytes) [gringo]
+    hits: gringo:1
+    strings: aKaEsj; iQN8R; hm_4; D@-V; -RXe; 1i+h2a/; 7YjT; m#d/
+- content/release/scripting/gringo/commonscripts/0x8212DEF9 (3622 bytes) [gringo]
+    hits: gringo:1
+    strings: qMLpu; Z9f@X; ZdZt; Q$X:3; j+-e; gmRa; .ujx; kaAb
+- content/release/scripting/gringo/commonscripts/0x84957800 (9262 bytes) [gringo]
+    hits: gringo:1
+    strings: T++qt; Nb.p; xP\y; cIUDi; r9+U; GgH6; t@#UM; DWxI2
+- content/release/scripting/gringo/commonscripts/0x8E408948 (14407 bytes) [gringo]
+    hits: gringo:1
+    strings: lnXc; -k#1; :Vx@; #6Uc; Bs5#; TxH8I; 1jHjO5; JjL_
+- content/release/scripting/gringo/commonscripts/0x90FBA306 (8781 bytes) [gringo]
+    hits: gringo:1
+    strings: 7jvsd; Lnc6; Rvu.; KzJP; 39SW; ob3J; p C\_; E.-d
+- content/release/scripting/gringo/commonscripts/0x9714937B (8887 bytes) [gringo]
+    hits: gringo:1
+    strings: rpMm; 2+oFLU; 63@7; TUI24; whX_; VW\0; aVKO:; K_gp
+- content/release/scripting/gringo/commonscripts/0x978816D4 (8813 bytes) [gringo]
+    hits: gringo:1
+    strings: q+iU; z. J; 5PCY; 2cA4K; K\t8; +U8_; ZPx$; yimGH
+- content/release/scripting/gringo/commonscripts/0x9D10916E (8741 bytes) [gringo]
+    hits: gringo:1
+    strings: 8KZa; 5Nm-; u//c; jt_Qr; a_tj; k.#K; V_z1; dLhc
+- content/release/scripting/gringo/commonscripts/0xAD8370F1 (8799 bytes) [gringo]
+    hits: gringo:1
+    strings: LEvD; #e_/; TCp6; Iv/R; +@ce; X4T9; E.5J; n.QG
+- content/release/scripting/gringo/commonscripts/0xB6FB1AF8 (11114 bytes) [gringo]
+    hits: gringo:1
+    strings: I$s_5; ER8c; SesI; I0fi; @R3l; PsKd; w/iH; +kgB
+- content/release/scripting/gringo/commonscripts/0xB80F378F (8951 bytes) [gringo]
+    hits: gringo:1
+    strings: UO/G; Xr3h; S+Ibn; d$DUea; 0QaG; UeZ7; \k/2_T; /a_-
+- content/release/scripting/gringo/commonscripts/0xBA634BA1 (10057 bytes) [gringo]
+    hits: gringo:1
+    strings: B\$\JO; k.3/; 4rjf; oA2I; 4W.Z; +XGJp; fO1q; /Exd
+- content/release/scripting/gringo/commonscripts/0xC41DAFA0 (8984 bytes) [gringo]
+    hits: gringo:1
+    strings: Uq\S; GwWi; lLwr; :AYV; p6.w; n-O/xU; egI7uY; 7WIu
+- content/release/scripting/gringo/commonscripts/0xC9A745C8 (8844 bytes) [gringo]
+    hits: gringo:1
+    strings: K#rg; q2.#; 8QGQ; suQ6; g\h3; PRfk; b3@k_; _- x.Y
+- content/release/scripting/gringo/commonscripts/0xCCB01B51 (8923 bytes) [gringo]
+    hits: gringo:1
+    strings: zMsK; Sq8$; Lc1T; e$P_W; 2u90; n1mF; M$2L; 3zK:7
+- content/release/scripting/gringo/commonscripts/0xE2DC0AB4 (10273 bytes) [gringo]
+    hits: gringo:1
+    strings: \iMWM; Qzax; injg; HDxX; $/_4; $rx-; xsGO; @2x1
+- content/release/scripting/gringo/commonscripts/0xE3094AFA (14783 bytes) [gringo]
+    hits: gringo:1
+    strings: 3rUr; 5pRc; GRjY; _U$Lh; 2f9y; VAFj; tLdb; @0IM
+- content/release/scripting/gringo/commonscripts/0xE9698C96 (1493 bytes) [gringo]
+    hits: gringo:1
+    strings: \J+S; gtO8; syZxw; 8Fqr; pLOE
+- content/release/scripting/gringo/commonscripts/0xED9B6C29 (2290 bytes) [gringo]
+    hits: gringo:1
+    strings: DfTj; 2A1g; lWMJ; wgF4W; 0M/z; D0x@; WxD6; nB@-
+- content/release/scripting/gringo/commonscripts/0xEFA4DB55 (8425 bytes) [gringo]
+    hits: gringo:1
+    strings: c@J\; YV+G; M@gsKA; volwE; nBViD2k; $r:-beX; vNRMT; Vxo\
+- content/release/scripting/gringo/commonscripts/0xF2D7BCE9 (8275 bytes) [gringo]
+    hits: gringo:1
+    strings: G0QE; tb9es; i5OT; U 2H; $PzP; 4@9j; g/-m; /NRR$
+- content/release/scripting/gringo/commonscripts/0xF3B2BE8D (8349 bytes) [gringo]
+    hits: gringo:1
+    strings: nM5y; 3+t6; vfLJ; bsCn; mV591; InY5; oBwoq; Zq1F
+- content/release/scripting/gringo/commonscripts/0xF83961E0 (14737 bytes) [gringo]
+    hits: gringo:1
+    strings: 93d-; Kjp5; 2p9fo; KwUH; QRzG; S8g9; cMnl; GSDz
+- content/release/scripting/gringo/commonscripts/ai_lockpick_safe.csc (8889 bytes) [gringo]
+    hits: gringo:1
+    strings: A0-4V.7; MH_s; hy60; sxeMA; o@f$; Q#by; h5V-; jRaq
+- content/release/scripting/gringo/commonscripts/animalnointerrupt.csc (8840 bytes) [gringo]
+    hits: gringo:1
+    strings: 09fLlz; Zk\N9; C9pDwy; 7Sh:; CkN/; _OHw; Q.KHI; XAKQK
+- content/release/scripting/gringo/commonscripts/aztecgold_treasure.csc (9154 bytes) [gringo]
+    hits: gringo:1
+    strings: BiWga; Bwmq; +E.7; BLHb; PNKV; _jfC; QERO; ROh\1
+- content/release/scripting/gringo/commonscripts/bandito_harass.csc (8936 bytes) [gringo]
+    hits: gringo:1
+    strings: YgCr; N@56; X61XN; zV3y; 8MHq; q7hw; @cYw-; 20hyh
+- content/release/scripting/gringo/commonscripts/blowthehatchgringo.csc (8679 bytes) [gringo]
+    hits: gringo:2
+    strings: f ew; +-Tz; LOd1; 2BCM; fWtv; \_Gk-; dp4e; YOKR
+- content/release/scripting/gringo/commonscripts/campfire01_bad_gringo.csc (10901 bytes) [gringo]
+    hits: gringo:2
+    strings: vJ4K; _nwi; EdhW; LFVb; SJngrNw; aN4Z; to7S; ._Hj
+- content/release/scripting/gringo/commonscripts/campfire01_gringo.csc (11145 bytes) [gringo]
+    hits: gringo:2
+    strings: @k+gZ; K06:; B::t$; Zy_v; GIKF; LgLF; qO:7; A-_MO
+- content/release/scripting/gringo/commonscripts/campfire01_law_gringo.csc (11754 bytes) [gringo]
+    hits: gringo:2
+    strings: 0 +J; \243; mCRt; PISn; HFbb; D.nt; U1nWi+S; LL do
+- content/release/scripting/gringo/commonscripts/campfire02_gringo.csc (11122 bytes) [gringo]
+    hits: gringo:2
+    strings: .0#z; IPXm; Sdfo; jtpm; lJr-; 8\#h; yX.d; wW9/#
+- content/release/scripting/gringo/commonscripts/campfire03_bad_gringo.csc (11025 bytes) [gringo]
+    hits: gringo:2
+    strings: Okkt; :P$n; qCh3; o6vY8; ucgEm; qvy@r; MD0Gx; rxY#
+- content/release/scripting/gringo/commonscripts/campfire03_gringo.csc (11027 bytes) [gringo]
+    hits: gringo:2
+    strings: +a5c; LViW; O324; oRwbt; 0NSt; +2ta; /sbD; @CD@j
+- content/release/scripting/gringo/commonscripts/campfire03_law_gringo.csc (11805 bytes) [gringo]
+    hits: gringo:2
+    strings: AWADQZ; 2flv; rohMJA; TxAQvM; Y:-p; Xt3P; x/qdd; 9OnS
+- content/release/scripting/gringo/commonscripts/campfire04_gringo.csc (10995 bytes) [gringo]
+    hits: gringo:2
+    strings: C86r; R0ar; W3rL; 1n4K; v+IoG#; ..TI; E:5E; Xn63
+- content/release/scripting/gringo/commonscripts/campfire05_gringo.csc (10970 bytes) [gringo]
+    hits: gringo:2
+    strings: KIhP; DGZm; Ql6Jv; GK9zG; UP/PK; M6_T; CbFl7; WyTk
+- content/release/scripting/gringo/commonscripts/campfire06_gringo.csc (11070 bytes) [gringo]
+    hits: gringo:2
+    strings: YJRoUP; /KAd; gT0V; nP3ha; GI2ee; Ujp:j; _K9.o; q2MB
+- content/release/scripting/gringo/commonscripts/campfire07_gringo.csc (11028 bytes) [gringo]
+    hits: gringo:2
+    strings: G#oE; j98l; Bp7A; :eO_; n1.s; GlSu; xnUC/; 67p2
+- content/release/scripting/gringo/commonscripts/campfireindian_bad_gringo.csc (10856 bytes) [gringo]
+    hits: gringo:2
+    strings: nJnK; sA+X; F8Sf; $wUQ; aJ5$; 0pFy; w+ M; YaRZ
+- content/release/scripting/gringo/commonscripts/campfireindian_gringo.csc (10880 bytes) [gringo]
+    hits: gringo:2
+    strings: a:ey; FhFd; Gcdc; TKsr; 686ND; 7QFm7; 9Tm1h; bSTA
+- content/release/scripting/gringo/commonscripts/campfirerebel_gringo.csc (11217 bytes) [gringo]
+    hits: gringo:2
+    strings: Lw3b; ePAc; K$qG; 9b0t; M45L7; f7g_/; rZit; \#+i
+- content/release/scripting/gringo/commonscripts/campfiretreasurehunter_gringo.csc (10484 bytes) [gringo]
+    hits: gringo:2
+    strings: /4NG; xNDn; 119r7; Ej1P; rF3la; .4bn; 4QTV; gk2h
+- content/release/scripting/gringo/commonscripts/carcrank_gringo.csc (9851 bytes) [gringo, vehicle_or_mount_related]
+    hits: gringo:2, car:1
+    strings: S.XID#2; 5lfR1+; x0ii; n#G/; VMh0; 930t; L9#K; 0a6j
+- content/release/scripting/gringo/commonscripts/chair_weaponkill.csc (8836 bytes) [gringo]
+    hits: gringo:1
+    strings: _Na13A; c$v\; z7Sh; xRva; 6kWbl; dxvs; LLS7; VO78
+- content/release/scripting/gringo/commonscripts/climb_help.csc (9033 bytes) [gringo]
+    hits: gringo:1
+    strings: FHmk; fxRt; qcCC; ws$1; AvWSU; dSLf; AAKF; kP/z
+- content/release/scripting/gringo/commonscripts/climb_help_both.csc (7954 bytes) [gringo]
+    hits: gringo:1
+    strings: #E/E; -i4l; 4jz E; fh8uC; _ VL; dbm@n; 7@vz; N4A6S
+- content/release/scripting/gringo/commonscripts/climbontowagon.csc (8776 bytes) [gringo, vehicle_or_mount_related]
+    hits: gringo:1, wagon:1
+    strings: 7k:W; nB8Y; rcNA; 0IM1B; D2MlpU; 1r.+; zEg:; hBJ4
+- content/release/scripting/gringo/commonscripts/clockgringo.csc (597 bytes) [gringo]
+    hits: gringo:2
+    strings: 7M9Nr; GoStP-; We0-O
+- content/release/scripting/gringo/commonscripts/cougar_eating.csc (9131 bytes) [gringo]
+    hits: gringo:1
+    strings: OhLjL; @hmm; XQVGH; 4Gyp; j/jf; D5ay; xDBR; #p+.
+- content/release/scripting/gringo/commonscripts/disarmbomb.csc (8937 bytes) [gringo]
+    hits: gringo:1
+    strings: U\lf; aFudh; oj9w; 7X62; 6bVO; vXy9r; Gth\; bO:T
+- content/release/scripting/gringo/commonscripts/door_locked.csc (8664 bytes) [gringo]
+    hits: gringo:1
+    strings: tXzx; .5#5; 7dYO; .B\P; 1h#dl; kehh; sYHP; xJBS
+- content/release/scripting/gringo/commonscripts/duck_hunt.csc (10203 bytes) [gringo]
+    hits: gringo:1
+    strings: KTZg; hN V; 8PVS; If#Y; cbOwR; Ya_1:b; w\4nM; uc1A
+- content/release/scripting/gringo/commonscripts/fake_liars_dice.csc (8227 bytes) [gringo]
+    hits: gringo:1
+    strings: 2n$@D; .Mi/v; PeEp; ICqSXy; AjZ-; .8T g; 1C\K; F:op2
+- content/release/scripting/gringo/commonscripts/fake_poker.csc (8227 bytes) [gringo]
+    hits: gringo:1
+    strings: 2n$@D; .Mi/v; PeEp; ICqSXy; AjZ-; .8T g; 1C\K; F:op2
+- content/release/scripting/gringo/commonscripts/fort_camp02_gringo.csc (14615 bytes) [gringo]
+    hits: gringo:2
+    strings: BVDg; L2Z-; VC2C; duJ0; x#A:; KyUGmx; Bg w; NZLS
+- content/release/scripting/gringo/commonscripts/gatlingattachgringo.csc (8430 bytes) [gringo]
+    hits: gringo:2
+    strings: Y@vj; #KMa; UaWw/S; 0VjNq#w; _+MvYm; a:Yg; T:R$; ohLv
+- content/release/scripting/gringo/commonscripts/genericgringo.csc (9136 bytes) [gringo]
+    hits: gringo:2
+    strings: @jSI-En; N1-hW; T4t2h; E#mb; Wv SI; e2g-x; vSJe6Mc; 6$_2
+- content/release/scripting/gringo/commonscripts/getwantedposterground.csc (8781 bytes) [gringo]
+    hits: gringo:1
+    strings: RiSw; XLd5q; _86vt; +QBI; aISQ; zFmS; S7 dr; CR8_
+- content/release/scripting/gringo/commonscripts/giveaway_footlocker.csc (9345 bytes) [gringo]
+    hits: gringo:1
+    strings: 8t$TZ; #T#b; 32O_; .0JC; #KJsh; xwI:; Ijwg; KK3C
+- content/release/scripting/gringo/commonscripts/graverobber_camp02_gringo.csc (15396 bytes) [gringo]
+    hits: gringo:2
+    strings: 6mRx; /NR5O; .16Q #m; /cjs; s6qG; 3ABQ; IpIS; +SDs
+- content/release/scripting/gringo/commonscripts/gringo_nocamera.csc (8236 bytes) [gringo]
+    hits: gringo:2
+    strings: hiKf; SQbX; xYl:V; rQrd; _\ajj; sxt:e; VNmM; Al/w
+- content/release/scripting/gringo/commonscripts/gringoattachmover.csc (8999 bytes) [gringo]
+    hits: gringo:2
+    strings: 0ECm; s1Dm; kosb.; D-nJ; FSxR1; ljHf; xSm7; om8O
+- content/release/scripting/gringo/commonscripts/gun_camp01_gringo.csc (14787 bytes) [gringo]
+    hits: gringo:2
+    strings: LQZJ; q:uu; U$tz; so5:; /qlQ; Ur3P; lkhW; uG0I3
+- content/release/scripting/gringo/commonscripts/gun_camp02_gringo.csc (14180 bytes) [gringo]
+    hits: gringo:2
+    strings: 79vOs; xp#6; H8Cn; bKNE; 801Q; c/cU9; 7exK; Cytt
+- content/release/scripting/gringo/commonscripts/gun_camp03_gringo.csc (14596 bytes) [gringo]
+    hits: gringo:2
+    strings: I$jE; 5T6Y; #NU0; qZJs; ts 2; 8n0S; /EfS:S; y:OT
+- content/release/scripting/gringo/commonscripts/gun_giveaway_pistol.csc (8912 bytes) [gringo]
+    hits: gringo:1
+    strings: D$Q$h7V+J; dt4q; Sae 1; \nrM; OS@C; UYPB; HQK.Dz; :hd_
+- content/release/scripting/gringo/commonscripts/gun_giveaway_rifle.csc (8833 bytes) [gringo]
+    hits: gringo:1
+    strings: +Jnq@; .OQF; 4GRz; /Qei9; AI\Z; lhjxS; OfLw; VXO2
+- content/release/scripting/gringo/commonscripts/handoffgringoattach.csc (8321 bytes) [gringo]
+    hits: gringo:2
+    strings: WwFx6; t71H; 6sGA; BGGx2; FHJ02; H.DIE; a2-+e; lEi@h

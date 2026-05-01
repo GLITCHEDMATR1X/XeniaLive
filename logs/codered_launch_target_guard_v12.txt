@@ -1,0 +1,1078 @@
+CodeRED XEX / Package Viewer v10
+Time: 2026-05-01 02:17:54
+Root/input: D:\Games\Red Dead Redemption\xenia-canary-6de80df
+
+Summary:
+  unknown: 43
+  manifest_unknown_magic: 1
+  default.xex count: 0
+  high warnings: 0
+
+========================================================================
+Path: D:\Games\Red Dead Redemption\xenia-canary-6de80df\docs\style_guide.md
+Kind: unknown
+Size: 6174
+SHA1: 61122582ac512a0db7598be949c78338296ac6d0
+Magic: 23 20 43 2B 2B 20 53 74 79 6C 65 20 47 75 69 64
+Interesting strings:
+  # C++ Style Guide
+  The style guide can be summed up as 'clang-format with the Google style set'.
+  In addition, the [Google Style Guide](https://google.github.io/styleguide/cppguide.html)
+  * [Google Style Guide](https://google.github.io/styleguide/cppguide.html) for naming/casing/etc
+  * Sort includes according to the [style guide rules](https://google.github.io/styleguide/cppguide.html#Names_and_Order_of_Includes)
+  To quote the [Google Style Guide](https://google.github.io/styleguide/cppguide.html):
+  symbols are and what invariants are true about them. Creating common, required
+  install it to the default location the `xb format` command will find it
+  Unfortunately it only does the cursor by default, so you'll have to select the
+  # Android Style Guide
+  which contain guidelines not only for code formatting, but for the usage of
+  The formatting rules used in Xenia match the default Android Studio settings.
+
+========================================================================
+Path: D:\Games\Red Dead Redemption\xenia-canary-6de80df\src\xenia\base\app_win32.manifest
+Kind: manifest_unknown_magic
+Size: 1744
+SHA1: 37c87bfc3de0e13009c566dbabc72637a5f30c5f
+Magic: 3C 3F 78 6D 6C 20 76 65 72 73 69 6F 6E 3D 22 31
+Manifest:
+  dashboard module matches: 0
+Interesting strings:
+  <assembly xmlns="urn:schemas-microsoft-com:asm.v1" xmlns:asmv3="urn:schemas-microsoft-com:asm.v3" manifestVersion="1.0">
+  <!-- System on Windows Vista, per-monitor on Windows 8.1. -->
+  <!-- dpiAwareness is an ordered list (most preferred first) of the supported modes. -->
+  <!-- https://blogs.windows.com/windowsdeveloper/2017/04/04/high-dpi-scaling-improvements-desktop-applications-windows-10-creators-update/ -->
+
+========================================================================
+Path: D:\Games\Red Dead Redemption\xenia-canary-6de80df\src\xenia\kernel\xam\xam.h
+Kind: unknown
+Size: 11175
+SHA1: 247e0db4f90f67d8c7ee8a44eb29dd56902b0fb3
+Magic: 2F 2A 2A 0A 20 2A 2A 2A 2A 2A 2A 2A 2A 2A 2A 2A
+Interesting strings:
+  #ifndef XENIA_KERNEL_XAM_XAM_H_
+  #define XENIA_KERNEL_XAM_XAM_H_
+  namespace xam {
+  struct X_XAMACCOUNTINFO {
+  kLiveEnabled = 0x20000000,
+  kPaymentInstrumentCreditCard = 1,
+  enum AccountLiveFlags { kAcctRequiresManagement = 1 };
+  be<uint32_t> live_flags;
+  be<uint32_t> network_id;
+  bool IsLiveEnabled() const {
+  AccountReservedFlags::kLiveEnabled);
+  void ToggleLiveFlag(bool is_live) {
+  reserved_flags = reserved_flags & ~AccountReservedFlags::kLiveEnabled;
+  if (is_live) {
+  reserved_flags = reserved_flags | AccountReservedFlags::kLiveEnabled;
+  static_assert_size(X_XAMACCOUNTINFO, 0x17C);
+  X_XAMACCOUNTINFO account;
+  struct X_DASH_APP_INFO {
+  static_assert_size(X_DASH_APP_INFO, 0xC);
+  struct X_DASH_BACKSTACK_DATA {
+  static_assert_size(X_DASH_BACKSTACK_DATA, 0x314);
+  struct X_PASSPORT_SESSION_TOKEN {
+  uint8_t SessionToken[28];
+  static_assert_size(X_PASSPORT_SESSION_TOKEN, 0x1C);
+  #define XMBox_LIVEPASSCODEMODE      0x00030000
+  SignUpForLive = 0x00000001,   // Used in NXE and kinect profile page
+  NUI = 0x00000008,  // always set by XamShowNuiSigninUI
+  Unk_1 = 0x00800000,  // used by XamShowSigninUIEx
+  Unk_2 = 0x02000000,  // used by XamShowSigninUIEx
+  Unk_3 = 0x04000000,  // used by XamShowSigninUIp
+
+========================================================================
+Path: D:\Games\Red Dead Redemption\xenia-canary-6de80df\src\xenia\kernel\xam\xam_avatar.cc
+Kind: unknown
+Size: 16404
+SHA1: 22110b67bceb71f3600d3e8fafd5c9cccccad886
+Magic: 2F 2A 2A 0A 20 2A 2A 2A 2A 2A 2A 2A 2A 2A 2A 2A
+Interesting strings:
+  #include "xenia/kernel/xam/xam_avatar.h"
+  #include "xenia/kernel/xam/xam_private.h"
+  DEFINE_bool(allow_avatar_initialization, false,
+  "Enable Avatar Initialization\n"
+  " Only set true when testing Avatar games. Certain games may\n"
+  namespace xam {
+  dword_result_t XamAvatarInitialize_entry(
+  dword_t coordinate_system,  // 1, 2, 4, etc
+  if (kernel_state()->title_id() == kAvatarEditorID) {
+  return cvars::allow_avatar_initialization ? X_STATUS_SUCCESS : ~0u;
+  DECLARE_XAM_EXPORT1(XamAvatarInitialize, kAvatars, kStub);
+  void XamAvatarShutdown_entry() {
+  // in 12611 its XamUnloadSysApp(0xf2,1)
+  DECLARE_XAM_EXPORT1(XamAvatarShutdown, kAvatars, kStub);
+  dword_result_t XamAvatarGetManifestLocalUser_entry(
+  dword_t user_index, pointer_t<X_AVATAR_METADATA> avatar_metadata_ptr,
+  pointer_t<XAM_OVERLAPPED> overlapped_ptr) {
+  if (!avatar_metadata_ptr) {
+  kernel_state()->xam_state()->GetUserProfile(user_index);
+  const uint32_t avatar_info_id =
+  static_cast<uint32_t>(UserSettingId::XPROFILE_GAMERCARD_AVATAR_INFO_1);
+  X_USER_PROFILE_SETTING avatar_info_setting_data = {};
+  avatar_info_setting_data.user_index = static_cast<uint32_t>(user_index);
+  avatar_info_setting_data.setting_id = avatar_info_id;
+  avatar_info_setting_data.data.type = X_USER_DATA_TYPE::BINARY;
+  avatar_info_setting_data.data.data.binary.size = kMaxUserDataSize;
+  avatar_info_setting_data.data.data.binary.ptr = 0;
+  uint32_t avatar_metadata_address = avatar_metadata_ptr.guest_address();
+  const bool has_avatar_info_setting =
+  kernel_state()->xam_state()->user_tracker()->GetUserSetting(
+
+========================================================================
+Path: D:\Games\Red Dead Redemption\xenia-canary-6de80df\src\xenia\kernel\xam\xam_avatar.h
+Kind: unknown
+Size: 4768
+SHA1: 6ff4cb3f3c17484cca4b6580717e34afa35d2c69
+Magic: 2F 2A 2A 0A 20 2A 2A 2A 2A 2A 2A 2A 2A 2A 2A 2A
+Interesting strings:
+  #ifndef XENIA_KERNEL_XAM_XAM_AVATAR_H_
+  #define XENIA_KERNEL_XAM_XAM_AVATAR_H_
+  namespace xam {
+  struct X_AVATAR_METADATA {
+  static_assert_size(X_AVATAR_METADATA, 0x3E8);
+  // https://github.com/hetelek/Velocity/blob/master/XboxInternals/AvatarAsset/AvatarAssetDefinintions.h
+  enum X_AVATAR_BODY_TYPE : uint8_t { Unknown, Male, Female, All };
+  GlovesFullFingered = 0x259,
+  X_AVATAR_BODY_TYPE gender;
+  uint8_t red;
+  struct X_AVATAR_ANIMATION {
+  static_assert_size(X_AVATAR_ANIMATION, 12);
+  }  // namespace xam
+  #endif  // XENIA_KERNEL_XAM_XAM_AVATAR_H_
+
+========================================================================
+Path: D:\Games\Red Dead Redemption\xenia-canary-6de80df\src\xenia\kernel\xam\xam_content.cc
+Kind: unknown
+Size: 30259
+SHA1: 2c0de46f0ca3d0f973433d2b00635b83bba18fcd
+Magic: 2F 2A 2A 0A 20 2A 2A 2A 2A 2A 2A 2A 2A 2A 2A 2A
+Interesting strings:
+  #include "xenia/kernel/xam/xam_content_device.h"
+  #include "xenia/kernel/xam/xam_module.h"
+  #include "xenia/kernel/xam/xam_private.h"
+  "     Xbox Live Arcade titles.\n"
+  namespace xam {
+  dword_result_t XamContentGetLicenseMask_entry(lpdword_t mask_ptr,
+  kernel_state()->CompleteOverlappedDeferredEx(run, overlapped_ptr);
+  DECLARE_XAM_EXPORT2(XamContentGetLicenseMask, kContent, kStub, kHighFrequency);
+  dword_result_t XamContentResolve_entry(
+  lpdword_t root_name_ptr, pointer_t<XAM_OVERLAPPED> overlapped_ptr) {
+  kernel_state()->xam_state()->profile_manager()->GetProfile(
+  DECLARE_XAM_EXPORT1(XamContentResolve, kContent, kSketchy);
+  dword_result_t XamContentCreateEnumerator_entry(
+  const auto& user = kernel_state()->xam_state()->GetUserProfile(user_index);
+  XELOGD("XamContentCreateEnumerator: added {} items to enumerator",
+  DECLARE_XAM_EXPORT1(XamContentCreateEnumerator, kContent, kImplemented);
+  dword_result_t xeXamContentCreate(dword_t user_index, lpstring_t root_name,
+  pointer_t<XAM_OVERLAPPED> overlapped_ptr) {
+  if (kernel_state()->file_system()->IsSymbolicLinkRegistered(symlink_path)) {
+  default:
+  dword_result_t XamContentCreateEx_entry(
+  return xeXamContentCreate(user_index, root_name, content_data_ptr,
+  DECLARE_XAM_EXPORT1(XamContentCreateEx, kContent, kImplemented);
+  dword_result_t XamContentCreate_entry(
+  return XamContentCreateEx_entry(user_index, root_name, content_data_ptr,
+  DECLARE_XAM_EXPORT1(XamContentCreate, kContent, kImplemented);
+  dword_result_t XamContentCreateInternal_entry(
+  qword_t content_size, pointer_t<XAM_OVERLAPPED> overlapped_ptr) {
+  return xeXamContentCreate(XUserIndexNone, root_name, content_data_ptr,
+  DECLARE_XAM_EXPORT1(XamContentCreateInternal, kContent, kImplemented);
+
+========================================================================
+Path: D:\Games\Red Dead Redemption\xenia-canary-6de80df\src\xenia\kernel\xam\xam_content_aggregate.cc
+Kind: unknown
+Size: 5715
+SHA1: 623b95a1239f5e8b4ea702ee0baf1d1d4e6e87fc
+Magic: 2F 2A 2A 0A 20 2A 2A 2A 2A 2A 2A 2A 2A 2A 2A 2A
+Interesting strings:
+  #include "xenia/kernel/xam/xam_content_device.h"
+  #include "xenia/kernel/xam/xam_private.h"
+  namespace xam {
+  auto root_entry = kernel_state()->file_system()->ResolvePath(
+  xe::filesystem::WildcardEngine title_find_engine;
+  xe::filesystem::WildcardEngine content_find_engine;
+  dword_result_t XamContentAggregateCreateEnumerator_entry(qword_t xuid,
+  XELOGD("XamContentAggregateCreateEnumerator: added {} items to enumerator",
+  DECLARE_XAM_EXPORT1(XamContentAggregateCreateEnumerator, kContent, kStub);
+  }  // namespace xam
+  DECLARE_XAM_EMPTY_REGISTER_EXPORTS(ContentAggregate);
+
+========================================================================
+Path: D:\Games\Red Dead Redemption\xenia-canary-6de80df\src\xenia\kernel\xam\xam_content_device.cc
+Kind: unknown
+Size: 7575
+SHA1: 28f8e9da4efcebe2748cbb22fa9b3a97320dbbd6
+Magic: 2F 2A 2A 0A 20 2A 2A 2A 2A 2A 2A 2A 2A 2A 2A 2A
+Interesting strings:
+  #include "xenia/kernel/xam/xam_content_device.h"
+  #include "xenia/kernel/xam/xam_private.h"
+  namespace xam {
+  dword_result_t XamContentGetDeviceName_entry(dword_t device_id,
+  DECLARE_XAM_EXPORT1(XamContentGetDeviceName, kContent, kImplemented);
+  dword_result_t XamContentGetDeviceState_entry(dword_t device_id,
+  DECLARE_XAM_EXPORT1(XamContentGetDeviceState, kContent, kStub);
+  dword_result_t XamContentGetDeviceData_entry(
+  DECLARE_XAM_EXPORT1(XamContentGetDeviceData, kContent, kImplemented);
+  dword_result_t XamContentCreateDeviceEnumerator_entry(dword_t content_type,
+  DECLARE_XAM_EXPORT1(XamContentCreateDeviceEnumerator, kNone, kImplemented);
+  }  // namespace xam
+  DECLARE_XAM_EMPTY_REGISTER_EXPORTS(ContentDevice);
+
+========================================================================
+Path: D:\Games\Red Dead Redemption\xenia-canary-6de80df\src\xenia\kernel\xam\xam_content_device.h
+Kind: unknown
+Size: 1361
+SHA1: 1a0c6f6d9ed977f116e444d0a8f7588b250f3ac7
+Magic: 2F 2A 2A 0A 20 2A 2A 2A 2A 2A 2A 2A 2A 2A 2A 2A
+Interesting strings:
+  #ifndef XENIA_KERNEL_XAM_XAM_CONTENT_DEVICE_H_
+  #define XENIA_KERNEL_XAM_XAM_CONTENT_DEVICE_H_
+  namespace xam {
+  }  // namespace xam
+  #endif  // XENIA_KERNEL_XAM_XAM_CONTENT_DEVICE_H_
+
+========================================================================
+Path: D:\Games\Red Dead Redemption\xenia-canary-6de80df\src\xenia\kernel\xam\xam_enum.cc
+Kind: unknown
+Size: 7206
+SHA1: 8c41d3200907028c6023a28597bfa3bf37755813
+Magic: 2F 2A 2A 0A 20 2A 2A 2A 2A 2A 2A 2A 2A 2A 2A 2A
+Interesting strings:
+  #include "xenia/kernel/xam/xam_module.h"
+  #include "xenia/kernel/xam/xam_private.h"
+  namespace xam {
+  uint32_t xeXamEnumerate(uint32_t handle, uint32_t flags, lpvoid_t buffer_ptr,
+  kernel_state()->CompleteOverlappedDeferredEx(run, overlapped_ptr);
+  dword_result_t XamEnumerate_entry(dword_t handle, dword_t flags,
+  pointer_t<XAM_OVERLAPPED> overlapped) {
+  auto result = xeXamEnumerate(handle, flags, buffer, buffer_length,
+  DECLARE_XAM_EXPORT1(XamEnumerate, kNone, kImplemented);
+  std::vector<xam::XMP_USER_PLAYLIST_INFO> user_playlist_info = {};
+  dword_result_t XamCreateEnumeratorHandle_entry(
+  default: {
+  DECLARE_XAM_EXPORT1(XamCreateEnumeratorHandle, kNone, kImplemented);
+  dword_result_t XamGetPrivateEnumStructureFromHandle_entry(
+  DECLARE_XAM_EXPORT1(XamGetPrivateEnumStructureFromHandle, kNone, kImplemented);
+  dword_result_t XamProfileCreateEnumerator_entry(dword_t device_id,
+  kernel_state()->xam_state()->profile_manager()->GetAccounts();
+  DECLARE_XAM_EXPORT1(XamProfileCreateEnumerator, kNone, kImplemented);
+  dword_result_t XamProfileEnumerate_entry(dword_t handle, dword_t flags,
+  auto result = xeXamEnumerate(handle, flags, buffer, 0,
+  DECLARE_XAM_EXPORT1(XamProfileEnumerate, kNone, kImplemented);
+  DECLARE_XAM_EXPORT1(EnumerateMediaObjects, kNone, kStub);
+  DECLARE_XAM_EXPORT1(EnumerateMediaObjects_, kNone, kStub);
+  DECLARE_XAM_EXPORT1(EnumerateMediaObjects_0, kNone, kStub);
+  DECLARE_XAM_EXPORT1(EnumerateMediaObjects_1, kNone, kStub);
+  }  // namespace xam
+  DECLARE_XAM_EMPTY_REGISTER_EXPORTS(Enum);
+
+========================================================================
+Path: D:\Games\Red Dead Redemption\xenia-canary-6de80df\src\xenia\kernel\xam\xam_info.cc
+Kind: unknown
+Size: 34594
+SHA1: e43fc520eed343483e49c4941eb8237f1e9768da
+Magic: 2F 2A 2A 0D 0A 20 2A 2A 2A 2A 2A 2A 2A 2A 2A 2A
+Interesting strings:
+  #include "xenia/kernel/xam/xam_module.h"
+  #include "xenia/kernel/xam/xam_private.h"
+  " 8 = HDMI (default)",
+  "Enables preview mode in dashboards to render debug information.",
+  DEFINE_bool(codered_clean_title_relaunch, true,
+  "CodeRED/RDR: exit cleanly after XamLoaderLaunchTitle saves launch_data.bin. "
+  "This avoids a JIT-thread crash during Red Dead Redemption multiplayer title relaunch tests.",
+  namespace xam {
+  dword_result_t XamFeatureEnabled_entry(dword_t app_id) { return 0; }
+  DECLARE_XAM_EXPORT1(XamFeatureEnabled, kNone, kStub);
+  dword_result_t XamGetStagingMode_entry() { return cvars::staging_mode; }
+  DECLARE_XAM_EXPORT1(XamGetStagingMode, kNone, kStub);
+  dword_result_t XamGetOnlineSchema_entry() {
+  kernel_state()->memory()->SystemHeapAlloc(8 + sizeof(schema_bin));
+  DECLARE_XAM_EXPORT1(XamGetOnlineSchema, kNone, kImplemented);
+  void XamFormatDateString_entry(dword_t locale_format, qword_t filetime,
+  auto tp = xe::chrono::WinSystemClock::to_sys(
+  xe::chrono::WinSystemClock::from_file_time(filetime));
+  DECLARE_XAM_EXPORT1(XamFormatDateString, kNone, kImplemented);
+  void XamFormatTimeString_entry(dword_t user_index, qword_t filetime,
+  DECLARE_XAM_EXPORT1(XamFormatTimeString, kNone, kImplemented);
+  dword_result_t keXamBuildResourceLocator(uint64_t module,
+  "XamBuildResourceLocator({0}) returning locator to local file {0}.xzp",
+  dword_result_t XamBuildResourceLocator_entry(qword_t module,
+  return keXamBuildResourceLocator(module, container.value(), resource.value(),
+  DECLARE_XAM_EXPORT1(XamBuildResourceLocator, kNone, kImplemented);
+  dword_result_t XamBuildGamercardResourceLocator_entry(lpu16string_t filename,
+  // On an actual xbox these funcs would return a locator to xam.xex resources,
+  // thanks to MS for letting XamBuildResourceLocator return local file
+  // If you're running an app that'll need them, make sure to extract xam.xex
+
+========================================================================
+Path: D:\Games\Red Dead Redemption\xenia-canary-6de80df\src\xenia\kernel\xam\xam_info.cc.codered_v7_bak_20260430_231114
+Kind: unknown
+Size: 33652
+SHA1: 70b0ffb4810a1875b0999574053b9da72e40cca4
+Magic: 2F 2A 2A 0D 0A 20 2A 2A 2A 2A 2A 2A 2A 2A 2A 2A
+Interesting strings:
+  #include "xenia/kernel/xam/xam_module.h"
+  #include "xenia/kernel/xam/xam_private.h"
+  " 8 = HDMI (default)",
+  "Enables preview mode in dashboards to render debug information.",
+  namespace xam {
+  dword_result_t XamFeatureEnabled_entry(dword_t app_id) { return 0; }
+  DECLARE_XAM_EXPORT1(XamFeatureEnabled, kNone, kStub);
+  dword_result_t XamGetStagingMode_entry() { return cvars::staging_mode; }
+  DECLARE_XAM_EXPORT1(XamGetStagingMode, kNone, kStub);
+  dword_result_t XamGetOnlineSchema_entry() {
+  kernel_state()->memory()->SystemHeapAlloc(8 + sizeof(schema_bin));
+  DECLARE_XAM_EXPORT1(XamGetOnlineSchema, kNone, kImplemented);
+  void XamFormatDateString_entry(dword_t locale_format, qword_t filetime,
+  auto tp = xe::chrono::WinSystemClock::to_sys(
+  xe::chrono::WinSystemClock::from_file_time(filetime));
+  DECLARE_XAM_EXPORT1(XamFormatDateString, kNone, kImplemented);
+  void XamFormatTimeString_entry(dword_t user_index, qword_t filetime,
+  DECLARE_XAM_EXPORT1(XamFormatTimeString, kNone, kImplemented);
+  dword_result_t keXamBuildResourceLocator(uint64_t module,
+  "XamBuildResourceLocator({0}) returning locator to local file {0}.xzp",
+  dword_result_t XamBuildResourceLocator_entry(qword_t module,
+  return keXamBuildResourceLocator(module, container.value(), resource.value(),
+  DECLARE_XAM_EXPORT1(XamBuildResourceLocator, kNone, kImplemented);
+  dword_result_t XamBuildGamercardResourceLocator_entry(lpu16string_t filename,
+  // On an actual xbox these funcs would return a locator to xam.xex resources,
+  // thanks to MS for letting XamBuildResourceLocator return local file
+  // If you're running an app that'll need them, make sure to extract xam.xex
+  // resources with xextool ("xextool -d . xam.xex") and add a .xzp extension.
+  const auto xam_module = kernel_state()->GetModule("xam", true);
+  return keXamBuildResourceLocator(xam_module ? xam_module->hmodule_ptr() : 0,
+
+========================================================================
+Path: D:\Games\Red Dead Redemption\xenia-canary-6de80df\src\xenia\kernel\xam\xam_input.cc
+Kind: unknown
+Size: 10877
+SHA1: 5bebc604ca4ccad75b2dc3a3cad251f902f75a8e
+Magic: 2F 2A 2A 0A 20 2A 2A 2A 2A 2A 2A 2A 2A 2A 2A 2A
+Interesting strings:
+  #include "xenia/hid/input_system.h"
+  #include "xenia/kernel/xam/xam_private.h"
+  namespace xam {
+  DECLARE_XAM_EXPORT1(XAutomationpUnbindController, kInput, kStub);
+  void XamResetInactivity_entry() {
+  DECLARE_XAM_EXPORT1(XamResetInactivity, kInput, kStub);
+  dword_result_t XamEnableInactivityProcessing_entry(dword_t inactivity_index,
+  DECLARE_XAM_EXPORT1(XamEnableInactivityProcessing, kInput, kStub);
+  dword_result_t XamInputGetCapabilitiesEx_entry(
+  auto input_system = kernel_state()->emulator()->input_system();
+  auto lock = input_system->lock();
+  return input_system->GetCapabilities(actual_user_index, actual_flags, caps);
+  DECLARE_XAM_EXPORT1(XamInputGetCapabilitiesEx, kInput, kSketchy);
+  dword_result_t XamInputGetCapabilities_entry(
+  return XamInputGetCapabilitiesEx_entry(1, user_index, flags, caps);
+  DECLARE_XAM_EXPORT1(XamInputGetCapabilities, kInput, kSketchy);
+  dword_result_t XamInputGetState_entry(dword_t user_index, dword_t flags,
+  if (kernel_state()->xam_state()->IsUIActive()) {
+  result = input_system->GetState(
+  DECLARE_XAM_EXPORT2(XamInputGetState, kInput, kImplemented, kHighFrequency);
+  dword_result_t XamInputSetState_entry(
+  return input_system->SetState(user_index, vibration);
+  DECLARE_XAM_EXPORT1(XamInputSetState, kInput, kImplemented);
+  dword_result_t XamInputGetKeystroke_entry(
+  return input_system->GetKeystroke(user_index, flags, keystroke);
+  DECLARE_XAM_EXPORT1(XamInputGetKeystroke, kInput, kImplemented);
+  dword_result_t XamInputGetKeystrokeEx_entry(
+  auto result = input_system->GetKeystroke(i, flags, keystroke);
+  auto result = input_system->GetKeystroke(user_index, flags, keystroke);
+  DECLARE_XAM_EXPORT1(XamInputGetKeystrokeEx, kInput, kImplemented);
+
+========================================================================
+Path: D:\Games\Red Dead Redemption\xenia-canary-6de80df\src\xenia\kernel\xam\xam_locale.cc
+Kind: unknown
+Size: 18386
+SHA1: 4afffc2c201cfa69faf90a4b18a317aa86e105d1
+Magic: 2F 2A 2A 0A 20 2A 2A 2A 2A 2A 2A 2A 2A 2A 2A 2A
+Interesting strings:
+  #include "xenia/kernel/xam/xam_private.h"
+  namespace xam {
+  }  // namespace xam
+  uint8_t xeXamGetOnlineCountryFromLocale(uint8_t id) {
+  const char16_t* xeXamGetOnlineCountryString(uint8_t id) {
+  const char16_t* xeXamGetCountryString(uint8_t id) {
+  const char16_t* xeXamGetLanguageString(uint8_t id) {
+  const char16_t* xeXamGetLocaleString(uint8_t id) {
+  uint8_t xeXamGetLocaleFromOnlineCountry(uint8_t id) {
+  uint8_t xeXamGetLanguageFromOnlineLanguage(uint8_t id) {
+  const char16_t* xeXamGetOnlineLanguageString(uint8_t id) {
+  uint8_t xeXamGetCountryFromOnlineCountry(uint8_t id) {
+  uint8_t xeXamGetLocaleFromCountry(uint8_t id) {
+  uint8_t xeXamGetLocaleEx(uint8_t max_country_id, uint8_t max_locale_id) {
+  uint8_t locale_id = xeXamGetLocaleFromCountry(country_id);
+  uint8_t xeXamGetLocale() { return xeXamGetLocaleEx(111, 43); }
+  dword_result_t XamGetLocale_entry() {
+  return static_cast<uint8_t>(xeXamGetLocale());
+  DECLARE_XAM_EXPORT1(XamGetLocale, kLocale, kImplemented);
+  dword_result_t XamGetOnlineCountryFromLocale_entry(dword_t id) {
+  return xeXamGetOnlineCountryFromLocale(id);
+  DECLARE_XAM_EXPORT1(XamGetOnlineCountryFromLocale, kLocale, kImplemented);
+  dword_result_t XamGetOnlineCountryString_entry(dword_t id,
+  auto str = xeXamGetOnlineCountryString(static_cast<uint8_t>(id));
+  DECLARE_XAM_EXPORT1(XamGetOnlineCountryString, kLocale, kImplemented);
+  dword_result_t XamGetCountryString_entry(dword_t id, dword_t buffer_length,
+  auto str = xeXamGetCountryString(static_cast<uint8_t>(id));
+  DECLARE_XAM_EXPORT1(XamGetCountryString, kLocale, kImplemented);
+  dword_result_t XamGetLanguageString_entry(dword_t id, dword_t buffer_length,
+  auto str = xeXamGetLanguageString(static_cast<uint8_t>(id));
+
+========================================================================
+Path: D:\Games\Red Dead Redemption\xenia-canary-6de80df\src\xenia\kernel\xam\xam_media.cc
+Kind: unknown
+Size: 2449
+SHA1: 1401b419727db1196fff65e89f332ac9323d5897
+Magic: 2F 2A 2A 0A 20 2A 2A 2A 2A 2A 2A 2A 2A 2A 2A 2A
+Interesting strings:
+  #include "xenia/kernel/xam/xam_private.h"
+  namespace xam {
+  dword_result_t XamMediaVerificationCreate_entry(dword_t creation_flags) {
+  DECLARE_XAM_EXPORT1(XamMediaVerificationCreate, kNone, kStub);
+  dword_result_t XamMediaVerificationClose_entry() { return X_ERROR_SUCCESS; }
+  DECLARE_XAM_EXPORT1(XamMediaVerificationClose, kNone, kStub);
+  dword_result_t XamMediaVerificationVerify_entry(
+  dword_t r3, pointer_t<XAM_OVERLAPPED> overlapped, lpvoid_t callback) {
+  DECLARE_XAM_EXPORT1(XamMediaVerificationVerify, kNone, kStub);
+  dword_result_t XamMediaVerificationFailedBlocks_entry(
+  DECLARE_XAM_EXPORT1(XamMediaVerificationFailedBlocks, kNone, kStub);
+  dword_result_t XamMediaVerificationInject_entry(dword_t r3, dword_t r4) {
+  DECLARE_XAM_EXPORT1(XamMediaVerificationInject, kNone, kStub);
+  }  // namespace xam
+  DECLARE_XAM_EMPTY_REGISTER_EXPORTS(Media);
+
+========================================================================
+Path: D:\Games\Red Dead Redemption\xenia-canary-6de80df\src\xenia\kernel\xam\xam_module.cc
+Kind: unknown
+Size: 4986
+SHA1: f25cc6c45dd4f610a942000415ae7f4fb5c1cac0
+Magic: 2F 2A 2A 0A 20 2A 2A 2A 2A 2A 2A 2A 2A 2A 2A 2A
+Interesting strings:
+  #include "xenia/kernel/xam/xam_module.h"
+  #include "xenia/kernel/xam/xam_private.h"
+  namespace xam {
+  XamModule::XamModule(Emulator* emulator, KernelState* kernel_state)
+  : KernelModule(kernel_state, "xe:\\xam.xex"), loader_data_() {
+  #include "xam_module_export_groups.inc"
+  static auto& get_xam_exports() {
+  static std::vector<xe::cpu::Export*> xam_exports(4096);
+  return xam_exports;
+  xe::cpu::Export* RegisterExport_xam(xe::cpu::Export* export_entry) {
+  auto& xam_exports = get_xam_exports();
+  assert_true(export_entry->ordinal < xam_exports.size());
+  xam_exports[export_entry->ordinal] = export_entry;
+  static constexpr xe::cpu::Export xam_export_table[] = {
+  #include "xenia/kernel/xam/xam_table.inc"
+  void XamModule::RegisterExportTable(xe::cpu::ExportResolver* export_resolver) {
+  for (size_t i = 0; i < xe::countof(xam_export_table); ++i) {
+  auto& export_entry = xam_export_table[i];
+  assert_true(export_entry.ordinal < xam_exports.size());
+  if (!xam_exports[export_entry.ordinal]) {
+  xam_exports[export_entry.ordinal] =
+  export_resolver->RegisterTable("xam.xex", &get_xam_exports());
+  XamModule::~XamModule() {}
+  void XamModule::LoadLoaderData() {
+  FILE* file = xe::filesystem::OpenFile(kXamModuleLoaderDataFileName, "rb");
+  std::filesystem::remove(kXamModuleLoaderDataFileName);
+  void XamModule::SaveLoaderData() {
+  FILE* file = xe::filesystem::OpenFile(kXamModuleLoaderDataFileName, "wb");
+  std::filesystem::path host_path = loader_data_.host_path;
+  remove_prefix(fmt::format("{}\\", kDefaultGameSymbolicLink));
+
+========================================================================
+Path: D:\Games\Red Dead Redemption\xenia-canary-6de80df\src\xenia\kernel\xam\xam_module.h
+Kind: unknown
+Size: 1669
+SHA1: 964f749c305a188ac4183b244f42e260ed9413a2
+Magic: 2F 2A 2A 0A 20 2A 2A 2A 2A 2A 2A 2A 2A 2A 2A 2A
+Interesting strings:
+  #ifndef XENIA_KERNEL_XAM_XAM_MODULE_H_
+  #define XENIA_KERNEL_XAM_XAM_MODULE_H_
+  namespace xam {
+  static constexpr std::string_view kXamModuleLoaderDataFileName =
+  class XamModule : public KernelModule {
+  XamModule(Emulator* emulator, KernelState* kernel_state);
+  virtual ~XamModule();
+  launch_path;  // Full guest path to next xex. might be default.xex
+  }  // namespace xam
+  #endif  // XENIA_KERNEL_XAM_XAM_MODULE_H_
+
+========================================================================
+Path: D:\Games\Red Dead Redemption\xenia-canary-6de80df\src\xenia\kernel\xam\xam_module_export_groups.inc
+Kind: unknown
+Size: 1305
+SHA1: da88e50a3d459a3cb83eca978ae9837c329c9edb
+Magic: 2F 2A 2A 0A 20 2A 2A 2A 2A 2A 2A 2A 2A 2A 2A 2A
+Interesting strings:
+  XE_MODULE_EXPORT_GROUP(xam, Avatar)
+  XE_MODULE_EXPORT_GROUP(xam, Content)
+  XE_MODULE_EXPORT_GROUP(xam, ContentAggregate)
+  XE_MODULE_EXPORT_GROUP(xam, ContentDevice)
+  XE_MODULE_EXPORT_GROUP(xam, Enum)
+  XE_MODULE_EXPORT_GROUP(xam, Info)
+  XE_MODULE_EXPORT_GROUP(xam, Input)
+  XE_MODULE_EXPORT_GROUP(xam, Locale)
+  XE_MODULE_EXPORT_GROUP(xam, Media)
+  XE_MODULE_EXPORT_GROUP(xam, Msg)
+  XE_MODULE_EXPORT_GROUP(xam, Net)
+  XE_MODULE_EXPORT_GROUP(xam, Notify)
+  XE_MODULE_EXPORT_GROUP(xam, NUI)
+  XE_MODULE_EXPORT_GROUP(xam, Party)
+  XE_MODULE_EXPORT_GROUP(xam, Profile)
+  XE_MODULE_EXPORT_GROUP(xam, Task)
+  XE_MODULE_EXPORT_GROUP(xam, UI)
+  XE_MODULE_EXPORT_GROUP(xam, User)
+  XE_MODULE_EXPORT_GROUP(xam, Video)
+  XE_MODULE_EXPORT_GROUP(xam, Voice)
+
+========================================================================
+Path: D:\Games\Red Dead Redemption\xenia-canary-6de80df\src\xenia\kernel\xam\xam_msg.cc
+Kind: unknown
+Size: 5321
+SHA1: 293338dbc8a5cdca42fa50f3718ce1ae4b51b901
+Magic: 2F 2A 2A 0A 20 2A 2A 2A 2A 2A 2A 2A 2A 2A 2A 2A
+Interesting strings:
+  #include "xenia/kernel/xam/xam_private.h"
+  namespace xam {
+  DECLARE_XAM_EXPORT1(XMsgInProcessCall, kNone, kImplemented);
+  dword_result_t XMsgSystemProcessCall_entry(dword_t app, dword_t message,
+  XELOGE("XMsgSystemProcessCall: app {:08X} undefined",
+  DECLARE_XAM_EXPORT1(XMsgSystemProcessCall, kNone, kImplemented);
+  dword_t app, dword_t message, pointer_t<XAM_OVERLAPPED> overlapped_ptr,
+  DECLARE_XAM_EXPORT1(XMsgStartIORequestEx, kNone, kImplemented);
+  DECLARE_XAM_EXPORT1(XMsgStartIORequest, kNone, kImplemented);
+  pointer_t<XAM_OVERLAPPED> overlapped_ptr, dword_t wait) {
+  DECLARE_XAM_EXPORT1(XMsgCancelIORequest, kNone, kImplemented);
+  pointer_t<XAM_OVERLAPPED> overlapped_ptr, dword_t result,
+  DECLARE_XAM_EXPORT2(XMsgCompleteIORequest, kNone, kImplemented, kSketchy);
+  dword_result_t XamGetOverlappedResult_entry(
+  pointer_t<XAM_OVERLAPPED> overlapped_ptr, lpdword_t length_ptr,
+  DECLARE_XAM_EXPORT2(XamGetOverlappedResult, kNone, kImplemented, kSketchy);
+  }  // namespace xam
+  DECLARE_XAM_EMPTY_REGISTER_EXPORTS(Msg);
+
+========================================================================
+Path: D:\Games\Red Dead Redemption\xenia-canary-6de80df\src\xenia\kernel\xam\xam_net.cc
+Kind: unknown
+Size: 60439
+SHA1: 717f3f2c75f3d5aeac0e98f83d23f7f489b351ba
+Magic: 2F 2A 2A 0A 20 2A 2A 2A 2A 2A 2A 2A 2A 2A 2A 2A
+Interesting strings:
+  #include "xenia/kernel/XLiveAPI.h"
+  #include "xenia/kernel/xam/xam_module.h"
+  #include "xenia/kernel/xam/xam_private.h"
+  DECLARE_int32(network_mode);
+  DECLARE_string(selected_network_interface);
+  namespace xam {
+  // https://github.com/G91/TitanOffLine/blob/1e692d9bb9dfac386d08045ccdadf4ae3227bb5e/xkelib/xam/xamNet.h
+  // FYI: IN_ADDR should be in network-byte order.
+  char system_status[128 + 1];
+  default:
+  // https://github.com/joolswills/mameox/blob/master/MAMEoX/Sources/xbox_Network.cpp#L136
+  struct XNetStartupParams {
+  uint8_t cfgSockDefaultRecvBufsizeInK;
+  uint8_t cfgSockDefaultSendBufsizeInK;
+  static_assert_size(XNetStartupParams, 0xD);
+  XNetStartupParams xnet_startup_params = {0};
+  struct CodeRedQosListenState {
+  uint16_t system_link_port = 3074;
+  CodeRedQosListenState qos_listen_state;
+  struct CodeRedRegisteredKey {
+  std::vector<CodeRedRegisteredKey> registered_keys;
+  CodeRedRegisteredKey* FindRegisteredKey(uint64_t id) {
+  for (auto& key : registered_keys) {
+  const CodeRedRegisteredKey* FindRegisteredKeyConst(uint64_t id) {
+  for (const auto& key : registered_keys) {
+  void UpsertRegisteredKey(const CodeRedRegisteredKey& registered_key) {
+  if (auto* existing = FindRegisteredKey(registered_key.id)) {
+  *existing = registered_key;
+  registered_keys.push_back(registered_key);
+  void FillXnAddrFromRegisteredKey(XNADDR* addr, const CodeRedRegisteredKey& key) {
+
+========================================================================
+Path: D:\Games\Red Dead Redemption\xenia-canary-6de80df\src\xenia\kernel\xam\xam_notify.cc
+Kind: unknown
+Size: 3815
+SHA1: 2770cc88482e3c97f5e6ed1861b39344e3986bab
+Magic: 2F 2A 2A 0A 20 2A 2A 2A 2A 2A 2A 2A 2A 2A 2A 2A
+Interesting strings:
+  #include "xenia/kernel/xam/xam_private.h"
+  namespace xam {
+  uint32_t xeXamNotifyCreateListener(uint64_t mask, uint32_t is_system,
+  listener->Initialize(mask, is_system, max_version);
+  dword_result_t XamNotifyCreateListener_entry(qword_t mask,
+  return xeXamNotifyCreateListener(mask, type == 2, max_version);
+  DECLARE_XAM_EXPORT1(XamNotifyCreateListener, kNone, kImplemented);
+  dword_result_t XamNotifyCreateListenerInternal_entry(qword_t mask,
+  dword_t is_system,
+  return xeXamNotifyCreateListener(mask, is_system, max_version);
+  DECLARE_XAM_EXPORT1(XamNotifyCreateListenerInternal, kNone, kImplemented);
+  DECLARE_XAM_EXPORT2(XNotifyGetNext, kNone, kImplemented, kHighFrequency);
+  // Ignored.
+  DECLARE_XAM_EXPORT1(XNotifyDelayUI, kNone, kStub);
+  DECLARE_XAM_EXPORT1(XNotifyPositionUI, kNone, kStub);
+  DECLARE_XAM_EXPORT1(XNotifyBroadcast, kNone, kStub);
+  }  // namespace xam
+  DECLARE_XAM_EMPTY_REGISTER_EXPORTS(Notify);
+
+========================================================================
+Path: D:\Games\Red Dead Redemption\xenia-canary-6de80df\src\xenia\kernel\xam\xam_nui.cc
+Kind: unknown
+Size: 15489
+SHA1: 4925c79aa6ce3c22ac63641671a51aa675658566
+Magic: 2F 2A 2A 0A 20 2A 2A 2A 2A 2A 2A 2A 2A 2A 2A 2A
+Interesting strings:
+  #include "xenia/kernel/xam/xam_private.h"
+  " require avatar implementation.",
+  namespace xam {
+  - for one side func of XamNuiGetDeviceStatus
+  dword_result_t XamNuiGetDeviceStatus_entry(
+  - 2) calls XamXStudioRequest(6,&var <- = 0);
+  DECLARE_XAM_EXPORT1(XamNuiGetDeviceStatus, kNone, kStub);
+  dword_result_t XamUserNuiGetUserIndex_entry(unknown_t unk, lpdword_t index) {
+  DECLARE_XAM_EXPORT1(XamUserNuiGetUserIndex, kNone, kStub);
+  dword_result_t XamUserNuiGetUserIndexForSignin_entry(lpdword_t index) {
+  auto profile = kernel_state()->xam_state()->GetUserProfile(i);
+  DECLARE_XAM_EXPORT1(XamUserNuiGetUserIndexForSignin, kNone, kImplemented);
+  dword_result_t XamUserNuiGetUserIndexForBind_entry(lpdword_t index) {
+  DECLARE_XAM_EXPORT1(XamUserNuiGetUserIndexForBind, kNone, kStub);
+  dword_result_t XamNuiGetDepthCalibration_entry(lpdword_t unk1) {
+  DECLARE_XAM_EXPORT1(XamNuiGetDepthCalibration, kNone, kStub);
+  qword_result_t XamNuiSkeletonGetBestSkeletonIndex_entry(int_t unk) {
+  DECLARE_XAM_EXPORT1(XamNuiSkeletonGetBestSkeletonIndex, kNone, kStub);
+  /* XamNuiCamera Notes
+  - most require message calls to xam in 0x0002Bxxx area
+  dword_result_t XamNuiCameraTiltGetStatus_entry(lpvoid_t unk) {
+  - Used by XamNuiCameraElevationGetAngle, and XamNuiCameraSetFlags
+  DECLARE_XAM_EXPORT1(XamNuiCameraTiltGetStatus, kNone, kStub);
+  dword_result_t XamNuiCameraElevationGetAngle_entry(lpqword_t unk1,
+  - Xam 12611 does not show what unk1 is used for (Ghidra)
+  X_STATUS result = XamNuiCameraTiltGetStatus_entry(tilt_status);
+  DECLARE_XAM_EXPORT1(XamNuiCameraElevationGetAngle, kNone, kStub);
+  dword_result_t XamNuiCameraGetTiltControllerType_entry() {
+  DECLARE_XAM_EXPORT1(XamNuiCameraGetTiltControllerType, kNone, kStub);
+  dword_result_t XamNuiCameraSetFlags_entry(qword_t unk1, dword_t unk2) {
+
+========================================================================
+Path: D:\Games\Red Dead Redemption\xenia-canary-6de80df\src\xenia\kernel\xam\xam_ordinals.h
+Kind: unknown
+Size: 919
+SHA1: ff4f61c9168848d1902e38381b0fe43b5cdbe548
+Magic: 2F 2A 2A 0A 20 2A 2A 2A 2A 2A 2A 2A 2A 2A 2A 2A
+Interesting strings:
+  #ifndef XENIA_KERNEL_XAM_XAM_ORDINALS_H_
+  #define XENIA_KERNEL_XAM_XAM_ORDINALS_H_
+  #include "xenia/kernel/xam/xam_table.inc"
+  #endif  // XENIA_KERNEL_XAM_XAM_ORDINALS_H_
+
+========================================================================
+Path: D:\Games\Red Dead Redemption\xenia-canary-6de80df\src\xenia\kernel\xam\xam_party.cc
+Kind: unknown
+Size: 1692
+SHA1: 1ebb6998b4ed61ad55282afa5bda3e93eac598bb
+Magic: 2F 2A 2A 0A 20 2A 2A 2A 2A 2A 2A 2A 2A 2A 2A 2A
+Interesting strings:
+  #include "xenia/kernel/xam/xam_private.h"
+  namespace xam {
+  dword_result_t XamPartyGetUserList_entry(dword_t player_count,
+  DECLARE_XAM_EXPORT1(XamPartyGetUserList, kNone, kStub);
+  dword_result_t XamPartySendGameInvites_entry(dword_t r3, dword_t r4,
+  DECLARE_XAM_EXPORT1(XamPartySendGameInvites, kNone, kStub);
+  dword_result_t XamPartySetCustomData_entry(dword_t r3, dword_t r4, dword_t r5) {
+  DECLARE_XAM_EXPORT1(XamPartySetCustomData, kNone, kStub);
+  dword_result_t XamPartyGetBandwidth_entry(dword_t r3, dword_t r4) {
+  DECLARE_XAM_EXPORT1(XamPartyGetBandwidth, kNone, kStub);
+  }  // namespace xam
+  DECLARE_XAM_EMPTY_REGISTER_EXPORTS(Party);
+
+========================================================================
+Path: D:\Games\Red Dead Redemption\xenia-canary-6de80df\src\xenia\kernel\xam\xam_private.h
+Kind: unknown
+Size: 1191
+SHA1: 9570229ab7adb569ec2e1326e882150cb5095c7d
+Magic: 2F 2A 2A 0A 20 2A 2A 2A 2A 2A 2A 2A 2A 2A 2A 2A
+Interesting strings:
+  #ifndef XENIA_KERNEL_XAM_XAM_PRIVATE_H_
+  #define XENIA_KERNEL_XAM_XAM_PRIVATE_H_
+  #include "xenia/kernel/xam/xam_ordinals.h"
+  namespace xam {
+  xe::cpu::Export* RegisterExport_xam(xe::cpu::Export* export_entry);
+  #include "xam_module_export_groups.inc"
+  }  // namespace xam
+  #endif  // XENIA_KERNEL_XAM_XAM_PRIVATE_H_
+
+========================================================================
+Path: D:\Games\Red Dead Redemption\xenia-canary-6de80df\src\xenia\kernel\xam\xam_profile.cc
+Kind: unknown
+Size: 4757
+SHA1: 7210a7a6011e2553e2da3b28c2cfbd8cb92fde02
+Magic: 2F 2A 2A 0A 20 2A 2A 2A 2A 2A 2A 2A 2A 2A 2A 2A
+Interesting strings:
+  #include "xenia/kernel/xam/profile_manager.h"
+  #include "xenia/kernel/xam/xam_private.h"
+  namespace xam {
+  dword_result_t XamProfileFindAccount_entry(
+  qword_t offline_xuid, pointer_t<X_XAMACCOUNTINFO> account_ptr,
+  const X_XAMACCOUNTINFO* account =
+  kernel_state()->xam_state()->profile_manager()->GetAccount(offline_xuid);
+  DECLARE_XAM_EXPORT1(XamProfileFindAccount, kUserProfiles, kImplemented);
+  dword_result_t XamProfileOpen_entry(
+  if (!kernel_state()->xam_state()->profile_manager()->MountProfile(
+  content_data_ptr->title_id = kDashboardID;
+  DECLARE_XAM_EXPORT1(XamProfileOpen, kNone, kImplemented);
+  dword_result_t XamProfileCreate_entry(
+  pointer_t<X_XAMACCOUNTINFO> account,
+  pointer_t<X_PASSPORT_SESSION_TOKEN> user_token,
+  pointer_t<X_PASSPORT_SESSION_TOKEN> owner_token,
+  kernel_memory()->SystemHeapAlloc(sizeof(X_PROFILE_CREATION_INFO));
+  // calls XamTaskSchedule
+  bool result = kernel_state()->xam_state()->profile_manager()->CreateProfile(
+  DECLARE_XAM_EXPORT1(XamProfileCreate, kNone, kSketchy);
+  dword_result_t XamProfileClose_entry(lpstring_t mount_name) {
+  kernel_state()->file_system()->UnregisterDevice(guest_name + ':');
+  DECLARE_XAM_EXPORT1(XamProfileClose, kNone, kStub);
+  dword_result_t XamProfileGetCreationStatus_entry(
+  // None of this can be done until XamTaskSchedule is handled in
+  // XamProfileCreate. X_RESULT result =
+  // XamTaskGetStatus(profile_info->task_handle_ptr);
+  // result = XamTaskGetCompletionStatus(profile_info->task_handle_ptr)
+  XELOGE("XamProfileGetCreationStatus: Invalid profile_info provided!");
+  kernel_state()->memory()->SystemHeapFree(profile_info.guest_address());
+
+========================================================================
+Path: D:\Games\Red Dead Redemption\xenia-canary-6de80df\src\xenia\kernel\xam\xam_state.cc
+Kind: unknown
+Size: 2483
+SHA1: f223bee658b7ab33c543b376f51491731cef7158
+Magic: 2F 2A 2A 0A 20 2A 2A 2A 2A 2A 2A 2A 2A 2A 2A 2A
+Interesting strings:
+  #include "xenia/kernel/xam/xam_state.h"
+  namespace xam {
+  XamState::XamState(Emulator* emulator, KernelState* kernel_state)
+  content_root = std::filesystem::absolute(content_root);
+  UserProfile* XamState::GetUserProfile(uint32_t user_index) const {
+  UserProfile* XamState::GetUserProfile(uint64_t xuid) const {
+  bool XamState::IsUserSignedIn(uint32_t user_index) const {
+  bool XamState::IsUserSignedIn(uint64_t xuid) const {
+  void XamState::LoadSpaInfo(const SpaInfo* info) {
+  user_tracker_->UpdateSpaInfo(spa_info_.get());
+  void XamState::SetContentRegisterCallback(uint32_t callback) {
+  }  // namespace xam
+
+========================================================================
+Path: D:\Games\Red Dead Redemption\xenia-canary-6de80df\src\xenia\kernel\xam\xam_state.h
+Kind: unknown
+Size: 2651
+SHA1: 11eef57cfa3bac057985c08ba1ea5ceb8da56ebe
+Magic: 2F 2A 2A 0A 20 2A 2A 2A 2A 2A 2A 2A 2A 2A 2A 2A
+Interesting strings:
+  #ifndef XENIA_KERNEL_XAM_XAM_STATE_H_
+  #define XENIA_KERNEL_XAM_XAM_STATE_H_
+  #include "xenia/kernel/xam/achievement_manager.h"
+  #include "xenia/kernel/xam/app_manager.h"
+  #include "xenia/kernel/xam/content_manager.h"
+  #include "xenia/kernel/xam/profile_manager.h"
+  #include "xenia/kernel/xam/user_tracker.h"
+  #include "xenia/kernel/xam/xam.h"
+  namespace xam {
+  class XamState {
+  XamState(Emulator* emulator, KernelState* kernel_state);
+  ~XamState() = default;
+  return xam_dialogs_shown_ > 0 || xam_nui_dialogs_shown_ > 0;
+  X_DASH_APP_INFO dash_app_info_ = {};
+  uint32_t dash_backstack_nodes_count_ = 0;
+  X_DASH_BACKSTACK_DATA dash_backstack_data_[2] = {};
+  std::atomic<int32_t> xam_dialogs_shown_ = {0};
+  std::atomic<int32_t> xam_nui_dialogs_shown_ = {0};
+  }  // namespace xam
+
+========================================================================
+Path: D:\Games\Red Dead Redemption\xenia-canary-6de80df\src\xenia\kernel\xam\xam_table.inc
+Kind: unknown
+Size: 181159
+SHA1: 0b8a1e3f360e67c770f36f863fbf0bfeed50d188
+Magic: 2F 2A 2A 0A 20 2A 2A 2A 2A 2A 2A 2A 2A 2A 2A 2A
+Interesting strings:
+  XE_EXPORT(xam,      0x00000001, NetDll_WSAStartup,                                          kFunction),
+  XE_EXPORT(xam,      0x00000002, NetDll_WSACleanup,                                          kFunction),
+  XE_EXPORT(xam,      0x00000003, NetDll_socket,                                              kFunction),
+  XE_EXPORT(xam,      0x00000004, NetDll_closesocket,                                         kFunction),
+  XE_EXPORT(xam,      0x00000005, NetDll_shutdown,                                            kFunction),
+  XE_EXPORT(xam,      0x00000006, NetDll_ioctlsocket,                                         kFunction),
+  XE_EXPORT(xam,      0x00000007, NetDll_setsockopt,                                          kFunction),
+  XE_EXPORT(xam,      0x00000008, NetDll_getsockopt,                                          kFunction),
+  XE_EXPORT(xam,      0x00000009, NetDll_getsockname,                                         kFunction),
+  XE_EXPORT(xam,      0x0000000A, NetDll_getpeername,                                         kFunction),
+  XE_EXPORT(xam,      0x0000000B, NetDll_bind,                                                kFunction),
+  XE_EXPORT(xam,      0x0000000C, NetDll_connect,                                             kFunction),
+  XE_EXPORT(xam,      0x0000000D, NetDll_listen,                                              kFunction),
+  XE_EXPORT(xam,      0x0000000E, NetDll_accept,                                              kFunction),
+  XE_EXPORT(xam,      0x0000000F, NetDll_select,                                              kFunction),
+  XE_EXPORT(xam,      0x00000010, NetDll_WSAGetOverlappedResult,                              kFunction),
+  XE_EXPORT(xam,      0x00000011, NetDll_WSACancelOverlappedIO,                               kFunction),
+  XE_EXPORT(xam,      0x00000012, NetDll_recv,                                                kFunction),
+  XE_EXPORT(xam,      0x00000013, NetDll_WSARecv,                                             kFunction),
+  XE_EXPORT(xam,      0x00000014, NetDll_recvfrom,                                            kFunction),
+  XE_EXPORT(xam,      0x00000015, NetDll_WSARecvFrom,                                         kFunction),
+  XE_EXPORT(xam,      0x00000016, NetDll_send,                                                kFunction),
+  XE_EXPORT(xam,      0x00000017, NetDll_WSASend,                                             kFunction),
+  XE_EXPORT(xam,      0x00000018, NetDll_sendto,                                              kFunction),
+  XE_EXPORT(xam,      0x00000019, NetDll_WSASendTo,                                           kFunction),
+  XE_EXPORT(xam,      0x0000001A, NetDll_inet_addr,                                           kFunction),
+  XE_EXPORT(xam,      0x0000001B, NetDll_WSAGetLastError,                                     kFunction),
+  XE_EXPORT(xam,      0x0000001C, NetDll_WSASetLastError,                                     kFunction),
+  XE_EXPORT(xam,      0x0000001D, NetDll_WSACreateEvent,                                      kFunction),
+  XE_EXPORT(xam,      0x0000001E, NetDll_WSACloseEvent,                                       kFunction),
+
+========================================================================
+Path: D:\Games\Red Dead Redemption\xenia-canary-6de80df\src\xenia\kernel\xam\xam_task.cc
+Kind: unknown
+Size: 3263
+SHA1: 04ec0cf239e148964c64b3771aa669564d31dba3
+Magic: 2F 2A 2A 0A 20 2A 2A 2A 2A 2A 2A 2A 2A 2A 2A 2A
+Interesting strings:
+  #include "xenia/kernel/xam/xam_private.h"
+  namespace xam {
+  struct XAM_TASK_ARGS {
+  dword_result_t XamTaskSchedule_entry(lpvoid_t callback,
+  auto option = ctx->TranslateVirtual<XAM_TASK_ARGS*>(optional_ptr);
+  XELOGI("Got xam task args: v1 = {:08X}, v2 = {:08X}", v1.get(), v2.get());
+  false, kernel_state()->GetSystemProcess()));
+  XELOGE("XAM task creation failed: {:08X}", result);
+  XELOGD("XAM task ({:08X}) scheduled asynchronously",
+  DECLARE_XAM_EXPORT2(XamTaskSchedule, kNone, kImplemented, kSketchy);
+  dword_result_t XamTaskCloseHandle_entry(dword_t obj_handle) {
+  DECLARE_XAM_EXPORT1(XamTaskCloseHandle, kNone, kImplemented);
+  dword_result_t XamTaskShouldExit_entry() { return 0; }
+  DECLARE_XAM_EXPORT1(XamTaskShouldExit, kNone, kStub);
+  }  // namespace xam
+  DECLARE_XAM_EMPTY_REGISTER_EXPORTS(Task);
+
+========================================================================
+Path: D:\Games\Red Dead Redemption\xenia-canary-6de80df\src\xenia\kernel\xam\xam_ui.cc
+Kind: unknown
+Size: 37382
+SHA1: c6f8ad1147f18b8031c5b39f953e7dfce52be9b5
+Magic: 2F 2A 2A 0A 20 2A 2A 2A 2A 2A 2A 2A 2A 2A 2A 2A
+Interesting strings:
+  #include "xenia/kernel/xam/xam_ui.h"
+  #include "xenia/base/system.h"
+  #include "xenia/hid/input_system.h"
+  #include "xenia/kernel/xam/xam_content_device.h"
+  #include "xenia/kernel/xam/xam_private.h"
+  #include "xenia/kernel/xam/ui/create_profile_ui.h"
+  #include "xenia/kernel/xam/ui/game_achievements_ui.h"
+  #include "xenia/kernel/xam/ui/gamercard_ui.h"
+  #include "xenia/kernel/xam/ui/passcode_ui.h"
+  #include "xenia/kernel/xam/ui/signin_ui.h"
+  #include "xenia/kernel/xam/ui/title_info_ui.h"
+  namespace xam {
+  // The deferred execution of dialog handling is done in such a way that there is
+  X_RESULT xeXamDispatchDialog(T* dialog,
+  kernel_state()->BroadcastNotification(kXNotificationSystemUI, true);
+  kernel_state()->xam_state()->xam_dialogs_shown_++;
+  kernel_state()->xam_state()->xam_dialogs_shown_--;
+  kernel_state()->BroadcastNotification(kXNotificationSystemUI, false);
+  kernel_state()->CompleteOverlappedDeferred(run, overlapped, pre, post);
+  X_RESULT xeXamDispatchDialogEx(
+  kernel_state()->CompleteOverlappedDeferredEx(run, overlapped, pre, post);
+  X_RESULT xeXamDispatchHeadless(std::function<X_RESULT()> run_callback,
+  kernel_state()->CompleteOverlappedDeferred(run_callback, overlapped, pre,
+  X_RESULT xeXamDispatchHeadlessEx(
+  kernel_state()->CompleteOverlappedDeferredEx(run_callback, overlapped, pre,
+  X_RESULT xeXamDispatchDialogAsync(T* dialog,
+  // Important to pass captured vars by value here since we return from this
+  X_RESULT xeXamDispatchHeadlessAsync(std::function<void()> run_callback) {
+  static dword_result_t XamShowMessageBoxUi(
+  pointer_t<XAM_OVERLAPPED> overlapped) {
+
+========================================================================
+Path: D:\Games\Red Dead Redemption\xenia-canary-6de80df\src\xenia\kernel\xam\xam_ui.h
+Kind: unknown
+Size: 3772
+SHA1: 286abd9a180a949cb65ceb1fba9ce2ae1275c4ea
+Magic: 2F 2A 2A 0A 20 2A 2A 2A 2A 2A 2A 2A 2A 2A 2A 2A
+Interesting strings:
+  #ifndef XENIA_KERNEL_XAM_XAM_UI_H_
+  #define XENIA_KERNEL_XAM_XAM_UI_H_
+  namespace xam {
+  class XamDialog : public xe::ui::ImGuiDialog {
+  XamDialog(xe::ui::ImGuiDrawer* imgui_drawer)
+  virtual ~XamDialog() {};
+  class MessageBoxDialog : public XamDialog {
+  uint32_t default_button)
+  : XamDialog(imgui_drawer),
+  default_button_(default_button),
+  chosen_button_(default_button) {
+  uint32_t default_button_ = 0;
+  class KeyboardInputDialog : public XamDialog {
+  std::string& description, std::string& default_text,
+  default_text_(default_text),
+  text_ = default_text;
+  xe::string_util::copy_truncating(text_buffer_.data(), default_text_,
+  std::string default_text_;
+  const X_XAMACCOUNTINFO* account,
+  }  // namespace xam
+
+========================================================================
+Path: D:\Games\Red Dead Redemption\xenia-canary-6de80df\src\xenia\kernel\xam\xam_user.cc
+Kind: unknown
+Size: 38626
+SHA1: f65569dd3c08fd12abfc8a7f039d6295b20ce443
+Magic: 2F 2A 2A 0A 20 2A 2A 2A 2A 2A 2A 2A 2A 2A 2A 2A
+Interesting strings:
+  #include "xenia/kernel/xam/user_profile.h"
+  #include "xenia/kernel/xam/user_settings.h"
+  #include "xenia/kernel/xam/xam_private.h"
+  namespace xam {
+  X_HRESULT_result_t XamUserGetXUID_entry(dword_t user_index, dword_t type_mask,
+  if (!kernel_state()->xam_state()->IsUserSignedIn(user_index)) {
+  kernel_state()->xam_state()->GetUserProfile(user_index);
+  DECLARE_XAM_EXPORT1(XamUserGetXUID, kUserProfiles, kImplemented);
+  dword_result_t XamUserGetIndexFromXUID_entry(qword_t xuid, dword_t flags,
+  ->xam_state()
+  DECLARE_XAM_EXPORT1(XamUserGetIndexFromXUID, kUserProfiles, kImplemented);
+  dword_result_t XamUserGetSigninState_entry(dword_t user_index) {
+  if (kernel_state()->xam_state()->IsUserSignedIn(user_index)) {
+  DECLARE_XAM_EXPORT2(XamUserGetSigninState, kUserProfiles, kImplemented,
+  X_HRESULT_result_t XamUserGetSigninInfo_entry(
+  DECLARE_XAM_EXPORT1(XamUserGetSigninInfo, kUserProfiles, kImplemented);
+  dword_result_t XamUserGetName_entry(dword_t user_index, dword_t buffer,
+  // Based on XAM only first byte is cleared in case of lack of user.
+  DECLARE_XAM_EXPORT1(XamUserGetName, kUserProfiles, kImplemented);
+  dword_result_t XamUserGetGamerTag_entry(dword_t user_index, dword_t buffer,
+  DECLARE_XAM_EXPORT1(XamUserGetGamerTag, kUserProfiles, kImplemented);
+  // https://github.com/oukiar/freestyledash/blob/master/Freestyle/Tools/Generic/xboxtools.cpp
+  uint32_t XamUserReadProfileSettingsEx(uint32_t title_id, uint32_t user_index,
+  default:
+  auto user_profile = kernel_state()->xam_state()->GetUserProfile(user_index);
+  if (!kernel_state()->xam_state()->IsUserSignedIn(user_xuid)) {
+  user_profile = kernel_state()->xam_state()->GetUserProfile(user_xuid);
+  "xeXamUserReadProfileSettingsEx requested unimplemented setting "
+  kernel_state()->xam_state()->user_tracker()->GetUserSetting(
+  kernel_state()->CompleteOverlappedDeferredEx(run, overlapped_ptr);
+
+========================================================================
+Path: D:\Games\Red Dead Redemption\xenia-canary-6de80df\src\xenia\kernel\xam\xam_video.cc
+Kind: unknown
+Size: 1694
+SHA1: e81147cf551755d1b95c2237d656bc12dc1c85f4
+Magic: 2F 2A 2A 0A 20 2A 2A 2A 2A 2A 2A 2A 2A 2A 2A 2A
+Interesting strings:
+  #include "xenia/kernel/xam/xam_private.h"
+  namespace xam {
+  DECLARE_XAM_EXPORT1(XGetVideoMode, kVideo, kSketchy);
+  DECLARE_XAM_EXPORT1(XGetVideoCapabilities, kVideo, kStub);
+  }  // namespace xam
+  DECLARE_XAM_EMPTY_REGISTER_EXPORTS(Video);
+
+========================================================================
+Path: D:\Games\Red Dead Redemption\xenia-canary-6de80df\src\xenia\kernel\xam\xam_voice.cc
+Kind: unknown
+Size: 1963
+SHA1: d275577eda0211b0f62d1755f04c33aa08efa5cb
+Magic: 2F 2A 2A 0A 20 2A 2A 2A 2A 2A 2A 2A 2A 2A 2A 2A
+Interesting strings:
+  #include "xenia/kernel/xam/xam_private.h"
+  namespace xam {
+  dword_result_t XamVoiceIsActiveProcess_entry() {
+  DECLARE_XAM_EXPORT1(XamVoiceIsActiveProcess, kNone, kStub);
+  dword_result_t XamVoiceCreate_entry(dword_t user_index,
+  DECLARE_XAM_EXPORT1(XamVoiceCreate, kNone, kStub);
+  dword_result_t XamVoiceClose_entry(lpunknown_t voice_ptr) { return 0; }
+  DECLARE_XAM_EXPORT1(XamVoiceClose, kNone, kStub);
+  dword_result_t XamVoiceHeadsetPresent_entry(lpunknown_t voice_ptr) { return 0; }
+  DECLARE_XAM_EXPORT1(XamVoiceHeadsetPresent, kNone, kStub);
+  dword_result_t XamVoiceSubmitPacket_entry(lpdword_t unk1, dword_t unk2,
+  DECLARE_XAM_EXPORT1(XamVoiceSubmitPacket, kNone, kStub);
+  dword_result_t XamVoiceGetMicArrayStatus_entry() {
+  DECLARE_XAM_EXPORT1(XamVoiceGetMicArrayStatus, kNone, kStub);
+  }  // namespace xam
+  DECLARE_XAM_EMPTY_REGISTER_EXPORTS(Voice);
+
+========================================================================
+Path: D:\Games\Red Dead Redemption\xenia-canary-6de80df\src\xenia\kernel\xam\apps\xam_app.cc
+Kind: unknown
+Size: 6694
+SHA1: d72f49bc1d1113ca0f67d2a0606856ee0aeb4545
+Magic: 2F 2A 2A 0A 20 2A 2A 2A 2A 2A 2A 2A 2A 2A 2A 2A
+Interesting strings:
+  #include "xenia/kernel/xam/apps/xam_app.h"
+  #include "xenia/kernel/xam/xam_content_device.h"
+  - Messages ids that start with 0x0002Cxxx are used by the XamNuiIdentity
+  namespace xam {
+  XamApp::XamApp(KernelState* kernel_state) : App(kernel_state, 0xFE) {}
+  X_HRESULT XamApp::DispatchMessageSync(uint32_t message, uint32_t buffer_ptr,
+  default: {
+  XELOGD("XamUnk2B003({:016X}, {:016X}, {:016X}), unimplemented",
+  "Unimplemented XAM message app={:08X}, msg={:08X}, arg1={:08X}, "
+  }  // namespace xam
+
+========================================================================
+Path: D:\Games\Red Dead Redemption\xenia-canary-6de80df\src\xenia\kernel\xam\apps\xam_app.h
+Kind: unknown
+Size: 1075
+SHA1: bc10986da3ce20bc5bc7e80efce82e1f571c407e
+Magic: 2F 2A 2A 0A 20 2A 2A 2A 2A 2A 2A 2A 2A 2A 2A 2A
+Interesting strings:
+  #ifndef XENIA_KERNEL_XAM_APPS_XAM_APP_H_
+  #define XENIA_KERNEL_XAM_APPS_XAM_APP_H_
+  #include "xenia/kernel/xam/app_manager.h"
+  namespace xam {
+  class XamApp : public App {
+  explicit XamApp(KernelState* kernel_state);
+  }  // namespace xam
+  #endif  // XENIA_KERNEL_XAM_APPS_XAM_APP_H_
+
+========================================================================
+Path: D:\Games\Red Dead Redemption\xenia-canary-6de80df\src\xenia\ui\surface.h
+Kind: unknown
+Size: 2895
+SHA1: 8d66729565d2d7ab34ee49600e228a99bcbd9c71
+Magic: 2F 2A 2A 0A 20 2A 2A 2A 2A 2A 2A 2A 2A 2A 2A 2A
+Interesting strings:
+  virtual ~Surface() = default;
+  // stretching happens, it is required that surface pixels have 1:1 aspect
+  Surface() = default;
+
+========================================================================
+Path: D:\Games\Red Dead Redemption\xenia-canary-6de80df\src\xenia\ui\surface_android.cc
+Kind: unknown
+Size: 1102
+SHA1: 0e4948adc2c6478b198e9194f403ec1088f4a49f
+Magic: 2F 2A 2A 0A 20 2A 2A 2A 2A 2A 2A 2A 2A 2A 2A 2A
+
+========================================================================
+Path: D:\Games\Red Dead Redemption\xenia-canary-6de80df\src\xenia\ui\surface_android.h
+Kind: unknown
+Size: 1151
+SHA1: f180df37b92297f405f951e250b402eda59ae6cc
+Magic: 2F 2A 2A 0A 20 2A 2A 2A 2A 2A 2A 2A 2A 2A 2A 2A
+
+========================================================================
+Path: D:\Games\Red Dead Redemption\xenia-canary-6de80df\src\xenia\ui\surface_gnulinux.cc
+Kind: unknown
+Size: 1002
+SHA1: 1bb6d3905c7755b41d07f114fcb6d9464b9c6eec
+Magic: 2F 2A 2A 0A 20 2A 2A 2A 2A 2A 2A 2A 2A 2A 2A 2A
+
+========================================================================
+Path: D:\Games\Red Dead Redemption\xenia-canary-6de80df\src\xenia\ui\surface_gnulinux.h
+Kind: unknown
+Size: 1258
+SHA1: 5efb8e48a922bf3d22829f1e2e318c84081f9a7e
+Magic: 2F 2A 2A 0A 20 2A 2A 2A 2A 2A 2A 2A 2A 2A 2A 2A
+
+========================================================================
+Path: D:\Games\Red Dead Redemption\xenia-canary-6de80df\src\xenia\ui\surface_win.cc
+Kind: unknown
+Size: 1048
+SHA1: dca3a45cf063e4ec087327c450122bc05dd33a4a
+Magic: 2F 2A 2A 0A 20 2A 2A 2A 2A 2A 2A 2A 2A 2A 2A 2A
+
+========================================================================
+Path: D:\Games\Red Dead Redemption\xenia-canary-6de80df\src\xenia\ui\surface_win.h
+Kind: unknown
+Size: 1389
+SHA1: 7731212280f08d5be37d51f96991a99affa3b73f
+Magic: 2F 2A 2A 0A 20 2A 2A 2A 2A 2A 2A 2A 2A 2A 2A 2A

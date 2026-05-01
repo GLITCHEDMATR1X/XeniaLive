@@ -1,0 +1,143 @@
+CodeRED XEX / Package Viewer v10
+Time: 2026-05-01 01:33:27
+Root/input: D:\Games\Red Dead Redemption\xenia-canary-6de80df\rdr 1.zip
+
+Summary:
+  XMNP_manifest: 1
+  XEX2: 1
+  PIRS: 1
+  default.xex count: 1
+  high warnings: 3
+
+========================================================================
+Path: system.manifest
+Container: D:\Games\Red Dead Redemption\xenia-canary-6de80df\rdr 1.zip
+Kind: XMNP_manifest
+Size: 6276
+SHA1: e3dffa5aebe31ccf5174cd8c646568b5d53aa33d
+Magic: 58 4D 4E 50 CA 09 D1 D3 4F 17 C8 1E 1B B0 92 73
+Manifest:
+  dashboard module matches: 10
+    AvatarEditor.xex
+    dash.firstuse.xex
+    dashnui.xex
+    Guide.AvatarMiniCreator.xex
+    livepack.xex
+    natalsu.xex
+    nuihud.xex
+    Xam.Community.xex
+    Xam.LiveMessenger.xex
+    Xna_TitleLauncher.xex
+Warnings:
+  [high] System update / dashboard support content detected. Keep as reference only; avoid extraction into active launch folders.
+  [high] Dashboard/avatar/guide module names detected. This is reference material, not the RDR multiplayer world.
+Interesting strings:
+  FFFE07DF00000002.cab
+  AvatarAssetPack.toc
+  FFFE07DF00000006.cab
+  Nielsen.xma
+  FFFE07DF00000008.cab
+  FFFE07DF00000001.cab
+  AvatarEditor.xex
+  BiometricSetup.xex
+  Dash.AttractionScreen.xex
+  dash.ExtraAVCodecs.xex
+  Dash.FieldCalibration.lex
+  dash.firstuse.xex
+  Dash.Kiosk.lex
+  Dash.MP.Offline.lex
+  dash.natalpregame.xex
+  dash.NuiFirstUse.xex
+  dash.nuihub.xex
+  Dash.NuiTroubleshooter.lex
+  dashnui.xex
+  Guide.AvatarMiniCreator.xex
+  Guide.NuiTroubleshooter.xex
+  livepack.xex
+  mediasite.xzp
+  natalsu.xex
+  nuihud.xex
+  Xam.Community.xex
+  Xam.LiveMessenger.xex
+  Xam.WordRegister.xex
+  XimeDic.xex
+  XimeDicCh.xex
+
+========================================================================
+Path: default.xex
+Container: D:\Games\Red Dead Redemption\xenia-canary-6de80df\rdr 1.zip
+Kind: XEX2
+Size: 18595840
+SHA1: 107c91e9360271adcd5ccaa670912afceac4939f
+Magic: 58 45 58 32 00 00 00 01 00 00 40 00 00 00 00 00
+XEX:
+  PE/data offset: 0x00004000
+  security info offset: 0x00000098
+  optional header count: 16
+  entry point: 0x823DA7C0
+  image base: 0x82000000
+  optional headers:
+    0x000002FF resource_info -> 0x00001F44
+    0x000003FF base_file_format -> 0x00001F58
+    0x00010100 entry_point -> 0x823DA7C0
+    0x00010201 image_base_address -> 0x82000000
+    0x000103FF import_libraries -> 0x00003780
+    0x00018002 checksum_timestamp -> 0x00001F80
+    0x000183FF original_pe_name -> 0x00001F88
+    0x000200FF static_libraries -> 0x00001FA4
+    0x00020104 tls_info -> 0x00002078
+    0x00020200 default_stack_size -> 0x00040000
+    0x00030000 page_descriptor_table -> 0x00018600
+    0x00040006 system_flags -> 0x00002088
+    0x00040310 execution_info -> 0x000020A0
+    0x00040404 service_id_list -> 0x000020E0
+    0x000405FF title_workspace_size -> 0x000020F0
+    0x000406FF game_ratings -> 0x000027B8
+Warnings:
+  [medium] default.xex found. Verify it is the intended game executable, not a nearby system update executable.
+Interesting strings:
+  rdr2_xenon_final.exe
+  xam.xex
+
+========================================================================
+Path: su20076000_00000000
+Container: D:\Games\Red Dead Redemption\xenia-canary-6de80df\rdr 1.zip
+Kind: PIRS
+Size: 11649024
+SHA1: e0cd72cdd65b0829cc3c0b8e81fad1f06665fb9c
+Magic: 50 49 52 53 67 0E 63 5A 0C FD 79 48 C9 3E AF 6F
+Package:
+  Xbox 360 STFS/PIRS/LIVE/CON package
+Warnings:
+  [high] System update / dashboard support content detected. Keep as reference only; avoid extraction into active launch folders.
+Interesting strings:
+  $flash_bootanim.xex
+  $flash_createprofile.xex
+  $flash_dash.xex
+  $flash_deviceselector.xex
+  $flash_gamerprofile.xex
+  $flash_hud.xex
+  $flash_huduiskin.xex
+  $flash_mfgbootlauncher.xex
+  $flash_minimediaplayer.xex
+  $flash_oddupd1.xex
+  $flash_oddupd2.xex
+  $flash_oddupd3.xex
+  $flash_signin.xex
+  $flash_systemupdate.xex
+  $flash_systemupdate2pre.xex
+  $flash_updater.xex
+  $flash_vk.xex
+  $flash_xam.xex
+  $flash_ximecore.xex
+  $install_extender.xex
+  \Device\Flash\bootanim.xex
+  $\Device\Flash\createprofile.xex
+  XNETY
+  xam.xex
+  *}dashuisk
+  Wanetwork
+  dashcomm
+  dashmain
+  \Device\Flash\dash.xex
+  dash.exe

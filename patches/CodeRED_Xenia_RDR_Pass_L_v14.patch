@@ -1,0 +1,845 @@
+﻿diff --git "a/CodeRED_Collect_Small_Logs_v14.bat" "b/CodeRED_Collect_Small_Logs_v14.bat"
+new file mode 100644
+index 0000000..261e1ab
+--- /dev/null
++++ "b/CodeRED_Collect_Small_Logs_v14.bat"
+@@ -0,0 +1,12 @@
++@echo off
++setlocal
++cd /d "%~dp0"
++if not exist logs mkdir logs
++py -3 tools\codered_rdr_bootstrap_guard_v9.py collect
++if errorlevel 1 python tools\codered_rdr_bootstrap_guard_v9.py collect
++if exist tools\codered_collect_v12.py py -3 tools\codered_collect_v12.py
++echo.
++echo v14 bundle:
++echo   logs\codered_rdr_small_logs_v14_*.zip
++echo.
++pause
+diff --git "a/CodeRED_RDR_Bootstrap_Menu_v9.bat" "b/CodeRED_RDR_Bootstrap_Menu_v9.bat"
+index 8b51a08..c12b098 100644
+--- "a/CodeRED_RDR_Bootstrap_Menu_v9.bat"
++++ "b/CodeRED_RDR_Bootstrap_Menu_v9.bat"
+@@ -4,29 +4,33 @@ cd /d "%~dp0"
+ :menu
+ cls
+ echo ============================================================
+-echo  CodeRED Xenia Canary - RDR GOTY Bootstrap v12
++echo  CodeRED Xenia Canary - RDR GOTY Bootstrap v14
+ echo ============================================================
+-echo Default focus: use True LAN Disc 1 first. Private host is now quiet/passive.
++echo Default focus: Singleplayer Host Disc 1 first. Saves are disabled in SP Host.
+ echo.
+-echo 1. Start BootstrapHost v12 only  ^(quiet/passive UDP^)
+-echo 2. Private Bootstrap - Disc 1 SAFE
+-echo 3. Private Bootstrap - Disc 2 SAFE  ^(fallback^)
+-echo 4. True LAN - Disc 1 SAFE  ^(recommended current test^)
+-echo 5. True LAN - Disc 2 SAFE
+-echo 6. Offline baseline - Disc 1 SAFE
+-echo 7. Profile/sign-in check
+-echo 8. Collect small logs/correlation v12 to send back
+-echo 9. Exit
++echo 1. Start BootstrapHost v14 only  ^(quiet/minimized^)
++echo 2. Singleplayer Host - Disc 1 SAFE  ^(saving disabled^)
++echo 3. Singleplayer Host - Disc 2 SAFE  ^(saving disabled fallback^)
++echo 4. Private Bootstrap - Disc 1 SAFE
++echo 5. Private Bootstrap - Disc 2 SAFE
++echo 6. True LAN - Disc 1 SAFE
++echo 7. True LAN - Disc 2 SAFE
++echo 8. Offline baseline - Disc 1 SAFE
++echo 9. Profile/sign-in check
++echo 10. Collect small logs/correlation v14 to send back
++echo 11. Exit
+ echo.
+ set /p CHOICE=Choose: 
+ if "%CHOICE%"=="1" call CodeRED_Start_RDR_BootstrapHost_v9.bat
+-if "%CHOICE%"=="2" call CodeRED_Run_RDR_PrivateBootstrap_Disc1_Safe_v9.bat
+-if "%CHOICE%"=="3" call CodeRED_Run_RDR_PrivateBootstrap_Disc2_Safe_v9.bat
+-if "%CHOICE%"=="4" call CodeRED_Run_RDR_LAN_Disc1_Safe_v9.bat
+-if "%CHOICE%"=="5" call CodeRED_Run_RDR_LAN_Disc2_Safe_v9.bat
+-if "%CHOICE%"=="6" call CodeRED_Run_RDR_Offline_Disc1_Safe_v9.bat
+-if "%CHOICE%"=="7" call CodeRED_Profile_Check_v9.bat
+-if "%CHOICE%"=="8" call CodeRED_Collect_Small_Logs_v12.bat
+-if "%CHOICE%"=="9" exit /b 0
++if "%CHOICE%"=="2" call CodeRED_Run_RDR_SPHost_Disc1_Safe_v14.bat
++if "%CHOICE%"=="3" call CodeRED_Run_RDR_SPHost_Disc2_Safe_v14.bat
++if "%CHOICE%"=="4" call CodeRED_Run_RDR_PrivateBootstrap_Disc1_Safe_v9.bat
++if "%CHOICE%"=="5" call CodeRED_Run_RDR_PrivateBootstrap_Disc2_Safe_v9.bat
++if "%CHOICE%"=="6" call CodeRED_Run_RDR_LAN_Disc1_Safe_v9.bat
++if "%CHOICE%"=="7" call CodeRED_Run_RDR_LAN_Disc2_Safe_v9.bat
++if "%CHOICE%"=="8" call CodeRED_Run_RDR_Offline_Disc1_Safe_v9.bat
++if "%CHOICE%"=="9" call CodeRED_Profile_Check_v9.bat
++if "%CHOICE%"=="10" call CodeRED_Collect_Small_Logs_v14.bat
++if "%CHOICE%"=="11" exit /b 0
+ pause
+ goto :menu
+diff --git "a/CodeRED_Run_RDR_SPHost_Disc1_Safe_v14.bat" "b/CodeRED_Run_RDR_SPHost_Disc1_Safe_v14.bat"
+new file mode 100644
+index 0000000..e501970
+--- /dev/null
++++ "b/CodeRED_Run_RDR_SPHost_Disc1_Safe_v14.bat"
+@@ -0,0 +1,8 @@
++@echo off
++setlocal
++cd /d "%~dp0"
++if not exist logs mkdir logs
++call CodeRED_Start_RDR_BootstrapHost_v9.bat
++timeout /t 2 /nobreak >nul
++py -3 tools\codered_rdr_bootstrap_guard_v9.py launch --mode sp-host --disc disc1 --variant safe --x64-mask 0 --quiet-logging
++if errorlevel 1 python tools\codered_rdr_bootstrap_guard_v9.py launch --mode sp-host --disc disc1 --variant safe --x64-mask 0 --quiet-logging
+diff --git "a/CodeRED_Run_RDR_SPHost_Disc2_Safe_v14.bat" "b/CodeRED_Run_RDR_SPHost_Disc2_Safe_v14.bat"
+new file mode 100644
+index 0000000..1cb880e
+--- /dev/null
++++ "b/CodeRED_Run_RDR_SPHost_Disc2_Safe_v14.bat"
+@@ -0,0 +1,8 @@
++@echo off
++setlocal
++cd /d "%~dp0"
++if not exist logs mkdir logs
++call CodeRED_Start_RDR_BootstrapHost_v9.bat
++timeout /t 2 /nobreak >nul
++py -3 tools\codered_rdr_bootstrap_guard_v9.py launch --mode sp-host --disc disc2 --variant safe --x64-mask 0 --quiet-logging
++if errorlevel 1 python tools\codered_rdr_bootstrap_guard_v9.py launch --mode sp-host --disc disc2 --variant safe --x64-mask 0 --quiet-logging
+diff --git "a/CodeRED_Start_RDR_BootstrapHost_v9.bat" "b/CodeRED_Start_RDR_BootstrapHost_v9.bat"
+index 50ab669..7062f1c 100644
+--- "a/CodeRED_Start_RDR_BootstrapHost_v9.bat"
++++ "b/CodeRED_Start_RDR_BootstrapHost_v9.bat"
+@@ -8,5 +8,7 @@ for /f "tokens=2 delims=:" %%A in ('ipconfig ^| findstr /R /C:"IPv4.*192\.168" /
+ :gotip
+ if "%IP%"=="" set IP=127.0.0.1
+ set IP=%IP: =%
+-echo Starting CodeRED RDR BootstrapHost v12 for %IP%:3074
+-start "CodeRED RDR BootstrapHost v12" cmd /k py -3 tools\codered_rdr_bootstrap_host_v9.py --host 127.0.0.1 --port 36000 --target-ip %IP% --system-link-port 3074 --udp-port 3074 --beacon-interval 0 --trace-every 120 --log-file logs\codered_udp_bootstrap_v12.log
++echo Stopping stale CodeRED RDR BootstrapHost processes, if any
++powershell -NoProfile -ExecutionPolicy Bypass -Command "Get-CimInstance Win32_Process | Where-Object { $_.CommandLine -match 'codered_rdr_bootstrap_host_v9.py' } | ForEach-Object { Stop-Process -Id $_.ProcessId -Force -ErrorAction SilentlyContinue }" >nul 2>nul
++echo Starting CodeRED RDR BootstrapHost v14 for %IP%:3074
++start "CodeRED RDR BootstrapHost v14" /min cmd /c "py -3 tools\codered_rdr_bootstrap_host_v9.py --host 127.0.0.1 --port 36000 --target-ip %IP% --system-link-port 3074 --udp-port 3074 --beacon-interval 0 --trace-every 240 --log-file logs\codered_udp_bootstrap_v14.log || python tools\codered_rdr_bootstrap_host_v9.py --host 127.0.0.1 --port 36000 --target-ip %IP% --system-link-port 3074 --udp-port 3074 --beacon-interval 0 --trace-every 240 --log-file logs\codered_udp_bootstrap_v14.log"
+diff --git "a/docs/codered/rdr_netplay_pass_l_v14_singleplayer_host.md" "b/docs/codered/rdr_netplay_pass_l_v14_singleplayer_host.md"
+new file mode 100644
+index 0000000..3607e63
+--- /dev/null
++++ "b/docs/codered/rdr_netplay_pass_l_v14_singleplayer_host.md"
+@@ -0,0 +1,44 @@
++# CodeRED RDR Netplay Pass L - v14 Singleplayer Host
++
++Date: 2026-05-01
++
++## Goal
++
++Let RDR run Disc 1 or Disc 2 in a single-player host test mode while another local client can attempt to discover/join the host through the existing CodeRED private session bridge. Save writes are disabled in this mode.
++
++The active safety rule is simple: save writes stay disabled for this mode.
++
++## What Changed
++
++- Added `network_mode=3` / `netplay_singleplayer_host=true`.
++- `XNetGetTitleXnAddr` now creates one deterministic advertised System Link session when single-player host mode is active.
++- The advertised session is published to the local private host as `singleplayer-host`.
++- Saved-game content create/header/thumbnail/delete writes are blocked while `netplay_disable_saves=true`.
++- Existing saved-game packages mount read-only in this mode.
++- Added Disc 1 and Disc 2 single-player host launchers:
++  - `CodeRED_Run_RDR_SPHost_Disc1_Safe_v14.bat`
++  - `CodeRED_Run_RDR_SPHost_Disc2_Safe_v14.bat`
++- Single-player host configs reduce overhead:
++  - `log_to_stdout=false`
++  - `flush_log=false`
++  - `enable_console=false`
++  - `net_logging=false`
++  - `netplay_udp_bootstrap=false`
++  - `gpu=vulkan`
++  - `vsync=true`
++
++## Expected Proof Lines
++
++- `CodeRED Netplay: SinglePlayerHost advertise ...`
++- `CodeRED Netplay: PublishSession ...`
++- `CodeRED Netplay: blocked saved-game ...` if RDR attempts to write saves
++- `CODERED_ACTIVE_NETPLAY_MODE.txt` should show:
++  - `mode=sp-host`
++  - `network_mode=3`
++  - `netplay_singleplayer_host=True`
++  - `netplay_disable_saves=True`
++  - `vsync=true`
++
++## Known Limitation
++
++This pass advertises a join target and exposes it through the private session bridge. It does not yet prove that RDR single-player code will accept a live peer into the world without title-side multiplayer scripts taking over. If the guest discovers the session but cannot load in, the next pass should hook the guest join result into the title's session details/QoS path and inspect any new XSession/XNet calls.
+diff --git "a/logs/CodeRED_Xenia_RDR_Pass_L_v14_Changelog_2026-05-01.md"
+new file mode 100644
+index 0000000..0cc7122
+--- /dev/null
++++ "b/logs/CodeRED_Xenia_RDR_Pass_L_v14_Changelog_2026-05-01.md"
+@@ -0,0 +1,39 @@
++# CodeRED Xenia RDR Pass L v14 Changelog
++
++Date: 2026-05-01
++
++## Summary
++
++Added a single-player host mode for RDR Disc 1 and Disc 2. The mode advertises a deterministic local System Link session from Xenia while RDR is in single player, publishes it to the CodeRED private host, disables save writes, and reduces console/log overhead for performance testing.
++
++## Changed Files
++
++- `src/xenia/kernel/XLiveAPI.h`
++- `src/xenia/kernel/XLiveAPI.cc`
++- `src/xenia/kernel/xam/xam_net.cc`
++- `src/xenia/kernel/xam/content_manager.cc`
++- `tools/codered_rdr_bootstrap_guard_v9.py`
++- `tools/codered_collect_v12.py`
++- `tools/codered_xenia_netplay_smoke.py`
++- `CodeRED_Start_RDR_BootstrapHost_v9.bat`
++- `CodeRED_RDR_Bootstrap_Menu_v9.bat`
++- `CodeRED_Run_RDR_SPHost_Disc1_Safe_v14.bat`
++- `CodeRED_Run_RDR_SPHost_Disc2_Safe_v14.bat`
++- `CodeRED_Collect_Small_Logs_v14.bat`
++- `docs/codered/rdr_netplay_pass_l_v14_singleplayer_host.md`
++
++## Test Order
++
++1. Rebuild Release with `CodeRED_Build_Xenia_Release_v3.bat`.
++2. Run `CodeRED_RDR_Bootstrap_Menu_v9.bat`.
++3. Choose `Singleplayer Host - Disc 1 SAFE`.
++4. If Disc 1 does not reach the desired path, choose `Singleplayer Host - Disc 2 SAFE`.
++5. Run `CodeRED_Collect_Small_Logs_v14.bat`.
++
++## Send Back If It Still Stalls
++
++- `logs/CodeRED_Xenia_RDR_Pass_L_v14_changed_files.zip`
++- `logs/codered_rdr_small_logs_v14_*.zip`
++- `logs/codered_v14_mp_correlation.txt`
++- `logs/CODERED_ACTIVE_NETPLAY_MODE.txt`
++- `logs/xenia_codered_v14_sp-host_disc1_safe.log` or Disc 2 equivalent if present
+diff --git "a/logs/INDEX_CODERED.md"
+index fc253ea..eb80306 100644
+--- "a/logs/INDEX_CODERED.md"
++++ "b/logs/INDEX_CODERED.md"
+@@ -2,9 +2,14 @@
+ 
+ ## Current Xenia Netplay
+ 
++- `CodeRED_Xenia_RDR_Pass_L_v14_Changelog_2026-05-01.md` - latest pass: single-player host mode for Disc 1/Disc 2, save writes disabled, quieter performance config, v14 launchers.
++- `CodeRED_Xenia_RDR_Pass_L_v14_changed_files.zip` - v14 changed files, patch, docs, and validation logs only.
+ - `CodeRED_Xenia_RDR_Pass_K_v13_Changelog_2026-05-01.md` - latest pass: quiet/passive UDP bootstrap, Live/profile emulation for CodeRED netplay modes, LAN Disc 1 active config.
++- `codered_v14_mp_correlation.txt` - v14 network, single-player host, save-block, and MP script correlation summary.
++- `codered_v14_mp_correlation.json` - machine-readable v14 correlation output.
+ - `codered_v12_mp_correlation.txt` - v12 network and MP script correlation summary, generated by `CodeRED_Collect_Small_Logs_v12.bat`.
+ - `codered_v12_mp_correlation.json` - machine-readable v12 correlation output.
++- `codered_udp_bootstrap_v14.log` - current minimized/private-host trace used by v14 launchers.
+ - `codered_udp_bootstrap_v12.log` - fresh Python UDP bootstrap/responder trace; pre-v13 echo-storm log was archived.
+ - `CodeRED_Xenia_Build_Cleanup_Report_2026-05-01.md` - latest build, target-path, XEX guard, and cleanup handoff.
+ - `CODERED_ACTIVE_NETPLAY_MODE.txt` - current selected mode, disc, network mode, interface, and launch target.
+diff --git "a/src/xenia/kernel/XLiveAPI.cc" "b/src/xenia/kernel/XLiveAPI.cc"
+index 49eb9d2..1f4fc10 100644
+--- "a/src/xenia/kernel/XLiveAPI.cc"
++++ "b/src/xenia/kernel/XLiveAPI.cc"
+@@ -23,7 +23,7 @@
+ 
+ DEFINE_int32(network_mode, 1,
+              "Code RED netplay mode: 0=Offline, 1=LAN/System Link, "
+-             "2=Private Live-like host.",
++             "2=Private Live-like host, 3=Single-player host bridge.",
+              "Netplay");
+ DEFINE_string(netplay_api_address, "http://127.0.0.1:36000/",
+               "Private Live-like host API address for experimental netplay.",
+@@ -42,6 +42,15 @@ DEFINE_bool(xhttp, true,
+ DEFINE_bool(net_logging, true,
+             "Verbose Code RED netplay/XNet logging for RDR System Link tests.",
+             "Netplay");
++DEFINE_bool(netplay_singleplayer_host, false,
++            "Advertise a deterministic System Link session while the title is "
++            "running in single-player so another local client can attempt to "
++            "join the host's world.",
++            "Netplay");
++DEFINE_bool(netplay_disable_saves, false,
++            "Block saved-game content writes for experimental Code RED "
++            "single-player host tests.",
++            "Netplay");
+ DEFINE_bool(netplay_udp_bootstrap, true,
+             "Inject a tiny local UDP discovery bootstrap packet when a System "
+             "Link/private-host receive poll would otherwise return WSAEWOULDBLOCK.",
+@@ -59,6 +68,8 @@ namespace xe {
+ namespace kernel {
+ 
+ namespace {
++constexpr uint32_t kCodeRedSinglePlayerHostSessionPtr = 0xC0DE1401;
++
+ std::string FormatTitleId(uint32_t title_id) {
+   std::ostringstream out;
+   out << std::uppercase << std::hex << std::setfill('0') << std::setw(8)
+@@ -442,6 +453,14 @@ bool XLiveAPI::IsPrivateHostMode() const {
+   return network_mode_ == static_cast<uint32_t>(NetworkMode::PrivateHost);
+ }
+ 
++bool XLiveAPI::IsSinglePlayerHostMode() const {
++  return network_mode_ == static_cast<uint32_t>(NetworkMode::SinglePlayerHost);
++}
++
++bool XLiveAPI::IsSinglePlayerHostEnabled() const {
++  return IsSinglePlayerHostMode() || cvars::netplay_singleplayer_host;
++}
++
+ bool XLiveAPI::IsNetworkEnabled() const { return !IsOfflineMode(); }
+ 
+ std::string XLiveAPI::GetApiAddress() { return cvars::netplay_api_address; }
+@@ -455,7 +474,7 @@ uint16_t XLiveAPI::GetPlayerPort() const { return player_port_; }
+ void XLiveAPI::SetPlayerPort(uint16_t port) { player_port_ = port; }
+ 
+ bool XLiveAPI::ShouldUsePrivateHost() const {
+-  return IsPrivateHostMode() && cvars::xhttp;
++  return (IsPrivateHostMode() || IsSinglePlayerHostEnabled()) && cvars::xhttp;
+ }
+ 
+ XSessionDetails XLiveAPI::CreateHostSession(
+@@ -494,6 +513,51 @@ XSessionDetails XLiveAPI::CreateHostSession(
+   return session;
+ }
+ 
++XSessionDetails XLiveAPI::EnsureSinglePlayerHostSession(
++    uint32_t title_id, uint64_t host_xuid, uint32_t host_address) {
++  if (!IsSinglePlayerHostEnabled()) {
++    return {};
++  }
++  const auto existing =
++      sessions_.GetSession(kCodeRedSinglePlayerHostSessionPtr);
++  if (existing.has_value()) {
++    return *existing;
++  }
++  if (!host_address) {
++    host_address = util::GetConfiguredIPv4NetworkOrder();
++  }
++
++  XSessionCreateParams params;
++  params.title_id = title_id;
++  params.session_ptr = kCodeRedSinglePlayerHostSessionPtr;
++  params.flags = SessionFlags::SYSTEMLINK_FEATURES;
++  params.public_slots = 4;
++  params.private_slots = 0;
++  params.host_xuid = host_xuid;
++  params.host_address = host_address;
++  params.port = player_port_;
++  params.mac = util::MakeStableMac(host_address);
++
++  auto session = sessions_.CreateHostSession(params);
++  sessions_.StartSession(kCodeRedSinglePlayerHostSessionPtr);
++  session =
++      sessions_.GetSession(kCodeRedSinglePlayerHostSessionPtr).value_or(session);
++  XELOGI(
++      "CodeRED Netplay: SinglePlayerHost advertise title={} session={} "
++      "host={} port={} public={} saves_disabled={} route={}",
++      FormatTitleId(title_id), FormatCodeRedSessionId(session.id),
++      util::IPv4ToString(host_address), player_port_, session.public_slots,
++      cvars::netplay_disable_saves, BuildSessionPostPath(title_id));
++
++  if (ShouldUsePrivateHost()) {
++    if (host_xuid) {
++      RegisterPlayer(host_xuid, title_id, host_address);
++    }
++    PublishSession(session, "singleplayer-host");
++  }
++  return session;
++}
++
+ bool XLiveAPI::DeleteSession(uint32_t session_ptr) {
+   const auto session = sessions_.GetSession(session_ptr);
+   if (ShouldUsePrivateHost() && session.has_value()) {
+diff --git "a/src/xenia/kernel/XLiveAPI.h" "b/src/xenia/kernel/XLiveAPI.h"
+index b019083..62c0a73 100644
+--- "a/src/xenia/kernel/XLiveAPI.h"
++++ "b/src/xenia/kernel/XLiveAPI.h"
+@@ -26,6 +26,7 @@ class XLiveAPI {
+     Offline = 0,
+     SystemLink = 1,
+     PrivateHost = 2,
++    SinglePlayerHost = 3,
+   };
+ 
+   enum class InitState {
+@@ -45,6 +46,8 @@ class XLiveAPI {
+   bool IsOfflineMode() const;
+   bool IsSystemLinkMode() const;
+   bool IsPrivateHostMode() const;
++  bool IsSinglePlayerHostMode() const;
++  bool IsSinglePlayerHostEnabled() const;
+   bool IsNetworkEnabled() const;
+ 
+   static std::string GetApiAddress();
+@@ -57,6 +60,9 @@ class XLiveAPI {
+                                     uint32_t flags, uint32_t public_slots,
+                                     uint32_t private_slots, uint64_t host_xuid,
+                                     uint32_t host_address);
++  XSessionDetails EnsureSinglePlayerHostSession(uint32_t title_id,
++                                                uint64_t host_xuid = 0,
++                                                uint32_t host_address = 0);
+   bool DeleteSession(uint32_t session_ptr);
+   bool JoinLocalUsers(uint32_t session_ptr, const std::vector<uint64_t>& xuids,
+                       const std::vector<bool>& private_slots);
+diff --git "a/src/xenia/kernel/xam/content_manager.cc" "b/src/xenia/kernel/xam/content_manager.cc"
+index e91608f..68f25a1 100644
+--- "a/src/xenia/kernel/xam/content_manager.cc"
++++ "b/src/xenia/kernel/xam/content_manager.cc"
+@@ -21,6 +21,7 @@
+ #include "xenia/vfs/devices/host_path_device.h"
+ 
+ DECLARE_int32(license_mask);
++DECLARE_bool(netplay_disable_saves);
+ 
+ namespace xe {
+ namespace kernel {
+@@ -32,6 +33,13 @@ static const char* kSpaFilename = "spa.bin";
+ 
+ static int content_device_id_ = 0;
+ 
++namespace {
++bool CodeRedSaveBlockingActive(const XCONTENT_AGGREGATE_DATA& data) {
++  return cvars::netplay_disable_saves &&
++         data.content_type == XContentType::kSavedGame;
++}
++}  // namespace
++
+ ContentPackage::ContentPackage(KernelState* kernel_state,
+                                const std::string_view root_name,
+                                const XCONTENT_AGGREGATE_DATA& data,
+@@ -43,8 +51,15 @@ ContentPackage::ContentPackage(KernelState* kernel_state,
+   content_data_ = data;
+ 
+   auto fs = kernel_state_->file_system();
+-  auto device =
+-      std::make_unique<vfs::HostPathDevice>(device_path_, package_path, false);
++  const bool read_only = CodeRedSaveBlockingActive(content_data_);
++  if (read_only) {
++    XELOGI(
++        "CodeRED Netplay: mounted saved-game content read-only root={} "
++        "file={}",
++        root_name_, content_data_.file_name());
++  }
++  auto device = std::make_unique<vfs::HostPathDevice>(device_path_,
++                                                       package_path, read_only);
+   device->Initialize();
+   fs->RegisterDevice(std::move(device));
+   fs->RegisterSymbolicLink(root_name_ + ":", device_path_);
+@@ -308,6 +323,12 @@ X_RESULT ContentManager::WriteContentHeaderFile(const uint64_t xuid,
+   uint64_t used_xuid =
+       (data.xuid != -1 && data.xuid != 0) ? data.xuid.get() : xuid;
+ 
++  if (CodeRedSaveBlockingActive(data)) {
++    XELOGI("CodeRED Netplay: blocked saved-game header write file={}",
++           data.file_name());
++    return X_STATUS_ACCESS_DENIED;
++  }
++
+   auto header_path = ResolvePackageHeaderPath(data.file_name(), used_xuid,
+                                               data.title_id, data.content_type);
+   auto parent_path = header_path.parent_path();
+@@ -371,6 +392,12 @@ X_RESULT ContentManager::CreateContent(const std::string_view root_name,
+     return X_ERROR_ALREADY_EXISTS;
+   }
+ 
++  if (CodeRedSaveBlockingActive(data)) {
++    XELOGI("CodeRED Netplay: blocked saved-game create root={} file={}",
++           root_name, data.file_name());
++    return X_ERROR_ACCESS_DENIED;
++  }
++
+   auto package_path = ResolvePackagePath(xuid, data);
+   if (std::filesystem::exists(package_path)) {
+     // Exists, must not!
+@@ -476,6 +503,11 @@ X_RESULT ContentManager::SetContentThumbnail(
+     const uint64_t xuid, const XCONTENT_AGGREGATE_DATA& data,
+     std::vector<uint8_t> buffer) {
+   auto global_lock = global_critical_region_.Acquire();
++  if (CodeRedSaveBlockingActive(data)) {
++    XELOGI("CodeRED Netplay: blocked saved-game thumbnail write file={}",
++           data.file_name());
++    return X_ERROR_ACCESS_DENIED;
++  }
+   auto package_path = ResolvePackagePath(xuid, data);
+   std::filesystem::create_directories(package_path);
+   if (std::filesystem::exists(package_path)) {
+@@ -493,6 +525,12 @@ X_RESULT ContentManager::DeleteContent(const uint64_t xuid,
+                                        const XCONTENT_AGGREGATE_DATA& data) {
+   auto global_lock = global_critical_region_.Acquire();
+ 
++  if (CodeRedSaveBlockingActive(data)) {
++    XELOGI("CodeRED Netplay: blocked saved-game delete file={}",
++           data.file_name());
++    return X_ERROR_ACCESS_DENIED;
++  }
++
+   if (IsContentOpen(data)) {
+     // TODO(Gliniak): Get real error code for this case.
+     return X_ERROR_ACCESS_DENIED;
+diff --git "a/src/xenia/kernel/xam/xam_net.cc" "b/src/xenia/kernel/xam/xam_net.cc"
+index 56e155d..321811f 100644
+--- "a/src/xenia/kernel/xam/xam_net.cc"
++++ "b/src/xenia/kernel/xam/xam_net.cc"
+@@ -286,7 +286,10 @@ void UpsertRegisteredKey(const CodeRedRegisteredKey& registered_key) {
+ void FillXnAddrFromRegisteredKey(XNADDR* addr, const CodeRedRegisteredKey& key) {
+   std::memset(addr, 0, sizeof(XNADDR));
+   addr->ina.s_addr = key.host_address;
+-  addr->inaOnline.s_addr = cvars::network_mode == 2 ? key.host_address : 0;
++  addr->inaOnline.s_addr =
++      (cvars::network_mode == 2 || cvars::network_mode == 3)
++          ? key.host_address
++          : 0;
+   addr->wPortOnline = key.port;
+   std::memcpy(addr->abEnet, key.mac.data(), key.mac.size());
+   xe::store_and_swap<uint32_t>(addr->abOnline + 0x00, key.host_address);
+@@ -504,7 +507,8 @@ uint32_t GetConfiguredTitleIp() {
+ void FillTitleXnAddr(XNADDR* addr) {
+   const uint32_t ip = GetConfiguredTitleIp();
+   addr->ina.s_addr = ip;
+-  addr->inaOnline.s_addr = cvars::network_mode == 2 ? ip : 0;
++  addr->inaOnline.s_addr =
++      (cvars::network_mode == 2 || cvars::network_mode == 3) ? ip : 0;
+   addr->wPortOnline = system_link_port;
+ 
+   auto mac = util::MakeStableMac(ip);
+@@ -934,6 +938,15 @@ dword_result_t NetDll_XNetGetTitleXnAddr_entry(dword_t caller,
+   }
+ 
+   FillTitleXnAddr(addr_ptr);
++  auto& xlive_api = GetCodeRedXLiveAPI();
++  if (xlive_api.GetInitState() == XLiveAPI::InitState::Pending) {
++    xlive_api.Init();
++  }
++  if (xlive_api.IsSinglePlayerHostEnabled()) {
++    xlive_api.SetPlayerPort(system_link_port);
++    xlive_api.EnsureSinglePlayerHostSession(kernel_state()->title_id(), 0,
++                                            addr_ptr->ina.s_addr);
++  }
+   if (cvars::net_logging) {
+     XELOGI(
+         "CodeRED Netplay: XNetGetTitleXnAddr mode={} ip={} online_ip={} "
+@@ -1026,7 +1039,10 @@ dword_result_t NetDll_XNetInAddrToXnAddr_entry(dword_t caller, lpvoid_t in_addr,
+     return X_STATUS_SUCCESS;
+   }
+   xn_addr->ina.s_addr = network_order_ip;
+-  xn_addr->inaOnline.s_addr = cvars::network_mode == 2 ? network_order_ip : 0;
++  xn_addr->inaOnline.s_addr =
++      (cvars::network_mode == 2 || cvars::network_mode == 3)
++          ? network_order_ip
++          : 0;
+   xn_addr->wPortOnline = system_link_port;
+   auto mac = util::MakeStableMac(network_order_ip);
+   std::memcpy(xn_addr->abEnet, mac.data(), mac.size());
+diff --git "a/tools/codered_collect_v12.py" "b/tools/codered_collect_v12.py"
+index 7890d86..f7afb03 100644
+--- "a/tools/codered_collect_v12.py"
++++ "b/tools/codered_collect_v12.py"
+@@ -1,5 +1,5 @@
+ #!/usr/bin/env python3
+-r"""Collect small CodeRED v12 logs and correlate RDR MP/network evidence."""
++r"""Collect small CodeRED v14 logs and correlate RDR MP/network evidence."""
+ from __future__ import annotations
+ 
+ import argparse
+@@ -20,6 +20,9 @@ MP_MARKERS = {
+ }
+ 
+ NET_MARKERS = [
++    "SinglePlayerHost advertise",
++    "blocked saved-game",
++    "PublishSession",
+     "XNetGetTitleXnAddr",
+     "UDP bootstrap injected",
+     "sendto",
+@@ -66,9 +69,12 @@ def load_index(root: pathlib.Path) -> dict:
+ def correlate(root: pathlib.Path) -> tuple[str, dict]:
+     log_paths = [
+         root / "logs" / "codered_rdr_bootstrap_guard_v9.log",
++        root / "logs" / "codered_udp_bootstrap_v14.log",
+         root / "logs" / "codered_udp_bootstrap_v12.log",
+         root / "build" / "bin" / "Windows" / "Release" / "xenia.log",
+     ]
++    log_paths.extend(sorted((root / "logs").glob("xenia_codered_v14*.log")))
++    log_paths = list(dict.fromkeys(log_paths))
+     texts = {str(path): read_text(path) for path in log_paths if path.exists()}
+     combined = "\n".join(texts.values()).lower()
+ 
+@@ -93,7 +99,7 @@ def correlate(root: pathlib.Path) -> tuple[str, dict]:
+     }
+ 
+     lines = [
+-        "CodeRED v12 RDR MP Correlation",
++        "CodeRED v14 RDR MP Correlation",
+         f"Time: {payload['time']}",
+         "",
+         "Network Evidence:",
+@@ -143,16 +149,16 @@ def main() -> int:
+     root = root_dir()
+     logs = root / "logs"
+     text, payload = correlate(root)
+-    report = logs / "codered_v12_mp_correlation.txt"
++    report = logs / "codered_v14_mp_correlation.txt"
+     report.write_text(text, encoding="utf-8")
+-    (logs / "codered_v12_mp_correlation.json").write_text(
++    (logs / "codered_v14_mp_correlation.json").write_text(
+         json.dumps(payload, indent=2), encoding="utf-8"
+     )
+-    send_dir = pathlib.Path(args.out) if args.out else logs / "CODERED_SEND_THESE_V12"
++    send_dir = pathlib.Path(args.out) if args.out else logs / "CODERED_SEND_THESE_V14"
+     if send_dir.exists():
+         shutil.rmtree(send_dir, ignore_errors=True)
+     copied = copy_small_logs(root, send_dir)
+-    zip_path = logs / f"codered_v12_small_logs_{dt.datetime.now().strftime('%Y%m%d_%H%M%S')}.zip"
++    zip_path = logs / f"codered_v14_small_logs_{dt.datetime.now().strftime('%Y%m%d_%H%M%S')}.zip"
+     with zipfile.ZipFile(zip_path, "w", zipfile.ZIP_DEFLATED) as z:
+         for path in send_dir.rglob("*"):
+             if path.is_file():
+diff --git "a/tools/codered_rdr_bootstrap_guard_v9.py" "b/tools/codered_rdr_bootstrap_guard_v9.py"
+index e8e10ed..7ad4853 100644
+--- "a/tools/codered_rdr_bootstrap_guard_v9.py"
++++ "b/tools/codered_rdr_bootstrap_guard_v9.py"
+@@ -1,11 +1,13 @@
+ #!/usr/bin/env python3
+-r"""CodeRED RDR multiplayer bootstrap guard v9/v12.
++r"""CodeRED RDR multiplayer bootstrap guard v9/v14.
+ 
+ Focus:
+ - Disc 1 is the default GOTY launch target.
+ - Disc 2 remains available as a multiplayer/Undead fallback.
+ - Every launch stamps the active mode in configs and logs so LAN/private tests do
+   not get mixed.
++- v14 adds a single-player host bridge with save writes disabled and quieter
++  performance-oriented logging.
+ - Config writes preserve normal Xenia settings and only update targeted sections.
+ """
+ from __future__ import annotations
+@@ -258,10 +260,15 @@ def short_path(path: pathlib.Path) -> str:
+ 
+ 
+ def write_configs(root: pathlib.Path, exe: pathlib.Path | None, args: argparse.Namespace, target: pathlib.Path | None) -> pathlib.Path:
+-    mode_id = {"offline": 0, "lan": 1, "private": 2}[args.mode]
++    mode_id = {"offline": 0, "lan": 1, "private": 2, "sp-host": 3}[args.mode]
+     iface = args.interface or local_ipv4_guess()
+-    xhttp = args.mode == "private"
+-    log_file = logs_dir(root) / f"xenia_codered_v12_{args.mode}_{args.disc}_{args.variant}.log"
++    singleplayer_host = args.mode == "sp-host"
++    disable_saves = singleplayer_host or getattr(args, "disable_saves", False)
++    xhttp = args.mode in ("private", "sp-host")
++    perf_quiet = singleplayer_host or getattr(args, "quiet_logging", False)
++    net_logging = not perf_quiet
++    udp_bootstrap = not singleplayer_host
++    log_file = logs_dir(root) / f"xenia_codered_v14_{args.mode}_{args.disc}_{args.variant}.log"
+     updates = {
+         "CPU": {
+             "break_on_debugbreak": False,
+@@ -274,26 +281,39 @@ def write_configs(root: pathlib.Path, exe: pathlib.Path | None, args: argparse.N
+         "x64": {"x64_extension_mask": args.x64_mask, "enable_host_guest_stack_synchronization": True},
+         "General": {"discord": False, "apply_patches": args.variant != "bare", "allow_plugins": False},
+         "Kernel": {"apply_title_update": args.variant != "bare", "allow_incompatible_title_update": True, "ignore_thread_affinities": True},
+-        "Logging": {"enable_console": True, "flush_log": True, "log_file": str(log_file), "log_level": 3, "log_mask": 0, "log_to_stdout": True},
++        "GPU": {"gpu": "vulkan", "vsync": True, "trace_gpu_stream": False},
++        "Logging": {
++            "enable_console": not perf_quiet,
++            "flush_log": not perf_quiet,
++            "log_file": str(log_file),
++            "log_level": 3,
++            "log_mask": 0,
++            "log_to_stdout": not perf_quiet,
++        },
+         "Netplay": {
+             "network_mode": mode_id,
+             "netplay_api_address": f"http://{args.host}:{args.port}/",
+             "selected_network_interface": iface,
+             "upnp": True,
+             "xhttp": xhttp,
+-            "net_logging": True,
+-            "netplay_udp_bootstrap": True,
++            "net_logging": net_logging,
++            "netplay_singleplayer_host": singleplayer_host,
++            "netplay_disable_saves": disable_saves,
++            "netplay_udp_bootstrap": udp_bootstrap,
+             "netplay_udp_bootstrap_interval": 240,
+             "netplay_http_timeout_ms": args.timeout_ms,
+         },
+         "CodeRED": {
+             "rdr_path": str(args.rdr),
+             "rdr_target": str(target or ""),
+-            "bootstrap_guard_version": "v12",
++            "bootstrap_guard_version": "v14",
+             "bootstrap_mode": args.mode,
+             "bootstrap_disc": args.disc,
+             "bootstrap_variant": args.variant,
+             "selected_network_interface": iface,
++            "singleplayer_host": singleplayer_host,
++            "disable_saves": disable_saves,
++            "performance_note": "single-player host disables stdout/console logging, per-line flushing, and UDP bootstrap injection",
+             "disc_note": "Disc 1 is default. Use Disc 2 fallback when GOTY multiplayer/Undead content is required.",
+         },
+     }
+@@ -306,16 +326,16 @@ def write_configs(root: pathlib.Path, exe: pathlib.Path | None, args: argparse.N
+             path = d / name
+             original = path.read_text(encoding="utf-8", errors="ignore") if path.exists() else ""
+             if path.exists():
+-                backup = path.with_suffix(path.suffix + f".codered_v9_bak_{dt.datetime.now().strftime('%Y%m%d_%H%M%S')}")
++                backup = path.with_suffix(path.suffix + f".codered_v14_bak_{dt.datetime.now().strftime('%Y%m%d_%H%M%S')}")
+                 try:
+                     shutil.copy2(path, backup)
+                 except OSError:
+                     pass
+             path.write_text(update_toml(original, updates), encoding="utf-8")
+-            log(root, f"Wrote v12 config: {path}")
++            log(root, f"Wrote v14 config: {path}")
+     marker = logs_dir(root) / "CODERED_ACTIVE_NETPLAY_MODE.txt"
+     marker.write_text(
+-        f"time={stamp()}\nmode={args.mode}\nnetwork_mode={mode_id}\ndisc={args.disc}\ntarget={target}\ninterface={iface}\nxhttp={xhttp}\nnetplay_udp_bootstrap_interval=240\n",
++        f"time={stamp()}\nmode={args.mode}\nnetwork_mode={mode_id}\ndisc={args.disc}\ntarget={target}\ninterface={iface}\nxhttp={xhttp}\nnet_logging={net_logging}\nnetplay_singleplayer_host={singleplayer_host}\nnetplay_disable_saves={disable_saves}\nnetplay_udp_bootstrap={udp_bootstrap}\nnetplay_udp_bootstrap_interval=240\nvsync=true\ngpu=vulkan\n",
+         encoding="utf-8",
+     )
+     return log_file
+@@ -340,7 +360,7 @@ def cmd_configure(args: argparse.Namespace) -> int:
+         log(root, f"No RDR target found for disc={args.disc} under {args.rdr} or {root}")
+         return 3
+     log_file = write_configs(root, exe, args, target)
+-    if args.mode == "private":
++    if args.mode in ("private", "sp-host"):
+         log(root, f"Private/bootstrap host health: {host_health(args.host, args.port)}")
+     log(root, f"Configured mode={args.mode} disc={args.disc} target={target} without launching. Log file: {log_file}")
+     return 0
+@@ -357,7 +377,7 @@ def cmd_launch(args: argparse.Namespace) -> int:
+         log(root, f"No RDR target found for disc={args.disc} under {args.rdr} or {root}")
+         return 3
+     log_file = write_configs(root, exe, args, target)
+-    if args.mode == "private":
++    if args.mode in ("private", "sp-host"):
+         log(root, f"Private/bootstrap host health: {host_health(args.host, args.port)}")
+     log(root, f"Launch mode={args.mode} disc={args.disc} target={target}")
+     cmd = [short_path(exe), short_path(target)]
+@@ -377,7 +397,7 @@ def cmd_profile_check(args: argparse.Namespace) -> int:
+     dirs = [root]
+     if exe:
+         dirs.append(exe.parent)
+-    report = [f"CodeRED profile/sign-in check v12", f"time={stamp()}"]
++    report = [f"CodeRED profile/sign-in check v14", f"time={stamp()}"]
+     for d in dirs:
+         report.append(f"\nDirectory: {d}")
+         for name in CONFIG_NAMES:
+@@ -405,7 +425,7 @@ def cmd_profile_check(args: argparse.Namespace) -> int:
+     report.append("\nInterpretation:")
+     report.append("  If logged_profile_slot_0_xuid is present, Xenia is auto-selecting that local profile.")
+     report.append("  In that case RDR may not show the old profile picker, and dashboard XEX files should stay untouched.")
+-    out = logs_dir(root) / "codered_profile_check_v12.txt"
++    out = logs_dir(root) / "codered_profile_check_v14.txt"
+     out.write_text("\n".join(report) + "\n", encoding="utf-8")
+     print(out.read_text(encoding="utf-8", errors="replace"))
+     return 0
+@@ -413,7 +433,7 @@ def cmd_profile_check(args: argparse.Namespace) -> int:
+ 
+ def cmd_collect(args: argparse.Namespace) -> int:
+     root = root_dir()
+-    send = logs_dir(root) / "CODERED_SEND_THESE_V12"
++    send = logs_dir(root) / "CODERED_SEND_THESE_V14"
+     if send.exists():
+         shutil.rmtree(send, ignore_errors=True)
+     send.mkdir(parents=True, exist_ok=True)
+@@ -431,7 +451,7 @@ def cmd_collect(args: argparse.Namespace) -> int:
+                         copied += 1
+                     except OSError:
+                         pass
+-    zip_path = logs_dir(root) / f"codered_rdr_small_logs_v12_{dt.datetime.now().strftime('%Y%m%d_%H%M%S')}.zip"
++    zip_path = logs_dir(root) / f"codered_rdr_small_logs_v14_{dt.datetime.now().strftime('%Y%m%d_%H%M%S')}.zip"
+     with zipfile.ZipFile(zip_path, "w", zipfile.ZIP_DEFLATED) as z:
+         for src in send.rglob("*"):
+             if src.is_file():
+@@ -445,7 +465,7 @@ def build_parser() -> argparse.ArgumentParser:
+     ap = argparse.ArgumentParser()
+     sub = ap.add_subparsers(dest="cmd", required=True)
+     launch = sub.add_parser("launch")
+-    launch.add_argument("--mode", choices=["private", "lan", "offline"], default="private")
++    launch.add_argument("--mode", choices=["private", "lan", "offline", "sp-host"], default="private")
+     launch.add_argument("--disc", choices=["disc1", "disc2", "xex", "auto"], default="disc1")
+     launch.add_argument("--variant", choices=["safe", "bare"], default="safe")
+     launch.add_argument("--rdr", type=pathlib.Path, default=DEFAULT_RDR)
+@@ -454,10 +474,12 @@ def build_parser() -> argparse.ArgumentParser:
+     launch.add_argument("--port", type=int, default=36000)
+     launch.add_argument("--timeout-ms", type=int, default=4000)
+     launch.add_argument("--x64-mask", type=int, default=0)
++    launch.add_argument("--disable-saves", action="store_true")
++    launch.add_argument("--quiet-logging", action="store_true")
+     launch.add_argument("--wait", action="store_true")
+     launch.set_defaults(func=cmd_launch)
+     configure = sub.add_parser("configure")
+-    configure.add_argument("--mode", choices=["private", "lan", "offline"], default="private")
++    configure.add_argument("--mode", choices=["private", "lan", "offline", "sp-host"], default="private")
+     configure.add_argument("--disc", choices=["disc1", "disc2", "xex", "auto"], default="disc1")
+     configure.add_argument("--variant", choices=["safe", "bare"], default="safe")
+     configure.add_argument("--rdr", type=pathlib.Path, default=DEFAULT_RDR)
+@@ -466,6 +488,8 @@ def build_parser() -> argparse.ArgumentParser:
+     configure.add_argument("--port", type=int, default=36000)
+     configure.add_argument("--timeout-ms", type=int, default=4000)
+     configure.add_argument("--x64-mask", type=int, default=0)
++    configure.add_argument("--disable-saves", action="store_true")
++    configure.add_argument("--quiet-logging", action="store_true")
+     configure.set_defaults(func=cmd_configure)
+     prof = sub.add_parser("profile-check")
+     prof.set_defaults(func=cmd_profile_check)
+diff --git "a/tools/codered_xenia_netplay_smoke.py" "b/tools/codered_xenia_netplay_smoke.py"
+index c69fbd0..5d9d58d 100644
+--- "a/tools/codered_xenia_netplay_smoke.py"
++++ "b/tools/codered_xenia_netplay_smoke.py"
+@@ -10,16 +10,18 @@ ROOT = Path(__file__).resolve().parents[1]
+ CHECKS = {
+     "src/xenia/kernel/XLiveAPI.h": [
+         "class XLiveAPI", "NetworkMode", "CreateHostSession",
+-        "BuildSessionSearchPath", "GetSessionDetails", "GetCodeRedXLiveAPI"
++        "BuildSessionSearchPath", "GetSessionDetails", "GetCodeRedXLiveAPI",
++        "SinglePlayerHost", "EnsureSinglePlayerHostSession"
+     ],
+     "src/xenia/kernel/XLiveAPI.cc": [
+         "DEFINE_int32(network_mode", "DEFINE_string(netplay_api_address",
+         "DEFINE_bool(net_logging", "DEFINE_bool(netplay_udp_bootstrap",
++        "DEFINE_bool(netplay_singleplayer_host", "DEFINE_bool(netplay_disable_saves",
+         "DEFINE_int32(netplay_udp_bootstrap_interval", "DEFINE_int32(netplay_http_timeout_ms",
+         "CodeRED Netplay: CreateHostSession", "RegisterPlayer",
+         "PublishSession", "SearchRemoteSessions", "BuildSessionJoinPath",
+         "BuildSessionLeavePath", "BuildQosPath", "GetRemoteSessionDetails", "ExtractJsonArray",
+-        "keyExchangeKey", "ParseCodeRedSessionKey"
++        "keyExchangeKey", "ParseCodeRedSessionKey", "SinglePlayerHost advertise"
+     ],
+     "src/xenia/kernel/xsession.h": [
+         "IsSystemlinkSession", "IsNetworkSession", "struct XSessionDetails",
+@@ -54,7 +56,11 @@ CHECKS = {
+         "NetDll_XNetUnregisterKey, kNetworking, kImplemented",
+         "XNetInAddrToXnAddr key", "CodeRED Netplay",
+         "UDP bootstrap injected", "ShouldInjectUdpBootstrap",
+-        "netplay_udp_bootstrap_interval"
++        "netplay_udp_bootstrap_interval", "EnsureSinglePlayerHostSession"
++    ],
++    "src/xenia/kernel/xam/content_manager.cc": [
++        "DECLARE_bool(netplay_disable_saves", "CodeRedSaveBlockingActive",
++        "blocked saved-game", "HostPathDevice"
+     ],
+     "src/xenia/kernel/xam/xam_user.cc": [
+         "CodeRedSigninState", "XamUserCheckPrivilege granted",
+@@ -92,14 +98,27 @@ CHECKS = {
+         "kCodeRedXSessionSearchResultSize", "XGI_SESSION_SEARCH_WEIGHTED"
+     ],
+     "tools/codered_collect_v12.py": [
+-        "CodeRED v12 RDR MP Correlation", "MP_MARKERS", "NET_MARKERS"
++        "CodeRED v14 RDR MP Correlation", "MP_MARKERS", "NET_MARKERS",
++        "SinglePlayerHost advertise"
+     ],
+     "docs/codered/rdr_netplay_pass_j_v12_udp_session_bootstrap.md": [
+         "Pass J", "UDP bootstrap", "netplay_udp_bootstrap"
+     ],
++    "docs/codered/rdr_netplay_pass_l_v14_singleplayer_host.md": [
++        "Pass L", "Singleplayer Host", "network_mode=3", "save writes"
++    ],
+     "tools/codered_start_rdr_private_host.bat": [
+         "codered_rdr_private_host.py", "--port 36000"
+     ],
++    "CodeRED_Run_RDR_SPHost_Disc1_Safe_v14.bat": [
++        "--mode sp-host", "--disc disc1", "--quiet-logging"
++    ],
++    "CodeRED_Run_RDR_SPHost_Disc2_Safe_v14.bat": [
++        "--mode sp-host", "--disc disc2", "--quiet-logging"
++    ],
++    "CodeRED_RDR_Bootstrap_Menu_v9.bat": [
++        "Singleplayer Host - Disc 1", "CodeRED_Collect_Small_Logs_v14.bat"
++    ],
+ }
+ 
+ 
+

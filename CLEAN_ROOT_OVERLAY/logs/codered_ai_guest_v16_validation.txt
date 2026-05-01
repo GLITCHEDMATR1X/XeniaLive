@@ -1,0 +1,10 @@
+CodeRED AI Guest v16 validation
+
+Static validation completed in packaging environment:
+- Menu updated with AI Guest entries 11-13 and Exit moved to 14.
+- AI submenu added with spawn/follow/guard/attack/idle/regroup/dismiss/status commands.
+- Python controller checked for expected command paths and output files.
+- The controller writes scratch/codered_ai_guest_state.json and scratch/codered_ai_guest_commands.jsonl at runtime.
+- Runtime host POST is best-effort and non-required; local state is preserved if no endpoint exists.
+
+Note: Full in-world actor spawning requires the next RDR/game bridge pass to consume the AI state file.

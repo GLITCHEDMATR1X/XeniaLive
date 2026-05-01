@@ -1,0 +1,36 @@
+CodeRED v14 RDR MP Correlation
+Time: 2026-05-01 03:48:12
+
+Network Evidence:
+  SinglePlayerHost advertise: 0
+  blocked saved-game: 0
+  PublishSession: 0
+  XNetGetTitleXnAddr: 2154
+  UDP bootstrap injected: 0
+  sendto: 0
+  recvfrom: 883
+  WSARecvFrom: 0
+  XSessionCreate: 0
+  XSessionSearch: 0
+  XNetRegisterKey: 0
+  UDP inbound #: 0
+  WSAGetLastError: 10035: 883
+
+MP Script Correlation:
+  freemode: not observed in current logs
+  mp_idle: not observed in current logs
+  multiplayer_system_thread: not observed in current logs
+  multiplayer_update_thread: not observed in current logs
+  deathmatch: not observed in current logs
+  ctf: not observed in current logs
+
+v11 Content Index Reference:
+  category_counts: {'gringo': 271, 'ambient': 124, 'release_multiplayer': 100, 'debug': 73, 'vehicle_or_mount_related': 59, 'population': 47, 'mp_region': 40, 'mode_ctf': 31, 'mp_action_area': 22, 'mp_playground': 9, 'mode_deathmatch': 8, 'mp_core': 7, 'update_thread': 6, 'mp_support': 6, 'mode_coop': 3, 'mp_spectator': 3, 'mp_freemode': 2, 'mp_rotation': 2, 'mp_tutorial': 2}
+  entry_count: 1725
+  ext_counts: {'.csc': 609, '<none>': 532, '.cst': 460, '.xml': 80, '.tr': 23, '.sco': 8, '.clist': 5, '.xlist': 5, '.csv': 1, '.sd2': 1, '.strtbl': 1}
+  gringo_count: 258
+  mp_action_area_count: 12
+  mp_core_count: 7
+  mp_region_count: 23
+  total_uncompressed_or_file_bytes: 35343548
+  vehicle_or_mount_related_count: 51

@@ -1,0 +1,620 @@
+﻿diff --git a/CodeRED_RDR_Bootstrap_Menu_v9.bat b/CodeRED_RDR_Bootstrap_Menu_v9.bat
+index 9ecbdef..8b51a08 100644
+--- a/CodeRED_RDR_Bootstrap_Menu_v9.bat
++++ b/CodeRED_RDR_Bootstrap_Menu_v9.bat
+@@ -4,14 +4,14 @@ cd /d "%~dp0"
+ :menu
+ cls
+ echo ============================================================
+-echo  CodeRED Xenia Canary - RDR GOTY Bootstrap v9
++echo  CodeRED Xenia Canary - RDR GOTY Bootstrap v12
+ echo ============================================================
+-echo Default focus: Disc 1. Use Disc 2 when GOTY multiplayer/Undead fallback is needed.
++echo Default focus: use True LAN Disc 1 first. Private host is now quiet/passive.
+ echo.
+-echo 1. Start BootstrapHost v9 only
+-echo 2. Private Bootstrap - Disc 1 SAFE  ^(default^)
++echo 1. Start BootstrapHost v12 only  ^(quiet/passive UDP^)
++echo 2. Private Bootstrap - Disc 1 SAFE
+ echo 3. Private Bootstrap - Disc 2 SAFE  ^(fallback^)
+-echo 4. True LAN - Disc 1 SAFE
++echo 4. True LAN - Disc 1 SAFE  ^(recommended current test^)
+ echo 5. True LAN - Disc 2 SAFE
+ echo 6. Offline baseline - Disc 1 SAFE
+ echo 7. Profile/sign-in check
+diff --git a/CodeRED_Start_RDR_BootstrapHost_v9.bat b/CodeRED_Start_RDR_BootstrapHost_v9.bat
+index e7ad44e..50ab669 100644
+--- a/CodeRED_Start_RDR_BootstrapHost_v9.bat
++++ b/CodeRED_Start_RDR_BootstrapHost_v9.bat
+@@ -9,4 +9,4 @@ for /f "tokens=2 delims=:" %%A in ('ipconfig ^| findstr /R /C:"IPv4.*192\.168" /
+ if "%IP%"=="" set IP=127.0.0.1
+ set IP=%IP: =%
+ echo Starting CodeRED RDR BootstrapHost v12 for %IP%:3074
+-start "CodeRED RDR BootstrapHost v12" cmd /k py -3 tools\codered_rdr_bootstrap_host_v9.py --host 127.0.0.1 --port 36000 --target-ip %IP% --system-link-port 3074 --udp-port 3074 --log-file logs\codered_udp_bootstrap_v12.log --verbose
++start "CodeRED RDR BootstrapHost v12" cmd /k py -3 tools\codered_rdr_bootstrap_host_v9.py --host 127.0.0.1 --port 36000 --target-ip %IP% --system-link-port 3074 --udp-port 3074 --beacon-interval 0 --trace-every 120 --log-file logs\codered_udp_bootstrap_v12.log
+diff --git a/docs/codered/rdr_netplay_pass_k_v13_udp_quiet_profile_live.md b/docs/codered/rdr_netplay_pass_k_v13_udp_quiet_profile_live.md
+new file mode 100644
+index 0000000..0ac2a09
+--- /dev/null
++++ b/docs/codered/rdr_netplay_pass_k_v13_udp_quiet_profile_live.md
+@@ -0,0 +1,71 @@
++# CodeRED RDR Netplay Pass K / v13
++
++Date: 2026-05-01
++
++## Purpose
++
++Get the next RDR multiplayer test past the LAN/System Link loading stall by removing the UDP echo storm and fixing the local profile/Live capability gate in Xenia, without touching dashboard/system-update XEX files.
++
++## What Changed
++
++- `tools/codered_rdr_bootstrap_host_v9.py`
++  - Keeps the v9 filename for launcher compatibility, but now reports v12 health.
++  - Runs UDP tracing in passive mode by default.
++  - Ignores CodeRED bootstrap packets (`CODERED_RDR_V9` / `CODERED_RDR_V12`) so it does not reply to itself forever.
++  - Adds `--trace-every` and defaults `--beacon-interval` to `0.0`.
++- `CodeRED_Start_RDR_BootstrapHost_v9.bat`
++  - Starts the host without `--verbose`.
++  - Forces passive UDP mode with `--beacon-interval 0 --trace-every 120`.
++- `src/xenia/kernel/xam/xam_net.cc`
++  - Adds `netplay_udp_bootstrap_interval` support.
++  - Raises the default receive-poll injection cadence from every 45 polls to every 240 polls.
++- `src/xenia/kernel/xam/xam_user.cc`
++  - In CodeRED netplay modes only (`network_mode != 0`), reports a signed-in local profile as Live-signed-in.
++  - Grants `XamUserCheckPrivilege` and reports Gold membership/online enabled so RDR should stop treating the selected local profile as disconnected from Live.
++- `tools/codered_rdr_bootstrap_guard_v9.py`
++  - Writes v12 log/config markers while preserving existing v9 batch compatibility.
++  - Adds `netplay_udp_bootstrap_interval = 240` to generated configs.
++  - Cleans up profile check scanning so archived bundles are not counted as active profile state.
++- `CodeRED_RDR_Bootstrap_Menu_v9.bat`
++  - Labels the menu as v12 and marks True LAN Disc 1 as the recommended current test.
++
++## Current Active Test
++
++Configured without launching:
++
++- Mode: `lan`
++- Disc: `disc1`
++- Network mode: `1`
++- XHTTP: `false`
++- Target: Disc 1 GOTY ISO under `rdr 1`
++- UDP bootstrap interval: `240`
++
++Use menu option 4 first:
++
++```bat
++CodeRED_RDR_Bootstrap_Menu_v9.bat
++```
++
++Then choose:
++
++```text
++4. True LAN - Disc 1 SAFE
++```
++
++## Expected Proof Lines
++
++In the new Xenia log, look for:
++
++```text
++CodeRED Netplay: XNetGetTitleXnAddr mode=1 ... guest_port=3074
++CodeRED Netplay: XamUserCheckPrivilege granted user=0 mask=000000FC
++```
++
++If private bootstrap is tested after LAN, the UDP helper should no longer print continuous `direct-reply` loops to its own `CODERED_RDR_V12` packets.
++
++## Notes
++
++- The missing old profile picker is expected when `logged_profile_slot_0_xuid` is configured. Xenia is auto-selecting `E03000004156EF97`.
++- The old 32 MB UDP echo-storm trace was moved to `_archive\cleanup_20260501\udp_echo_spam_pre_v13`.
++- A stale older `codered_rdr_private_host.py` process on port `36000` was stopped so the v12 BootstrapHost can bind cleanly when private mode is tested.
++- Single-player hosting is not patched into RDR content in this pass. The safer fallback remains emulator-side profile/session/network emulation unless logs prove the title exposes a single-player session path.
+diff --git a/logs/CodeRED_Xenia_RDR_Pass_K_v13_Changelog_2026-05-01.md b/logs/CodeRED_Xenia_RDR_Pass_K_v13_Changelog_2026-05-01.md
+new file mode 100644
+index 0000000..145813b
+--- /dev/null
++++ b/logs/CodeRED_Xenia_RDR_Pass_K_v13_Changelog_2026-05-01.md
+@@ -0,0 +1,55 @@
++# CodeRED Xenia RDR Pass K / v13 Changelog
++
++## Summary
++
++Pass K focuses on the two problems seen in the latest RDR multiplayer test:
++
++- LAN/System Link stayed on the loading screen.
++- The UDP helper was creating a self-echo loop and heavy console/log traffic.
++- RDR still had evidence of Live/profile gating despite a local profile being loaded.
++
++## Changes
++
++- Made the Python bootstrap host quiet/passive by default.
++- Ignored CodeRED self-bootstrap UDP packets to stop recursive replies.
++- Added configurable Xenia UDP bootstrap receive-poll interval.
++- Set generated configs to `netplay_udp_bootstrap_interval = 240`.
++- Added CodeRED netplay-only profile/Live emulation:
++  - `XamUserGetSigninState` reports Live-signed-in for the auto-selected profile.
++  - `XamUserGetSigninInfo` reports Live-signed-in for the auto-selected profile.
++  - `XamUserCheckPrivilege` grants privileges in netplay modes.
++  - Membership tier and online-enabled checks report usable online capability in netplay modes.
++- Updated the menu text to v12 and made True LAN Disc 1 the recommended current test.
++- Rotated the old large UDP echo-storm log into `_archive\cleanup_20260501\udp_echo_spam_pre_v13`.
++- Stopped the stale `codered_rdr_private_host.py` process that was still bound to port `36000` from an older pass.
++
++## Validation
++
++- Python compile passed for:
++  - `tools\codered_rdr_bootstrap_host_v9.py`
++  - `tools\codered_rdr_bootstrap_guard_v9.py`
++  - `tools\codered_xenia_netplay_smoke.py`
++  - `tools\codered_collect_v12.py`
++- Source smoke test passed:
++  - `py -3 tools\codered_xenia_netplay_smoke.py`
++- Release build completed:
++  - `build\bin\Windows\Release\xenia_canary.exe`
++  - Size after v13 build: `15596032`
++- Active config is now LAN Disc 1:
++  - `logs\CODERED_ACTIVE_NETPLAY_MODE.txt`
++
++## Next Test
++
++Run:
++
++```bat
++CodeRED_RDR_Bootstrap_Menu_v9.bat
++```
++
++Choose option 4 first:
++
++```text
++True LAN - Disc 1 SAFE
++```
++
++After testing, choose option 8 to collect logs.
+diff --git a/logs/INDEX_CODERED.md b/logs/INDEX_CODERED.md
+index b77b89c..fc253ea 100644
+--- a/logs/INDEX_CODERED.md
++++ b/logs/INDEX_CODERED.md
+@@ -1,16 +1,18 @@
+-﻿# CodeRED Logs Index
++# CodeRED Logs Index
+ 
+ ## Current Xenia Netplay
+ 
++- `CodeRED_Xenia_RDR_Pass_K_v13_Changelog_2026-05-01.md` - latest pass: quiet/passive UDP bootstrap, Live/profile emulation for CodeRED netplay modes, LAN Disc 1 active config.
+ - `codered_v12_mp_correlation.txt` - v12 network and MP script correlation summary, generated by `CodeRED_Collect_Small_Logs_v12.bat`.
+ - `codered_v12_mp_correlation.json` - machine-readable v12 correlation output.
+-- `codered_udp_bootstrap_v12.log` - Python UDP bootstrap/responder trace.
++- `codered_udp_bootstrap_v12.log` - fresh Python UDP bootstrap/responder trace; pre-v13 echo-storm log was archived.
+ - `CodeRED_Xenia_Build_Cleanup_Report_2026-05-01.md` - latest build, target-path, XEX guard, and cleanup handoff.
+ - `CODERED_ACTIVE_NETPLAY_MODE.txt` - current selected mode, disc, network mode, interface, and launch target.
+-- `codered_rdr_bootstrap_guard_v9.log` - v9 configure/launch actions and target selection.
++- `codered_rdr_bootstrap_guard_v9.log` - v9/v12 compatible configure/launch actions and target selection.
+ - `codered_launch_target_guard_v10.txt` - current XEX/system-update launch-target audit.
+ - `codered_launch_target_guard_v10.json` - machine-readable XEX/system-update launch-target audit.
+-- `codered_profile_check_v9.txt` - profile/sign-in configuration check.
++- `codered_profile_check_v12.txt` - current profile/sign-in configuration check.
++- `codered_profile_check_v9.txt` - older pre-v13 profile/sign-in configuration check.
+ 
+ ## Reference Audits
+ 
+@@ -21,4 +23,5 @@
+ 
+ - `D:\Games\Red Dead Redemption\xenia-canary-6de80df\_archive\cleanup_20260501\logs_send_bundles` - old nested `CODERED_SEND_THESE_V5` and `CODERED_SEND_THESE_V6` bundles.
+ - `D:\Games\Red Dead Redemption\xenia-canary-6de80df\_archive\cleanup_20260501\old_v6_logs` - large v6 logs and v6 small-log zip.
+-- `D:\Games\Red Dead Redemption\_archive\cleanup_20260501\stale_top_level_v2_netplay` - stale top-level v2 launcher scripts.
+\ No newline at end of file
++- `D:\Games\Red Dead Redemption\xenia-canary-6de80df\_archive\cleanup_20260501\udp_echo_spam_pre_v13` - pre-v13 Python UDP self-echo storm trace.
++- `D:\Games\Red Dead Redemption\_archive\cleanup_20260501\stale_top_level_v2_netplay` - stale top-level v2 launcher scripts.
+diff --git a/src/xenia/kernel/XLiveAPI.cc b/src/xenia/kernel/XLiveAPI.cc
+index b43da05..49eb9d2 100644
+--- a/src/xenia/kernel/XLiveAPI.cc
++++ b/src/xenia/kernel/XLiveAPI.cc
+@@ -46,6 +46,11 @@ DEFINE_bool(netplay_udp_bootstrap, true,
+             "Inject a tiny local UDP discovery bootstrap packet when a System "
+             "Link/private-host receive poll would otherwise return WSAEWOULDBLOCK.",
+             "Netplay");
++DEFINE_int32(netplay_udp_bootstrap_interval, 240,
++             "Receive-poll interval for the experimental UDP bootstrap packet. "
++             "The first would-block poll still receives one packet; larger "
++             "values reduce trace spam and emulator overhead.",
++             "Netplay");
+ DEFINE_int32(netplay_http_timeout_ms, 1500,
+              "Timeout for Code RED private-host HTTP calls in milliseconds.",
+              "Netplay");
+diff --git a/src/xenia/kernel/xam/xam_net.cc b/src/xenia/kernel/xam/xam_net.cc
+index efe3025..56e155d 100644
+--- a/src/xenia/kernel/xam/xam_net.cc
++++ b/src/xenia/kernel/xam/xam_net.cc
+@@ -46,6 +46,7 @@
+ DECLARE_int32(network_mode);
+ DECLARE_bool(net_logging);
+ DECLARE_bool(netplay_udp_bootstrap);
++DECLARE_int32(netplay_udp_bootstrap_interval);
+ DECLARE_string(selected_network_interface);
+ 
+ namespace xe {
+@@ -337,8 +338,10 @@ uint32_t GetConfiguredTitleIp();
+ 
+ bool ShouldInjectUdpBootstrap(uint32_t& counter) {
+   ++counter;
++  const uint32_t interval = static_cast<uint32_t>(
++      std::max(1, cvars::netplay_udp_bootstrap_interval));
+   return cvars::netplay_udp_bootstrap && cvars::network_mode != 0 &&
+-         (counter == 1 || (counter % 45) == 0);
++         (counter == 1 || (counter % interval) == 0);
+ }
+ 
+ std::vector<uint8_t> BuildUdpBootstrapPacket(uint32_t socket_handle,
+diff --git a/src/xenia/kernel/xam/xam_user.cc b/src/xenia/kernel/xam/xam_user.cc
+index 6167638..1a44113 100644
+--- a/src/xenia/kernel/xam/xam_user.cc
++++ b/src/xenia/kernel/xam/xam_user.cc
+@@ -1,4 +1,4 @@
+-﻿/**
++/**
+  ******************************************************************************
+  * Xenia : Xbox 360 Emulator Research Project                                 *
+  ******************************************************************************
+@@ -22,11 +22,25 @@
+ 
+ DECLARE_int32(user_language);
+ DECLARE_int32(user_country);
++DECLARE_int32(network_mode);
+ 
+ namespace xe {
+ namespace kernel {
+ namespace xam {
+ 
++namespace {
++
++bool CodeRedNetplayActive() { return cvars::network_mode != 0; }
++
++uint32_t CodeRedSigninState(uint32_t signin_state) {
++  if (CodeRedNetplayActive() &&
++      signin_state != static_cast<uint32_t>(SignInState::NotSignedIn)) {
++    return static_cast<uint32_t>(SignInState::SignedInToLive);
++  }
++  return signin_state;
++}
++
++}  // namespace
+ 
+ X_HRESULT_result_t XamUserGetXUID_entry(dword_t user_index, dword_t type_mask,
+                                         lpqword_t xuid_ptr) {
+@@ -97,7 +111,7 @@ dword_result_t XamUserGetSigninState_entry(dword_t user_index) {
+   if (kernel_state()->xam_state()->IsUserSignedIn(user_index)) {
+     const auto& user_profile =
+         kernel_state()->xam_state()->GetUserProfile(user_index);
+-    signin_state = user_profile->signin_state();
++    signin_state = CodeRedSigninState(user_profile->signin_state());
+   }
+   return signin_state;
+ }
+@@ -130,7 +144,7 @@ X_HRESULT_result_t XamUserGetSigninInfo_entry(
+     info->xuid = user_profile->xuid();
+   }
+ 
+-  info->signin_state = user_profile->signin_state();
++  info->signin_state = CodeRedSigninState(user_profile->signin_state());
+   return X_E_SUCCESS;
+ }
+ DECLARE_XAM_EXPORT1(XamUserGetSigninInfo, kUserProfiles, kImplemented);
+@@ -412,7 +426,6 @@ dword_result_t XamUserCheckPrivilege_entry(dword_t user_index, dword_t mask,
+     for (uint8_t i = 0; i < XUserMaxUserCount; ++i) {
+       const auto result = XamUserCheckPrivilege_entry(i, mask, out_value);
+       if (result != X_ERROR_NO_SUCH_USER) {
+-        *out_value = 0;
+         return result;
+       }
+     }
+@@ -428,14 +441,21 @@ dword_result_t XamUserCheckPrivilege_entry(dword_t user_index, dword_t mask,
+     return X_ERROR_NO_SUCH_USER;
+   }
+ 
+-  if (kernel_state()->xam_state()->GetUserProfile(user_index)->signin_state() !=
++  if (CodeRedSigninState(kernel_state()
++                             ->xam_state()
++                             ->GetUserProfile(user_index)
++                             ->signin_state()) !=
+       static_cast<uint32_t>(SignInState::SignedInToLive)) {
+     *out_value = 0;
+     return X_ERROR_NOT_LOGGED_ON;
+   }
+ 
+-  // If we deny everything, games should hopefully not try to do stuff.
+-  *out_value = 0;
++  *out_value = 1;
++  if (CodeRedNetplayActive()) {
++    XELOGD(
++        "CodeRED Netplay: XamUserCheckPrivilege granted user={} mask={:08X}",
++        user_index.value(), mask.value());
++  }
+   return X_ERROR_SUCCESS;
+ }
+ DECLARE_XAM_EXPORT1(XamUserCheckPrivilege, kUserProfiles, kStub);
+@@ -493,6 +513,9 @@ dword_result_t XamUserIsOnlineEnabled_entry(dword_t user_index) {
+     return 0;
+   }
+ 
++  if (CodeRedNetplayActive()) {
++    return 1;
++  }
+ 
+   return kernel_state()
+       ->xam_state()
+@@ -510,6 +533,9 @@ dword_result_t XamUserGetMembershipTier_entry(dword_t user_index) {
+     return X_XAMACCOUNTINFO::AccountSubscriptionTier::kSubscriptionTierNone;
+   }
+ 
++  if (CodeRedNetplayActive()) {
++    return X_XAMACCOUNTINFO::AccountSubscriptionTier::kSubscriptionTierGold;
++  }
+ 
+   return kernel_state()
+       ->xam_state()
+@@ -524,6 +550,9 @@ dword_result_t XamUserGetMembershipTierFromXUID_entry(qword_t xuid) {
+     return X_XAMACCOUNTINFO::AccountSubscriptionTier::kSubscriptionTierNone;
+   }
+ 
++  if (CodeRedNetplayActive()) {
++    return X_XAMACCOUNTINFO::AccountSubscriptionTier::kSubscriptionTierGold;
++  }
+ 
+   return profile->GetSubscriptionTier();
+ }
+@@ -551,7 +580,8 @@ dword_result_t XamUserAreUsersFriends_entry(
+           kernel_state()->xam_state()->GetUserProfile(user_index);
+ 
+       // Check if we are signed into live
+-      if (user_profile->signin_state() != 2) {
++      if (CodeRedSigninState(user_profile->signin_state()) !=
++          static_cast<uint32_t>(SignInState::SignedInToLive)) {
+         result = X_ERROR_NOT_LOGGED_ON;
+       } else {
+         // No friends!
+diff --git a/tools/codered_rdr_bootstrap_guard_v9.py b/tools/codered_rdr_bootstrap_guard_v9.py
+index 4f8bb5a..e8e10ed 100644
+--- a/tools/codered_rdr_bootstrap_guard_v9.py
++++ b/tools/codered_rdr_bootstrap_guard_v9.py
+@@ -1,5 +1,5 @@
+ #!/usr/bin/env python3
+-r"""CodeRED RDR multiplayer bootstrap guard v9.
++r"""CodeRED RDR multiplayer bootstrap guard v9/v12.
+ 
+ Focus:
+ - Disc 1 is the default GOTY launch target.
+@@ -12,6 +12,7 @@ from __future__ import annotations
+ 
+ import argparse
+ import datetime as dt
++import fnmatch
+ import os
+ import pathlib
+ import shutil
+@@ -25,12 +26,22 @@ import zipfile
+ CONFIG_NAMES = ["xenia-canary.config.toml", "xenia-canary-config.toml", "xenia.config.toml"]
+ DEFAULT_RDR = pathlib.Path(__file__).resolve().parents[1]
+ SEARCH_SKIP_DIRS = {
++    "_archive",
+     ".git",
+     "build",
+     "cache",
+     "logs",
+     "third_party",
+ }
++PROFILE_SKIP_DIRS = {
++    "_archive",
++    ".git",
++    "cache",
++    "logs",
++    "patches",
++    "third_party",
++    "validation",
++}
+ UNSAFE_TARGET_TOKENS = {
+     "$systemupdate",
+     "$titleupdate",
+@@ -250,7 +261,7 @@ def write_configs(root: pathlib.Path, exe: pathlib.Path | None, args: argparse.N
+     mode_id = {"offline": 0, "lan": 1, "private": 2}[args.mode]
+     iface = args.interface or local_ipv4_guess()
+     xhttp = args.mode == "private"
+-    log_file = logs_dir(root) / f"xenia_codered_v9_{args.mode}_{args.disc}_{args.variant}.log"
++    log_file = logs_dir(root) / f"xenia_codered_v12_{args.mode}_{args.disc}_{args.variant}.log"
+     updates = {
+         "CPU": {
+             "break_on_debugbreak": False,
+@@ -272,12 +283,13 @@ def write_configs(root: pathlib.Path, exe: pathlib.Path | None, args: argparse.N
+             "xhttp": xhttp,
+             "net_logging": True,
+             "netplay_udp_bootstrap": True,
++            "netplay_udp_bootstrap_interval": 240,
+             "netplay_http_timeout_ms": args.timeout_ms,
+         },
+         "CodeRED": {
+             "rdr_path": str(args.rdr),
+             "rdr_target": str(target or ""),
+-            "bootstrap_guard_version": "v9",
++            "bootstrap_guard_version": "v12",
+             "bootstrap_mode": args.mode,
+             "bootstrap_disc": args.disc,
+             "bootstrap_variant": args.variant,
+@@ -300,10 +312,10 @@ def write_configs(root: pathlib.Path, exe: pathlib.Path | None, args: argparse.N
+                 except OSError:
+                     pass
+             path.write_text(update_toml(original, updates), encoding="utf-8")
+-            log(root, f"Wrote v9 config: {path}")
++            log(root, f"Wrote v12 config: {path}")
+     marker = logs_dir(root) / "CODERED_ACTIVE_NETPLAY_MODE.txt"
+     marker.write_text(
+-        f"time={stamp()}\nmode={args.mode}\nnetwork_mode={mode_id}\ndisc={args.disc}\ntarget={target}\ninterface={iface}\nxhttp={xhttp}\n",
++        f"time={stamp()}\nmode={args.mode}\nnetwork_mode={mode_id}\ndisc={args.disc}\ntarget={target}\ninterface={iface}\nxhttp={xhttp}\nnetplay_udp_bootstrap_interval=240\n",
+         encoding="utf-8",
+     )
+     return log_file
+@@ -365,7 +377,7 @@ def cmd_profile_check(args: argparse.Namespace) -> int:
+     dirs = [root]
+     if exe:
+         dirs.append(exe.parent)
+-    report = [f"CodeRED profile/sign-in check v9", f"time={stamp()}"]
++    report = [f"CodeRED profile/sign-in check v12", f"time={stamp()}"]
+     for d in dirs:
+         report.append(f"\nDirectory: {d}")
+         for name in CONFIG_NAMES:
+@@ -379,12 +391,21 @@ def cmd_profile_check(args: argparse.Namespace) -> int:
+             else:
+                 report.append(f"  {name}: missing")
+     profile_hits = []
+-    for pattern in ("*profile*", "*.gpd", "*.xuid"):
+-        profile_hits.extend(root.rglob(pattern))
++    profile_patterns = ("*profile*", "*.gpd", "*.xuid")
++    for current, dirnames, filenames in os.walk(root):
++        dirnames[:] = [d for d in dirnames if d.lower() not in PROFILE_SKIP_DIRS]
++        current_path = pathlib.Path(current)
++        for filename in filenames:
++            lower = filename.lower()
++            if any(fnmatch.fnmatch(lower, pattern) for pattern in profile_patterns):
++                profile_hits.append(current_path / filename)
+     report.append(f"\nProfile-like files found: {len(profile_hits)}")
+     for p in sorted(set(profile_hits))[:80]:
+         report.append(f"  {p}")
+-    out = logs_dir(root) / "codered_profile_check_v9.txt"
++    report.append("\nInterpretation:")
++    report.append("  If logged_profile_slot_0_xuid is present, Xenia is auto-selecting that local profile.")
++    report.append("  In that case RDR may not show the old profile picker, and dashboard XEX files should stay untouched.")
++    out = logs_dir(root) / "codered_profile_check_v12.txt"
+     out.write_text("\n".join(report) + "\n", encoding="utf-8")
+     print(out.read_text(encoding="utf-8", errors="replace"))
+     return 0
+@@ -392,7 +413,7 @@ def cmd_profile_check(args: argparse.Namespace) -> int:
+ 
+ def cmd_collect(args: argparse.Namespace) -> int:
+     root = root_dir()
+-    send = logs_dir(root) / "CODERED_SEND_THESE_V9"
++    send = logs_dir(root) / "CODERED_SEND_THESE_V12"
+     if send.exists():
+         shutil.rmtree(send, ignore_errors=True)
+     send.mkdir(parents=True, exist_ok=True)
+@@ -410,7 +431,7 @@ def cmd_collect(args: argparse.Namespace) -> int:
+                         copied += 1
+                     except OSError:
+                         pass
+-    zip_path = logs_dir(root) / f"codered_rdr_small_logs_v9_{dt.datetime.now().strftime('%Y%m%d_%H%M%S')}.zip"
++    zip_path = logs_dir(root) / f"codered_rdr_small_logs_v12_{dt.datetime.now().strftime('%Y%m%d_%H%M%S')}.zip"
+     with zipfile.ZipFile(zip_path, "w", zipfile.ZIP_DEFLATED) as z:
+         for src in send.rglob("*"):
+             if src.is_file():
+diff --git a/tools/codered_rdr_bootstrap_host_v9.py b/tools/codered_rdr_bootstrap_host_v9.py
+index 329ecaf..390a4ce 100644
+--- a/tools/codered_rdr_bootstrap_host_v9.py
++++ b/tools/codered_rdr_bootstrap_host_v9.py
+@@ -27,6 +27,7 @@ import urllib.parse
+ from typing import Any
+ 
+ LOG_FILE: pathlib.Path | None = None
++CODERED_UDP_PREFIXES = (b"CODERED_RDR_V9", b"CODERED_RDR_V12")
+ 
+ 
+ def stamp() -> str:
+@@ -142,7 +143,7 @@ class State:
+ 
+ 
+ class Handler(http.server.BaseHTTPRequestHandler):
+-    server_version = "CodeRED-RDR-BootstrapHost-v9"
++    server_version = "CodeRED-RDR-BootstrapHost-v12"
+ 
+     def log_message(self, fmt: str, *args: Any) -> None:
+         if getattr(self.server, "verbose", False):
+@@ -173,7 +174,7 @@ class Handler(http.server.BaseHTTPRequestHandler):
+     def do_GET(self) -> None:
+         path = urllib.parse.urlparse(self.path).path
+         if path == "/health":
+-            self.send_json({"ok": True, "service": "codered-rdr-bootstrap-host", "variant": "v9", "sessions": len(self.state.sessions), "host_ip": self.state.host_ip, "port": self.state.port})
++            self.send_json({"ok": True, "service": "codered-rdr-bootstrap-host", "variant": "v12", "sessions": len(self.state.sessions), "host_ip": self.state.host_ip, "port": self.state.port})
+             return
+         if path in {"/world", "/world/manifest"}:
+             self.send_json(self.state.manifest)
+@@ -253,7 +254,7 @@ class Handler(http.server.BaseHTTPRequestHandler):
+ 
+ 
+ class UdpBootstrap(threading.Thread):
+-    def __init__(self, state: State, bind_host: str, bind_port: int, targets: list[tuple[str, int]], interval: float, verbose: bool):
++    def __init__(self, state: State, bind_host: str, bind_port: int, targets: list[tuple[str, int]], interval: float, verbose: bool, trace_every: int):
+         super().__init__(daemon=True)
+         self.state = state
+         self.bind_host = bind_host
+@@ -261,6 +262,7 @@ class UdpBootstrap(threading.Thread):
+         self.targets = targets
+         self.interval = interval
+         self.verbose = verbose
++        self.trace_every = max(1, trace_every)
+         self.running = True
+         self.peers: set[tuple[str, int]] = set()
+ 
+@@ -288,6 +290,9 @@ class UdpBootstrap(threading.Thread):
+             if self.verbose:
+                 log(f"UDP {reason} failed -> {target}: {e}")
+ 
++    def should_trace(self, count: int) -> bool:
++        return self.verbose or count == 1 or (count % self.trace_every) == 0
++
+     def run(self) -> None:
+         sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+         sock.setsockopt(socket.SOL_SOCKET, socket.SO_BROADCAST, 1)
+@@ -303,25 +308,34 @@ class UdpBootstrap(threading.Thread):
+         try:
+             sock.bind((self.bind_host, self.bind_port))
+             sock.settimeout(0.1)
+-            log(f"UDP tracer listening on {self.bind_host}:{self.bind_port}")
++            mode = "passive" if self.interval <= 0 else f"beacon every {self.interval:.2f}s"
++            log(f"UDP tracer listening on {self.bind_host}:{self.bind_port} ({mode})")
+         except OSError as e:
+-            log(f"UDP tracer could not bind {self.bind_host}:{self.bind_port}: {e}. Sending beacons only.")
++            log(f"UDP tracer could not bind {self.bind_host}:{self.bind_port}: {e}. Receive tracing disabled.")
+             sock.settimeout(0.1)
+         last_send = 0.0
+         seen = 0
++        self_seen = 0
+         while self.running:
+             now = time.time()
+-            if now - last_send >= self.interval:
++            if self.interval > 0 and now - last_send >= self.interval:
+                 for target in [*self.targets, *sorted(self.peers)]:
+                     self.send_packet(sock, target, "beacon")
+                 last_send = now
+             try:
+                 data, addr = sock.recvfrom(4096)
++                if data.startswith(CODERED_UDP_PREFIXES):
++                    self_seen += 1
++                    if self.verbose and self.should_trace(self_seen):
++                        preview = data[:24].hex(" ").upper()
++                        log(f"UDP self-bootstrap ignored #{self_seen} {len(data)} bytes from {addr[0]}:{addr[1]} preview={preview}")
++                    continue
+                 seen += 1
+                 self.peers.add((addr[0], self.state.port))
+                 self.peers.add((addr[0], addr[1]))
+                 preview = data[:24].hex(" ").upper()
+-                log(f"UDP inbound #{seen} {len(data)} bytes from {addr[0]}:{addr[1]} preview={preview}")
++                if self.should_trace(seen):
++                    log(f"UDP inbound #{seen} {len(data)} bytes from {addr[0]}:{addr[1]} preview={preview}")
+                 self.send_packet(sock, (addr[0], addr[1]), "direct-reply")
+                 if addr[1] != self.state.port:
+                     self.send_packet(sock, (addr[0], self.state.port), "port-3074-reply")
+@@ -340,7 +354,8 @@ def main() -> int:
+     ap.add_argument("--system-link-port", type=int, default=3074)
+     ap.add_argument("--udp-bind", default="0.0.0.0")
+     ap.add_argument("--udp-port", type=int, default=3074)
+-    ap.add_argument("--beacon-interval", type=float, default=0.75)
++    ap.add_argument("--beacon-interval", type=float, default=0.0)
++    ap.add_argument("--trace-every", type=int, default=120)
+     ap.add_argument("--log-file", default="logs/codered_udp_bootstrap_v12.log")
+     ap.add_argument("--verbose", action="store_true")
+     args = ap.parse_args()
+@@ -353,7 +368,7 @@ def main() -> int:
+     for ip in [target_ip, "127.0.0.1", "255.255.255.255"]:
+         if ip and (ip, args.system_link_port) not in targets:
+             targets.append((ip, args.system_link_port))
+-    udp = UdpBootstrap(state, args.udp_bind, args.udp_port, targets, args.beacon_interval, args.verbose)
++    udp = UdpBootstrap(state, args.udp_bind, args.udp_port, targets, args.beacon_interval, args.verbose, args.trace_every)
+     udp.start()
+ 
+     class ReuseTCPServer(socketserver.ThreadingTCPServer):

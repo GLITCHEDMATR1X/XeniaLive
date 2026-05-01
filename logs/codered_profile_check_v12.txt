@@ -1,0 +1,46 @@
+CodeRED profile/sign-in check v12
+time=2026-05-01 02:52:17
+
+Directory: D:\Games\Red Dead Redemption\xenia-canary-6de80df
+  xenia-canary.config.toml: present
+  xenia-canary-config.toml: present
+  xenia.config.toml: present
+
+Directory: D:\Games\Red Dead Redemption\xenia-canary-6de80df\build\bin\Windows\Release
+  xenia-canary.config.toml: present
+    logged_profile_slot_0_xuid = "E03000004156EF97"   	# XUID of the profile to load on boot in slot 0
+    logged_profile_slot_1_xuid = ""                   	# XUID of the profile to load on boot in slot 1
+    logged_profile_slot_2_xuid = ""                   	# XUID of the profile to load on boot in slot 2
+    logged_profile_slot_3_xuid = ""                   	# XUID of the profile to load on boot in slot 3
+  xenia-canary-config.toml: present
+  xenia.config.toml: present
+
+Profile-like files found: 24
+  D:\Games\Red Dead Redemption\xenia-canary-6de80df\build\bin\Windows\Release\content\E03000004156EF97\FFFE07D1\00010000\E03000004156EF97\5454082B.gpd
+  D:\Games\Red Dead Redemption\xenia-canary-6de80df\build\bin\Windows\Release\content\E03000004156EF97\FFFE07D1\00010000\E03000004156EF97\FFFE07D1.gpd
+  D:\Games\Red Dead Redemption\xenia-canary-6de80df\build\src\xenia\app\xenia-app.dir\Release\profile_dialogs.obj
+  D:\Games\Red Dead Redemption\xenia-canary-6de80df\build\src\xenia\kernel\xenia-kernel.dir\Release\create_profile_ui.obj
+  D:\Games\Red Dead Redemption\xenia-canary-6de80df\build\src\xenia\kernel\xenia-kernel.dir\Release\gpd_info_profile.obj
+  D:\Games\Red Dead Redemption\xenia-canary-6de80df\build\src\xenia\kernel\xenia-kernel.dir\Release\profile_manager.obj
+  D:\Games\Red Dead Redemption\xenia-canary-6de80df\build\src\xenia\kernel\xenia-kernel.dir\Release\user_profile.obj
+  D:\Games\Red Dead Redemption\xenia-canary-6de80df\build\src\xenia\kernel\xenia-kernel.dir\Release\xam_profile.obj
+  D:\Games\Red Dead Redemption\xenia-canary-6de80df\build\src\xenia\ui\xenia-ui.dir\Release\microprofile_drawer.obj
+  D:\Games\Red Dead Redemption\xenia-canary-6de80df\CodeRED_Profile_Check_v9.bat
+  D:\Games\Red Dead Redemption\xenia-canary-6de80df\docs\codered\rdr_netplay_profile.json
+  D:\Games\Red Dead Redemption\xenia-canary-6de80df\src\xenia\app\profile_dialogs.cc
+  D:\Games\Red Dead Redemption\xenia-canary-6de80df\src\xenia\app\profile_dialogs.h
+  D:\Games\Red Dead Redemption\xenia-canary-6de80df\src\xenia\kernel\xam\profile_manager.cc
+  D:\Games\Red Dead Redemption\xenia-canary-6de80df\src\xenia\kernel\xam\profile_manager.h
+  D:\Games\Red Dead Redemption\xenia-canary-6de80df\src\xenia\kernel\xam\ui\create_profile_ui.cc
+  D:\Games\Red Dead Redemption\xenia-canary-6de80df\src\xenia\kernel\xam\ui\create_profile_ui.h
+  D:\Games\Red Dead Redemption\xenia-canary-6de80df\src\xenia\kernel\xam\user_profile.cc
+  D:\Games\Red Dead Redemption\xenia-canary-6de80df\src\xenia\kernel\xam\user_profile.h
+  D:\Games\Red Dead Redemption\xenia-canary-6de80df\src\xenia\kernel\xam\xam_profile.cc
+  D:\Games\Red Dead Redemption\xenia-canary-6de80df\src\xenia\kernel\xam\xdbf\gpd_info_profile.cc
+  D:\Games\Red Dead Redemption\xenia-canary-6de80df\src\xenia\kernel\xam\xdbf\gpd_info_profile.h
+  D:\Games\Red Dead Redemption\xenia-canary-6de80df\src\xenia\ui\microprofile_drawer.cc
+  D:\Games\Red Dead Redemption\xenia-canary-6de80df\src\xenia\ui\microprofile_drawer.h
+
+Interpretation:
+  If logged_profile_slot_0_xuid is present, Xenia is auto-selecting that local profile.
+  In that case RDR may not show the old profile picker, and dashboard XEX files should stay untouched.

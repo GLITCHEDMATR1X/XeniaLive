@@ -1,0 +1,14 @@
+time=2026-05-01 04:38:29
+mode=sp-host
+network_mode=3
+disc=disc1
+target=D:\Games\Red Dead Redemption\xenia-canary-6de80df\rdr 1\Red Dead Redemption - Game of the Year Edition (USA, Europe) (En,Fr,De,Es,It) (Disc 1) (Red Dead Redemption Single Player).iso
+interface=192.168.1.7
+xhttp=True
+net_logging=False
+netplay_singleplayer_host=True
+netplay_disable_saves=True
+netplay_udp_bootstrap=False
+netplay_udp_bootstrap_interval=240
+vsync=true
+gpu=vulkan
