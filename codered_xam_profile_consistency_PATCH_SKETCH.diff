@@ -1,0 +1,69 @@
+
+--- a/src/xenia/kernel/xam/profile_manager.cc
++++ b/src/xenia/kernel/xam/profile_manager.cc
+@@
++// Code RED local profile consistency helper.
++// Keep local/offline Code RED slot-0 identity from falling back to zero online XUID.
++static constexpr uint64_t kCodeRedFallbackXuid = 0xE03000004156EF97;
++
++static void CodeRedNormalizeAccountForLocalMultiplayer(X_XAMACCOUNTINFO* account) {
++  if (!account) return;
++  // Exact member names vary by source revision. Apply the same intent to the
++  // account's local XUID, online XUID, Live-enabled flag, domain, and tier.
++  if (account->xuid == 0) account->xuid = kCodeRedFallbackXuid;
++  if (account->online_xuid == 0) account->online_xuid = account->xuid;
++  if (account->online_domain.empty()) account->online_domain = "xbox.com";
++  account->live_enabled = true;
++  account->subscription_tier = /* Gold */ 1;
++}
++
+@@ ProfileManager::LoadAccount / CreateAccount / UpdateAccount
++  CodeRedNormalizeAccountForLocalMultiplayer(&account_info);
+
+--- a/src/xenia/kernel/xam/xam_user.cc
++++ b/src/xenia/kernel/xam/xam_user.cc
+@@
++// Code RED local fallback for games that ask for online XUID/sign-in state.
++static constexpr uint64_t kCodeRedFallbackXuid = 0xE03000004156EF97;
++
++static uint64_t CodeRedResolvedUserXuid(uint32_t user_index) {
++  // Prefer the real loaded profile from ProfileManager/UserTracker.
++  // If the resolved value is zero, return slot-0 Code RED XUID.
++  uint64_t xuid = /* existing resolved xuid */ 0;
++  if (xuid == 0 && user_index == 0) return kCodeRedFallbackXuid;
++  return xuid;
++}
++
+@@ XamUserGetXUID_entry
+-  // existing return path may write zero for online-type masks
++  // For Code RED local-host tests, never write a zero XUID for signed-in slot 0.
++  // If the title asks for online or all XUID types and the profile has no online
++  // XUID, mirror the local profile XUID.
++  auto resolved = CodeRedResolvedUserXuid(user_index);
++  if (resolved != 0) {
++    xuid_ptr = resolved;
++    return X_ERROR_SUCCESS;
++  }
+
+@@ XamUserGetSigninInfo_entry
++  // Return a Live-capable local sign-in structure for slot 0 when Code RED
++  // single-player-host mode is active. Keep this behind a Code RED cvar in the
++  // real implementation.
++  if (user_index == 0) {
++    info->xuid = CodeRedResolvedUserXuid(0);
++    // Fill gamertag/name from loaded profile.
++    // Mark signed-in / online-capable / Live-enabled according to the source
++    // struct's actual fields.
++    return X_ERROR_SUCCESS;
++  }
+
+@@ XamUserIsOnlineEnabled_entry / XamUserGetSubscriptionType_entry / XamUserGetMembershipTier_entry
++  // Return local-emulated online-enabled / Gold-equivalent status for slot 0
++  // when Code RED single-player-host mode is active.
+
+--- a/src/xenia/kernel/xam/ui/gamercard_ui.cc
++++ b/src/xenia/kernel/xam/ui/gamercard_ui.cc
+@@ DrawOnlineSettings / SaveAccountData
++  // Make Online Domain editable and persist it. If left blank, save xbox.com.
++  // Also persist online_xuid = local xuid when online_xuid is zero and Live
++  // Enabled is checked.

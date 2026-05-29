@@ -1,0 +1,10 @@
+This package uses tools/patch_xenia_xam_identity_for_rdr.py to patch xam_user.cc.
+
+It replaces these source function bodies:
+
+- XamUserGetXUID_entry
+- XamUserGetSigninState_entry
+- XamUserGetSigninInfo_entry
+- XamUserCheckPrivilege_entry
+
+The patch is intentionally source-level only. Do not binary-patch xenia_canary.exe blindly.

@@ -1,0 +1,44 @@
+{
+  "source_zip": "Release fix.zip",
+  "output_zip": "CodeRED_Xenia_Freeroam_READY_PRIVATE.zip",
+  "profile_xuid": "E03000004156EF97",
+  "selected_network_interface_from_input": "192.168.1.7",
+  "removed_confusing_files_count": 92,
+  "removed_confusing_files_sample": [
+    "diff_xenia-canary.config.toml.patch",
+    "diff_xenia-canary-config.toml.patch",
+    "README_TEST_THIS_ONE_ONLY.md",
+    "01_INSTALL_CONFIG_FIXES_TO_RELEASE_FIXED.bat",
+    "README_PASS6B_FIX.txt",
+    "01_INSTALL_CONFIG_FIXES_TO_RELEASE.bat",
+    "02_APPLY_XAM_SOURCE_PATCH.bat",
+    "03_FIX_THIRD_PARTY_AND_BUILD.bat",
+    "04_COLLECT_NEW_XENIA_LOG_SUMMARY.bat",
+    "xenia.log",
+    "xenia-canary.config.toml.codered_pass6b_bak_20260529_034207",
+    "xenia-canary.config.toml.codered_v14_bak_20260501_043829",
+    "xenia.config.toml.codered_v14_bak_20260501_043829",
+    "xenia-canary-config.toml.codered_v14_bak_20260501_043829",
+    "xenia.config.toml.codered_v14_bak_20260501_034458",
+    "xenia-canary.config.toml.codered_v14_bak_20260501_034458",
+    "xenia-canary-config.toml.codered_v14_bak_20260501_034458",
+    "xenia.config.toml.codered_v14_bak_20260501_033006",
+    "xenia-canary.config.toml.codered_v14_bak_20260501_033006",
+    "xenia-canary-config.toml.codered_v14_bak_20260501_033006"
+  ],
+  "configs_patched": [
+    "xenia-canary.config.toml",
+    "xenia.config.toml",
+    "xenia-canary-config.toml"
+  ],
+  "launcher": "START_CODERED_FREEROAM.bat",
+  "bootstrap_host": "codered_tools/codered_rdr_bootstrap_host.py",
+  "default_policy": {
+    "apply_title_update": false,
+    "netplay_udp_bootstrap": true,
+    "netplay_disable_saves": false,
+    "disable_saves": false,
+    "license_mask": -1,
+    "network_mode": 3
+  }
+}

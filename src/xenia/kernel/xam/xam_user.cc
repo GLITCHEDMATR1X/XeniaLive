@@ -51,35 +51,24 @@ X_HRESULT_result_t XamUserGetXUID_entry(dword_t user_index, dword_t type_mask,
   }
 
   *xuid_ptr = 0;
-
   if (user_index >= XUserMaxUserCount) {
     return X_E_INVALIDARG;
   }
-
   if (!kernel_state()->xam_state()->IsUserSignedIn(user_index)) {
     return X_E_NO_SUCH_USER;
   }
 
-  const auto& user_profile =
-      kernel_state()->xam_state()->GetUserProfile(user_index);
-
-  uint32_t result = X_E_NO_SUCH_USER;
-  uint64_t xuid = 0;
-
-  auto type = user_profile->type() & type_mask;
-  if (type & (2 | 4)) {
-    // maybe online profile?
-    xuid = user_profile->xuid();
-    result = X_E_SUCCESS;
-  } else if (type & 1) {
-    // maybe offline profile?
-    xuid = user_profile->xuid();
-    result = X_E_SUCCESS;
-  }
-  *xuid_ptr = xuid;
-  return result;
+  // Code RED RDR local-freeroam profile consistency:
+  // Always return the loaded profile XUID for both offline and online mask
+  // requests. RDR repeatedly asks for type_mask=7 during MP load and later
+  // content/profile paths become fragile if any route sees a zero XUID.
+  const auto& user_profile = kernel_state()->xam_state()->GetUserProfile(user_index);
+  *xuid_ptr = user_profile->xuid();
+  return X_E_SUCCESS;
 }
 DECLARE_XAM_EXPORT1(XamUserGetXUID, kUserProfiles, kImplemented);
+
+
 
 dword_result_t XamUserGetIndexFromXUID_entry(qword_t xuid, dword_t flags,
                                              lpdword_t index) {
@@ -123,31 +112,29 @@ X_HRESULT_result_t XamUserGetSigninInfo_entry(
   if (!info) {
     return X_E_INVALIDARG;
   }
-
   info.Zero();
-
   if (user_index >= XUserMaxUserCount) {
     return X_E_NO_SUCH_USER;
   }
-
   if (!kernel_state()->xam_state()->IsUserSignedIn(user_index)) {
     return X_E_NO_SUCH_USER;
   }
 
-  const auto& user_profile =
-      kernel_state()->xam_state()->GetUserProfile(user_index);
-
+  const auto& user_profile = kernel_state()->xam_state()->GetUserProfile(user_index);
   xe::string_util::copy_truncating(info->name, user_profile->name(),
                                    xe::countof(info->name));
 
-  if (!flags || flags & X_USER_GET_SIGNIN_INFO_OFFLINE_XUID_ONLY) {
-    info->xuid = user_profile->xuid();
-  }
-
-  info->signin_state = CodeRedSigninState(user_profile->signin_state());
+  // Code RED RDR local-freeroam profile consistency:
+  // Populate the XUID even when the caller asks for online/live-style info and
+  // force the sign-in state to SignedInToLive. This is local emulator identity
+  // only and does not authenticate with official services.
+  info->xuid = user_profile->xuid();
+  info->signin_state = static_cast<uint32_t>(SignInState::SignedInToLive);
   return X_E_SUCCESS;
 }
 DECLARE_XAM_EXPORT1(XamUserGetSigninInfo, kUserProfiles, kImplemented);
+
+
 
 dword_result_t XamUserGetName_entry(dword_t user_index, dword_t buffer,
                                     dword_t buffer_len) {
@@ -423,42 +410,27 @@ DECLARE_XAM_EXPORT1(XamUserWriteProfileSettings, kUserProfiles, kImplemented);
 dword_result_t XamUserCheckPrivilege_entry(dword_t user_index, dword_t mask,
                                            lpdword_t out_value) {
   if (user_index == XUserIndexAny) {
-    for (uint8_t i = 0; i < XUserMaxUserCount; ++i) {
-      const auto result = XamUserCheckPrivilege_entry(i, mask, out_value);
-      if (result != X_ERROR_NO_SUCH_USER) {
-        return result;
-      }
-    }
-    *out_value = 0;
-    return X_ERROR_NO_SUCH_USER;
+    user_index = 0;
   }
-
   if (user_index >= XUserMaxUserCount) {
     return X_ERROR_INVALID_PARAMETER;
   }
-
   if (!kernel_state()->xam_state()->IsUserSignedIn(user_index)) {
     return X_ERROR_NO_SUCH_USER;
   }
 
-  if (CodeRedSigninState(kernel_state()
-                             ->xam_state()
-                             ->GetUserProfile(user_index)
-                             ->signin_state()) !=
-      static_cast<uint32_t>(SignInState::SignedInToLive)) {
-    *out_value = 0;
-    return X_ERROR_NOT_LOGGED_ON;
-  }
-
-  *out_value = 1;
-  if (CodeRedNetplayActive()) {
-    XELOGD(
-        "CodeRED Netplay: XamUserCheckPrivilege granted user={} mask={:08X}",
-        user_index.value(), mask.value());
+  // Code RED RDR local-freeroam profile consistency:
+  // Grant local multiplayer/system-link style privilege checks so RDR can keep
+  // moving through its Free Roam load path under Xenia. This is not Xbox Live
+  // authentication and should remain for local/offline research only.
+  if (out_value) {
+    *out_value = 1;
   }
   return X_ERROR_SUCCESS;
 }
 DECLARE_XAM_EXPORT1(XamUserCheckPrivilege, kUserProfiles, kStub);
+
+
 
 dword_result_t XamUserContentRestrictionGetFlags_entry(dword_t user_index,
                                                        lpdword_t out_flags) {

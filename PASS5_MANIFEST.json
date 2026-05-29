@@ -1,0 +1,14 @@
+{
+  "xenia-canary.config.toml": {
+    "orig_sha256": "4f92ff741d11706d853b44d1e1bb59006cc0fbe936477a6e157a9e0713c228ab",
+    "mod_sha256": "5d7c91319e70d32160b540c54aac3ee1e109f644e2217aeac67e282b09411d82"
+  },
+  "xenia.config.toml": {
+    "orig_sha256": "e8cd9c5bf31ac218b1e99e38009fdeb02f135a1f4f37757fb6023715ba2f7c86",
+    "mod_sha256": "87e02915a803530492d4f09d77223fccbc1da6099342a4cc79445f73b91edca7"
+  },
+  "xenia-canary-config.toml": {
+    "orig_sha256": "e8cd9c5bf31ac218b1e99e38009fdeb02f135a1f4f37757fb6023715ba2f7c86",
+    "mod_sha256": "87e02915a803530492d4f09d77223fccbc1da6099342a4cc79445f73b91edca7"
+  }
+}
